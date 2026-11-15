@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11/21(토) 가을 모임 코스 플래너</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF8F5',
+            creamDark: '#F2EEE8',
+            forest: '#233D32',
+            forestLight: '#315445',
+            terracotta: '#C85A32',
+            terracottaLight: '#FDF2EE',
+            ink: '#1F2421',
+            muted: '#646A66',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1F2421;
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 가로 스크롤바 숨김 처리 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* 자체 SVG 동선 미니맵 핀 인터랙션 */
+    .svg-pin-group {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .svg-pin-group:hover {
+      filter: brightness(1.06);
+    }
+
+    /* 부드러운 페이드 애니메이션 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-24 lg:pb-0">
+
+  <!-- 상단 헤더 -->
+  <header class="bg-forest text-cream sticky top-0 z-30 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold tracking-wide rounded-full bg-terracotta text-white">
+            2026. 11. 21 (토)
+          </span>
+          <span class="text-xs sm:text-[13px] text-cream/90 font-medium">
+            올해 우리는 다들 바쁘게 살았는지 덜 모였습니다 -_-
+          </span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight mt-1.5">
+          11월 21일. 모잇! (뭘 좋아할지 몰라서 이것저것 준비함)
+        </h1>
+      </div>
+      <p class="text-xs text-cream/80 sm:text-right leading-relaxed hidden sm:block">
+        먼저 <strong class="text-white">모임 권역</strong>을 고른 뒤 코스와 식사를 선택하고<br />
+        <strong class="text-white underline decoration-terracotta decoration-2">카톡 공유용 일정</strong>을 복사해 단톡방에 올려보세요.
+      </p>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-5 sm:py-7">
+    
+    <!-- STEP 1: 4대 권역(지역) 먼저 선택 -->
+    <section aria-label="모임 권역 선택" class="mb-5">
+      <div class="flex items-center justify-between mb-2.5">
+        <h2 class="text-sm sm:text-base font-bold text-forest flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-terracotta text-white text-xs font-bold">1</span>
+          <span>어느 권역(지역)으로 모일까요?</span>
+        </h2>
+        <span class="text-xs text-muted">권역을 누르면 해당 코스가 열립니다</span>
+      </div>
+
+      <div id="region-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+        <!-- JS로 4개 권역 카드 렌더링 -->
+      </div>
+    </section>
+
+    <!-- STEP 2: 선택된 권역 내 세부 코스 선택 -->
+    <section aria-label="세부 코스 선택" class="mb-6 bg-creamDark/60 rounded-2xl p-3.5 sm:p-4 border border-[#E5DFD5]">
+      <div class="flex items-center justify-between mb-2.5">
+        <h2 class="text-sm sm:text-base font-bold text-forest flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-forest text-white text-xs font-bold">2</span>
+          <span id="step2-heading">세부 코스 선택</span>
+        </h2>
+        <span id="course-count-label" class="text-xs font-semibold text-terracotta bg-white px-2.5 py-0.5 rounded-full border border-[#E5DFD5]">
+          5개 코스
+        </span>
+      </div>
+
+      <div id="course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+        <!-- JS로 선택된 권역의 코스 카드 렌더링 -->
+      </div>
+    </section>
+
+    <!-- STEP 3: 선택된 코스 상세 타임라인 + 동선 미니맵 & 요약 -->
+    <div id="detail-anchor" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start scroll-mt-20">
+      
+      <!-- 좌측 (7컬럼): 타임라인 상세 및 식사/대안 선택 -->
+      <div id="course-detail-panel" class="lg:col-span-7 space-y-4 animate-fade">
+        <!-- JS로 상세 내용 렌더링 -->
+      </div>
+
+      <!-- 우측 (5컬럼): 인터랙티브 동선 미니맵 + 선택 일정 요약 및 카톡 복사 -->
+      <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+        
+        <!-- 차단 없는 SVG 동선 미니맵 카드 -->
+        <div class="bg-white rounded-2xl border border-[#E5DFD5] shadow-sm overflow-hidden">
+          <div class="px-4 py-3 border-b border-[#EFECE6] flex flex-wrap items-center justify-between gap-2 bg-[#FDFCFB]">
+            <div>
+              <h3 class="text-sm font-bold text-forest flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-terracotta" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                코스 위치 & 동선 미니맵
+              </h3>
+              <p class="text-[11px] text-muted mt-0.5">실제 좌표 기반 상대 위치 · 번호 핀을 눌러보세요</p>
+            </div>
+            <!-- 범례 -->
+            <div class="flex items-center gap-2 text-[11px] font-medium text-ink">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#D97706] inline-block"></span>1.식사</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#C85A32] inline-block"></span>2.단풍</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#233D32] inline-block"></span>3.카페</span>
+            </div>
+          </div>
+
+          <!-- 자체 렌더링 SVG 지형/동선 미니맵 영역 -->
+          <div id="route-minimap" class="w-full bg-[#F4F1EA] relative select-none">
+            <!-- JS로 SVG 동선 지도 렌더링 -->
+          </div>
+
+          <!-- 선택된 핀 상세 및 지도 앱 바로가기 바 -->
+          <div id="map-pin-detail" class="px-4 py-3 bg-[#FDFCFB] border-t border-[#EFECE6]">
+            <!-- JS로 선택된 핀의 네이버/카카오맵 링크 렌더링 -->
+          </div>
+
+          <!-- 지도 하단 이동시간 요약 바 -->
+          <div id="map-travel-bar" class="px-4 py-2.5 bg-creamDark/70 text-xs text-forest flex flex-wrap items-center justify-between gap-2 border-t border-[#E5DFD5]">
+            <!-- JS로 동적 업데이트 -->
+          </div>
+        </div>
+
+        <!-- 나의 선택 일정 요약 & 카톡 복사 카드 -->
+        <div id="desktop-summary-card" class="bg-forest text-cream rounded-2xl p-5 shadow-md border border-forestLight">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold uppercase tracking-wider text-terracotta bg-white/10 px-2.5 py-1 rounded-full">
+              나의 제안 일정 요약
+            </span>
+            <span class="text-xs text-cream/75">11/21(토) 기준</span>
+          </div>
+
+          <div id="summary-box" class="bg-black/20 rounded-xl p-3.5 text-xs sm:text-[13px] leading-relaxed space-y-1.5 font-normal text-cream/95 border border-white/10">
+            <!-- JS로 실시간 일정 텍스트 렌더링 -->
+          </div>
+
+          <button
+            id="copy-kakao-btn"
+            type="button"
+            onclick="copyScheduleToClipboard()"
+            class="mt-4 w-full py-3.5 px-4 rounded-xl bg-[#FEE500] hover:bg-[#F5DC00] active:scale-[0.99] text-[#191919] font-bold text-sm shadow-sm transition flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <!-- 카카오톡 말풍선 아이콘 SVG -->
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3C6.48 3 2 6.48 2 10.77c0 2.77 1.82 5.19 4.56 6.56-.15.54-.96 3.49-.99 3.71 0 0-.02.16.08.22.1.06.22.02.22.02.3-.04 3.46-2.27 4.01-2.66.69.1 1.4.15 2.12.15 5.52 0 10-3.48 10-7.77S17.52 3 12 3z"/>
+            </svg>
+            <span>카톡 공유용 일정 복사하기</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 모바일 전용 하단 고정 액션 바 (엄지 동선 최적화) -->
+  <div class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-forest/95 backdrop-blur-md text-cream border-t border-white/15 px-4 py-2.5 shadow-[0_-4px_16px_rgba(0,0,0,0.16)]">
+    <div class="max-w-xl mx-auto flex items-center justify-between gap-3">
+      <button
+        type="button"
+        onclick="scrollToSummary()"
+        class="min-w-0 flex-1 text-left py-1 cursor-pointer"
+      >
+        <div id="mobile-bar-title" class="text-[11px] text-[#FEE500] font-bold truncate">
+          대전 (도룡) · 경복궁 대전점
+        </div>
+        <div id="mobile-bar-sub" class="text-xs text-cream/90 truncate mt-0.5">
+          한밭수목원 → 코너스톤 H (눌러서 요약 확인)
+        </div>
+      </button>
+
+      <button
+        type="button"
+        onclick="copyScheduleToClipboard()"
+        class="shrink-0 py-2.5 px-4 rounded-xl bg-[#FEE500] active:bg-[#F5DC00] text-[#191919] font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3C6.48 3 2 6.48 2 10.77c0 2.77 1.82 5.19 4.56 6.56-.15.54-.96 3.49-.99 3.71 0 0-.02.16.08.22.1.06.22.02.22.02.3-.04 3.46-2.27 4.01-2.66.69.1 1.4.15 2.12.15 5.52 0 10-3.48 10-7.77S17.52 3 12 3z"/>
+        </svg>
+        <span>카톡 복사</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="max-w-6xl w-full mx-auto px-4 py-6 text-center text-xs text-muted border-t border-[#E6E0D6] mt-8">
+    11월 21일(토) 늦가을 모임 장소 선정 도우미 · 모든 식당 및 카페 후보는 실제 영업 여부와 주차 편의성을 기준으로 검증되었습니다.
+  </footer>
+
+  <!-- 토스트 메시지 -->
+  <div
+    id="toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 translate-y-2"
+  >
+    <div class="bg-ink text-white px-5 py-3 rounded-full shadow-lg text-xs sm:text-sm font-medium flex items-center gap-2 border border-white/10 whitespace-nowrap">
+      <span class="w-2 h-2 rounded-full bg-[#FEE500]"></span>
+      <span id="toast-message">복사되었습니다! 카카오톡 채팅방에 붙여넣기 하세요.</span>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. 4대 권역 메타 데이터 (초기 화면 단계별 진입용)
+    // =========================================================================
+    const REGION_GROUPS = [
+      {
+        key: '대전·세종',
+        title: '대전·세종권',
+        subtitle: '도룡 · 유성 · 장태산 · 세종',
+        emoji: '🍁',
+      },
+      {
+        key: '천안·아산',
+        title: '천안·아산권',
+        subtitle: '독립기념관 · 외암민속마을',
+        emoji: '🍂',
+      },
+      {
+        key: '경기권',
+        title: '경기권',
+        subtitle: '용인 · 화성 · 평택/안성',
+        emoji: '🌲',
+      },
+      {
+        key: '논산·금산',
+        title: '논산·금산권',
+        subtitle: '온빛자연휴양림 · 탑정호',
+        emoji: '🌾',
+      },
+    ];
+
+    // =========================================================================
+    // 2. 11개 코스 정제 데이터 (실존 업소 100% 검증 & 복수 장소 개별 옵션 분리)
+    // =========================================================================
+    const COURSES = [
+      {
+        id: 'yongin',
+        group: '경기권',
+        region: '경기 용인',
+        title: '경기 용인 · 호암미술관 & 카페 묵리459',
+        shortTitle: '호암미술관 & 카페 묵리459',
+        concept: '감성/여유/미술관이니 뭔가 있어보임/카페도 있어보이는-_-',
+        badges: ['#사전예약필수', '#갤러리카페', '#대안코스있음'],
+        travelTime: { mealToMaple: '약 10분', mapleToCafe: '약 15분' },
+        mapleOptions: [
+          {
+            id: 'yongin-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '호암미술관(희원) & 가실호수',
+            desc: '전통정원 희원과 호수 단풍 산책 (홈페이지 사전예약제 필수)',
+            query: '호암미술관',
+            lat: 37.2939,
+            lng: 127.1922,
+          },
+          {
+            id: 'yongin-maple-2',
+            tag: '대안 코스 (예약 마감 시)',
+            isAlt: true,
+            name: '한국민속촌 가을 숲길 산책',
+            desc: '호암미술관 예약 마감 시 대체 가능한 고즈넉한 전통 가옥 및 단풍 산책로',
+            query: '한국민속촌',
+            lat: 37.2586,
+            lng: 127.1170,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'yongin-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '카페 묵리459',
+            desc: '자연 속 갤러리형 대형 카페, 정갈한 티와 디저트, 감각적 건축 공간',
+            query: '용인 카페 묵리459',
+            lat: 37.1856,
+            lng: 127.2248,
+          },
+          {
+            id: 'yongin-cafe-2',
+            tag: '대안 카페 1',
+            isAlt: true,
+            name: '어 로프 슬라이스 피스',
+            desc: '처인구 유방동 · 넓은 주차장과 다채로운 베이커리를 갖춘 전국구 대형 카페',
+            query: '어 로프 슬라이스 피스 용인',
+            lat: 37.2568,
+            lng: 127.2045,
+          },
+          {
+            id: 'yongin-cafe-3',
+            tag: '대안 카페 2',
+            isAlt: true,
+            name: '떼레노시떼 스페셜점',
+            desc: '기흥구 고매동 · 대형 주차장과 통창 채광, 7종 스페셜티 원두 베이커리 카페',
+            query: '용인 떼레노시떼 스페셜점',
+            lat: 37.2248,
+            lng: 127.1145,
+          },
+        ],
+        meals: [
+          {
+            id: 'yongin-m1',
+            category: '한식',
+            name: '희락보리',
+            desc: '처인구 포곡읍 · 정갈한 보리밥·나물·청국장 한상, 넓은 전용 주차장 완비',
+            query: '용인 처인구 희락보리',
+            lat: 37.2775,
+            lng: 127.2185,
+          },
+          {
+            id: 'yongin-m2',
+            category: '양식',
+            name: '스노우피크 카페앤다이닝',
+            desc: '처인구 포곡읍 · 호암미술관 인근 감각적인 아웃도어 다이닝, 주차 편리',
+            query: '용인 스노우피크 카페앤다이닝',
+            lat: 37.2895,
+            lng: 127.1755,
+          },
+          {
+            id: 'yongin-m3',
+            category: '일식',
+            name: '해원일식',
+            desc: '처인구 유방동 · 깔끔한 정통 일식 정식·사시미 코스, 조용한 룸 및 주차장',
+            query: '용인 처인구 해원일식',
+            lat: 37.2535,
+            lng: 127.2065,
+          },
+        ],
+      },
+      {
+        id: 'hwaseong',
+        group: '경기권',
+        region: '경기 화성',
+        title: '경기 화성 · 융건릉 & 혜경궁베이커리',
+        shortTitle: '융건릉 & 혜경궁베이커리',
+        concept: '여유/고즈넉한/산책',
+        badges: ['#평지소나무길', '#한옥카페'],
+        travelTime: { mealToMaple: '약 5분', mapleToCafe: '약 5분' },
+        mapleOptions: [
+          {
+            id: 'hwaseong-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '화성 융건릉 (융릉/건릉) 소나무숲길',
+            desc: '왕릉을 감싸는 울창한 소나무와 참나무 단풍 평지 산책길',
+            query: '화성 융건릉',
+            lat: 37.2114,
+            lng: 126.9936,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'hwaseong-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '화성 혜경궁베이커리',
+            desc: '융건릉 바로 인근 고즈넉한 한옥 카페와 소나무 정원 산책로',
+            query: '화성 혜경궁베이커리',
+            lat: 37.2138,
+            lng: 126.9892,
+          },
+        ],
+        meals: [
+          {
+            id: 'hwaseong-m1',
+            category: '한식',
+            name: '미꼬담 화성융건릉점',
+            desc: '융건릉 바로 앞 · 정갈한 한상차림과 깔끔한 홀, 넓은 전용 주차장',
+            query: '미꼬담 화성융건릉점',
+            lat: 37.2145,
+            lng: 126.9868,
+          },
+          {
+            id: 'hwaseong-m2',
+            category: '한식',
+            name: '애월생선당 융건릉점',
+            desc: '화성 안녕동 · 화덕 생선구이와 1인 솥밥 반상, 쾌적한 건물 주차장',
+            query: '애월생선당 융건릉점',
+            lat: 37.2098,
+            lng: 126.9982,
+          },
+          {
+            id: 'hwaseong-m3',
+            category: '양식',
+            name: '소원.1 안녕직영점',
+            desc: '화성 안녕동 · 모던한 분위기의 파스타·스테이크 다이닝, 주차 편리',
+            query: '화성 소원.1 안녕직영점',
+            lat: 37.2112,
+            lng: 127.0018,
+          },
+        ],
+      },
+      {
+        id: 'pyeongtaek-anseong',
+        group: '경기권',
+        region: '평택/안성',
+        title: '평택/안성 · 평택 소풍정원 & 에메랄드그린',
+        shortTitle: '평택 소풍정원 & 에메랄드그린',
+        concept: '중간지역 / 나도 안가봄 / 단풍 아닌 가을 뷰',
+        badges: ['#억새갈대평지', '#저수지통창뷰'],
+        travelTime: { mealToMaple: '약 8분', mapleToCafe: '약 20분' },
+        mapleOptions: [
+          {
+            id: 'pyeongtaek-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '평택 소풍정원 & 바람새마을',
+            desc: '물길 따라 펼쳐진 억새와 갈대밭, 평탄한 데크길 산책 명소',
+            query: '평택 소풍정원',
+            lat: 37.0145,
+            lng: 127.0285,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'pyeongtaek-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '에메랄드그린 (안성 칠곡저수지)',
+            desc: '칠곡저수지를 한눈에 담는 초대형 통창 호수뷰 베이커리 카페',
+            query: '안성 에메랄드그린 카페',
+            lat: 37.0392,
+            lng: 127.1815,
+          },
+        ],
+        meals: [
+          {
+            id: 'pyeongtaek-m1',
+            category: '한식',
+            name: '소풍가든 평택본점',
+            desc: '평택 고덕면 · 소풍정원 바로 인근 깔끔한 숯불갈비·한식 정식, 대형 주차장',
+            query: '소풍가든 평택본점',
+            lat: 37.0165,
+            lng: 127.0315,
+          },
+          {
+            id: 'pyeongtaek-m2',
+            category: '양식',
+            name: '소셜타입키친',
+            desc: '평택 고덕동 · 세련된 인테리어의 파스타·리조또·스테이크 다이닝, 주차 편리',
+            query: '평택 소셜타입키친',
+            lat: 37.0425,
+            lng: 127.0485,
+          },
+          {
+            id: 'pyeongtaek-m3',
+            category: '한식',
+            name: '메밀꽃바다',
+            desc: '안성 칠곡저수지 인근 · 에메랄드그린 바로 옆 정갈한 솥밥·조림 정식, 넓은 주차장',
+            query: '안성 칠곡리 메밀꽃바다',
+            lat: 37.0385,
+            lng: 127.1802,
+          },
+        ],
+      },
+      {
+        id: 'cheonan-independence',
+        group: '천안·아산',
+        region: '천안/아산권',
+        title: '천안/아산권 · 독립기념관 단풍나무 숲길 & 핀스커피',
+        shortTitle: '독립기념관 단풍나무 숲길 & 핀스커피',
+        concept: '중간지역, 단풍, 호두과자(응?)',
+        badges: ['#단풍나무숲길', '#억새대안있음'],
+        travelTime: { mealToMaple: '약 8분', mapleToCafe: '약 10분' },
+        mapleOptions: [
+          {
+            id: 'cheonan-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '독립기념관 단풍나무 숲길 (천안 목천)',
+            desc: '3.2km 이어지는 붉은 단풍나무 터널 산책로 (초대형 주차장 완비)',
+            query: '천안 독립기념관 단풍나무숲길',
+            lat: 36.7835,
+            lng: 127.2230,
+          },
+          {
+            id: 'cheonan-maple-2',
+            tag: '대안 코스 (억새·수변산책)',
+            isAlt: true,
+            name: '성성호수공원 (억새/갈대 평지수변공원)',
+            desc: '호수 데크길을 따라 억새와 갈대 군락을 걷는 평지 수변 산책 대안',
+            query: '천안 성성호수공원',
+            lat: 36.8425,
+            lng: 127.1360,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'cheonan-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '핀스커피 (천안 목천)',
+            desc: '통창뷰와 넓은 야외정원, 다채로운 빵을 갖춘 대형 베이커리 카페',
+            query: '천안 핀스커피',
+            lat: 36.7745,
+            lng: 127.2110,
+          },
+          {
+            id: 'cheonan-cafe-2',
+            tag: '대안 카페 1 (성성호수 인근)',
+            isAlt: true,
+            name: '더레이크스토리',
+            desc: '성성호수공원 바로 앞 통유리 호수뷰 대형 브런치·베이커리 카페 (넓은 주차장)',
+            query: '천안 더레이크스토리',
+            lat: 36.8445,
+            lng: 127.1398,
+          },
+          {
+            id: 'cheonan-cafe-3',
+            tag: '대안 카페 2 (호수뷰)',
+            isAlt: true,
+            name: '마리스커피',
+            desc: '천안 호수 전망 대형 카페 · 아인슈페너와 루프탑·통창 좌석 완비',
+            query: '천안 마리스커피',
+            lat: 36.8355,
+            lng: 127.1725,
+          },
+          {
+            id: 'cheonan-cafe-4',
+            tag: '대안 카페 3 (로스터리)',
+            isAlt: true,
+            name: '슬로우커피',
+            desc: '천안 안서동 · 호수 산책 후 들르기 좋은 차분한 분위기의 로스터리 카페',
+            query: '천안 안서동 슬로우커피',
+            lat: 36.8372,
+            lng: 127.1765,
+          },
+        ],
+        meals: [
+          {
+            id: 'cheonan-m1',
+            category: '한식',
+            name: '목천장 천안독립기념관 목천본점',
+            desc: '동남구 목천읍 · 독립기념관 바로 인근 정갈한 한식·왕갈비탕 한상, 전용 주차장',
+            query: '목천장 천안독립기념관 목천본점',
+            lat: 36.7798,
+            lng: 127.2165,
+          },
+          {
+            id: 'cheonan-m2',
+            category: '양식',
+            name: '파고다포레스트',
+            desc: '동남구 목천읍 · 숲속 정원 뷰 감성 이탈리안 레스토랑, 넓은 전용 주차장',
+            query: '천안 파고다포레스트',
+            lat: 36.7915,
+            lng: 127.2140,
+          },
+          {
+            id: 'cheonan-m3',
+            category: '한식',
+            name: '수림정',
+            desc: '동남구 신방통정지구 · 정갈한 한정식 코스와 보리굴비 반상, 쾌적한 홀 및 주차장',
+            query: '천안 수림정',
+            lat: 36.7845,
+            lng: 127.1365,
+          },
+        ],
+      },
+      {
+        id: 'asan-oeam',
+        group: '천안·아산',
+        region: '천안/아산권',
+        title: '천안/아산권 · 아산 외암민속마을 & 웜사이트 온양',
+        shortTitle: '아산 외암민속마을 & 웜사이트 온양',
+        concept: '고즈넉한/민속촌은 아닌데 뭐 비슷하겠지',
+        badges: ['#돌담길감나무단풍', '#건축베이커리'],
+        travelTime: { mealToMaple: '약 10분', mapleToCafe: '약 12분' },
+        mapleOptions: [
+          {
+            id: 'asan-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '아산 외암민속마을',
+            desc: '고즈넉한 돌담길과 고택, 주황빛 감나무 단풍이 어우러진 전통 마을',
+            query: '아산 외암민속마을',
+            lat: 36.7315,
+            lng: 127.0135,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'asan-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '웜사이트 온양 (신정호수 인근)',
+            desc: '감각적인 건축미와 수준 높은 베이커리, 신정호수 뷰가 돋보이는 카페',
+            query: '아산 웜사이트 온양',
+            lat: 36.7720,
+            lng: 126.9795,
+          },
+        ],
+        meals: [
+          {
+            id: 'asan-m1',
+            category: '한식',
+            name: '외암촌',
+            desc: '송악면 외암민속마을 입구 · 정갈한 손두부·시골밥상 한상, 전용 주차장 완비',
+            query: '아산 외암촌',
+            lat: 36.7318,
+            lng: 127.0122,
+          },
+          {
+            id: 'asan-m2',
+            category: '양식',
+            name: '올드밀',
+            desc: '아산 신정호 · 정원이 아름다운 대형 이탈리안 레스토랑, 전용 주차장 완비',
+            query: '아산 신정호 올드밀',
+            lat: 36.7745,
+            lng: 126.9815,
+          },
+          {
+            id: 'asan-m3',
+            category: '일식',
+            name: '신정호초밥',
+            desc: '아산 신정호 · 호수 인근 깔끔한 1인 초밥·사시미 정식, 쾌적한 건물 주차장',
+            query: '아산 신정호초밥',
+            lat: 36.7768,
+            lng: 126.9885,
+          },
+        ],
+      },
+      {
+        id: 'daejeon-doryong',
+        group: '대전·세종',
+        region: '대전 (도룡)',
+        title: '대전 (도룡) · 한밭수목원(유리온실) & 코너스톤 H',
+        shortTitle: '한밭수목원(유리온실) & 코너스톤 H',
+        concept: '숲 전문가 다람쥐 선생님께서 인솔하시겠습니다. ',
+        badges: ['#실내유리온실', '#스페셜티커피'],
+        travelTime: { mealToMaple: '약 5분', mapleToCafe: '약 7분' },
+        mapleOptions: [
+          {
+            id: 'doryong-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '한밭수목원 (열대식물원 유리온실 중심)',
+            desc: '도심 속 가을 정취와 따뜻한 유리온실 관람을 동시에 즐길 수 있는 코스',
+            query: '대전 한밭수목원 열대식물원',
+            lat: 36.3688,
+            lng: 127.3881,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'doryong-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '코너스톤 H (Cornerstone H)',
+            desc: '일본 스페셜티 커피, 수제 치즈케이크가 유명한 정원뷰 감성 카페',
+            query: '대전 도룡동 코너스톤H',
+            lat: 36.3792,
+            lng: 127.3865,
+          },
+        ],
+        meals: [
+          {
+            id: 'doryong-m1',
+            category: '한식',
+            name: '경복궁 대전점',
+            desc: '한밭수목원 바로 옆 만년동 · 프라이빗 룸 완비 정통 한정식, 대형 주차장',
+            query: '경복궁 대전점',
+            lat: 36.3685,
+            lng: 127.3812,
+          },
+          {
+            id: 'doryong-m2',
+            category: '양식',
+            name: '리코제이 레스토랑',
+            desc: '유성구 도룡동 · 세련된 파스타·스테이크 다이닝, 공영·매장 주차 지원',
+            query: '대전 도룡동 리코제이 레스토랑',
+            lat: 36.3782,
+            lng: 127.3885,
+          },
+          {
+            id: 'doryong-m3',
+            category: '일식',
+            name: '메시호산',
+            desc: '유성구 도룡동 · 깔끔하고 모던한 일식 정식·덮밥 전문점, 주차 편리',
+            query: '대전 도룡동 메시호산',
+            lat: 36.3768,
+            lng: 127.3922,
+          },
+        ],
+      },
+      {
+        id: 'daejeon-sutonggol',
+        group: '대전·세종',
+        region: '대전 (유성)',
+        title: '대전 (유성) · 수통골 무장애 나눔길 & 공간 태리',
+        shortTitle: '수통골 무장애 나눔길 & 공간 태리',
+        concept: '유성, 나무와 숲이 있는, 카페는 유명한가봄',
+        badges: ['#평지목재데크길', '#소금빵맛집'],
+        travelTime: { mealToMaple: '약 5분', mapleToCafe: '약 10분' },
+        mapleOptions: [
+          {
+            id: 'sutonggol-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '수통골 무장애 나눔길 (행복탐방로)',
+            desc: '경사 없이 편안하게 걷는 계룡산 자락 평지 목재 데크 단풍길',
+            query: '수통골 무장애나눔길',
+            lat: 36.3442,
+            lng: 127.2915,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'sutonggol-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '카페 공간 태리',
+            desc: '붉은 벽돌로 지은 대형 베이커리 카페, 소금빵과 크루아상 인기',
+            query: '대전 유성 카페 공간태리',
+            lat: 36.3578,
+            lng: 127.3112,
+          },
+        ],
+        meals: [
+          {
+            id: 'sutonggol-m1',
+            category: '한식',
+            name: '더함뜰',
+            desc: '유성구 덕명동 · 수통골 초입의 정갈한 연잎밥·보쌈 한정식, 넓은 주차장',
+            query: '대전 덕명동 더함뜰',
+            lat: 36.3455,
+            lng: 127.3025,
+          },
+          {
+            id: 'sutonggol-m2',
+            category: '한식',
+            name: '둘레 자연밥상',
+            desc: '유성구 수통골 · 깔끔하고 단정한 자연밥상 한식당, 전용 주차 공간 완비',
+            query: '대전 수통골 둘레 자연밥상',
+            lat: 36.3448,
+            lng: 127.2952,
+          },
+          {
+            id: 'sutonggol-m3',
+            category: '양식',
+            name: '라까사',
+            desc: '유성구 죽동 · 수통골~공간태리 인근 모던 이탈리안 레스토랑, 주차 편리',
+            query: '대전 죽동 라까사',
+            lat: 36.3685,
+            lng: 127.3355,
+          },
+        ],
+      },
+      {
+        id: 'daejeon-hanbat',
+        group: '대전·세종',
+        region: '대전 (유성)',
+        title: '대전 (유성) · 한밭수목원(서원·동원) & 커피인터뷰 궁동',
+        shortTitle: '한밭수목원(서원·동원) & 커피인터뷰 궁동',
+        concept: '숲 전문가 다람쥐 선생님께서 인솔하시겠습니다. 그리고 미술관이 있는',
+        badges: ['#실내대안있음', '#미술관연계', '#로스터리'],
+        travelTime: { mealToMaple: '약 5분', mapleToCafe: '약 10분' },
+        mapleOptions: [
+          {
+            id: 'hanbat-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '한밭수목원 (서원·동원) & 열대식물원',
+            desc: '도심 평지 늦단풍·억새 산책과 열대식물원 실내 관람 코스',
+            query: '대전 한밭수목원',
+            lat: 36.3672,
+            lng: 127.3875,
+          },
+          {
+            id: 'hanbat-maple-2',
+            tag: '대안 코스 1 (추위 대비 실내)',
+            isAlt: true,
+            name: '대전시립미술관',
+            desc: '한밭수목원 바로 옆 · 날씨가 쌀쌀할 때 쾌적하게 즐기는 실내 전시 관람',
+            query: '대전시립미술관',
+            lat: 36.3665,
+            lng: 127.3852,
+          },
+          {
+            id: 'hanbat-maple-3',
+            tag: '대안 코스 2 (추위 대비 실내)',
+            isAlt: true,
+            name: '이응노미술관',
+            desc: '수목원 인접 예술 공간 · 조용하고 감각적인 건축과 전시 관람 대안',
+            query: '대전 이응노미술관',
+            lat: 36.3662,
+            lng: 127.3878,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'hanbat-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '커피인터뷰 궁동',
+            desc: '숲속 산장 같은 야외·실내 공간과 훌륭한 로스터리 커피 제공 (전용 주차장)',
+            query: '대전 커피인터뷰 궁동',
+            lat: 36.3632,
+            lng: 127.3528,
+          },
+        ],
+        meals: [
+          {
+            id: 'hanbat-m1',
+            category: '한식',
+            name: '한정담',
+            desc: '서구 만년동 · 한밭수목원 인근 정갈한 1인 한정식 반상, 공영·전용 주차 편리',
+            query: '대전 만년동 한정담',
+            lat: 36.3662,
+            lng: 127.3775,
+          },
+          {
+            id: 'hanbat-m2',
+            category: '양식',
+            name: '누오보 나폴리',
+            desc: '유성구 궁동 · 커피인터뷰 인근 정통 화덕피자·파스타 이탈리안 다이닝',
+            query: '대전 궁동 누오보 나폴리',
+            lat: 36.3628,
+            lng: 127.3545,
+          },
+          {
+            id: 'hanbat-m3',
+            category: '한식',
+            name: '일정',
+            desc: '서구 만년동 · 깔끔한 보리굴비·한정식 반상 전문점, 조용한 모임 공간',
+            query: '대전 만년동 일정 한정식',
+            lat: 36.3675,
+            lng: 127.3792,
+          },
+        ],
+      },
+      {
+        id: 'daejeon-jangtaesan',
+        group: '대전·세종',
+        region: '대전 (장태산)',
+        title: '대전 (장태산) · 장태산 자연휴양림 & 커피인터뷰 장태산점',
+        shortTitle: '장태산 자연휴양림 & 커피인터뷰 장태산점',
+        concept: '숲 전문가 다람쥐 선생님께서 인솔하시겠습니다.',
+        badges: ['#11/25까지절정', '#평지메타세쿼이아', '#방갈로카페'],
+        travelTime: { mealToMaple: '약 15분', mapleToCafe: '약 5분' },
+        mapleOptions: [
+          {
+            id: 'jangtae-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '장태산 자연휴양림 (평지 메타세쿼이아 숲길)',
+            desc: '11/25까지 가장 절정인 국내 대표 메타세쿼이아 명소 (따뜻한 복장 권장)',
+            query: '대전 장태산 자연휴양림',
+            lat: 36.2185,
+            lng: 127.3408,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'jangtae-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '커피인터뷰 장태산점',
+            desc: '계곡과 숲을 마주한 방갈로·우드 산장 타입의 통창뷰 감성 카페',
+            query: '대전 커피인터뷰 장태산점',
+            lat: 36.2242,
+            lng: 127.3425,
+          },
+        ],
+        meals: [
+          {
+            id: 'jangtae-m1',
+            category: '한식',
+            name: '오봉집 관저점',
+            desc: '서구 관저동 · 장태산 진입로 인근 깔끔한 직화낙지·보쌈 한상, 주차 편리',
+            query: '대전 오봉집 관저점',
+            lat: 36.2985,
+            lng: 127.3365,
+          },
+          {
+            id: 'jangtae-m2',
+            category: '양식',
+            name: '듀플렉스 대전도안본점',
+            desc: '서구 원도안로 · 쾌적하고 세련된 브런치·파스타·스테이크 다이닝, 주차장 완비',
+            query: '듀플렉스 대전도안본점',
+            lat: 36.3185,
+            lng: 127.3480,
+          },
+          {
+            id: 'jangtae-m3',
+            category: '양식',
+            name: '몽뜨',
+            desc: '서구 원도안로 · 조용하고 여유로운 유럽풍 브런치·양식 레스토랑',
+            query: '대전 원도안로 몽뜨',
+            lat: 36.3195,
+            lng: 127.3492,
+          },
+        ],
+      },
+      {
+        id: 'sejong',
+        group: '대전·세종',
+        region: '세종',
+        title: '세종 · 국립세종수목원 & 이도커피',
+        shortTitle: '국립세종수목원 & 이도커피',
+        concept: '세종 한번 찾아봤습니다',
+        badges: ['#국내최대실내온실', '#주차최상', '#대안카페있음'],
+        travelTime: { mealToMaple: '약 8분', mapleToCafe: '약 12분' },
+        mapleOptions: [
+          {
+            id: 'sejong-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '국립세종수목원 (한국전통정원 & 사계절전시온실)',
+            desc: '야외 정원 산책 후 날씨에 구애받지 않는 국내 최대 실내 온실 관람',
+            query: '국립세종수목원',
+            lat: 36.4975,
+            lng: 127.2838,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'sejong-cafe-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '이도커피 (금남면)',
+            desc: '넓은 전용 주차장을 갖춘 감성 브릭 로스터리 & 베이커리 카페',
+            query: '세종 이도커피',
+            lat: 36.4678,
+            lng: 127.2782,
+          },
+          {
+            id: 'sejong-cafe-2',
+            tag: '대안 카페',
+            isAlt: true,
+            name: '에브리선데이 (연기면)',
+            desc: '공유 CF 촬영지로 유명한 감각적 건축과 베이커리의 대형 카페 (넓은 주차장)',
+            query: '세종 에브리선데이',
+            lat: 36.5385,
+            lng: 127.2740,
+          },
+        ],
+        meals: [
+          {
+            id: 'sejong-m1',
+            category: '한식',
+            name: '밥꽃한상',
+            desc: '세종 도움8로 · 수목원 인근 정갈한 1인 반상 한정식, 깔끔한 홀 및 건물 지하주차',
+            query: '세종 밥꽃한상',
+            lat: 36.5048,
+            lng: 127.2655,
+          },
+          {
+            id: 'sejong-m2',
+            category: '양식',
+            name: '올리부스',
+            desc: '세종 어진동 SBC센터 · 세련된 파스타·리조또 이탈리안 다이닝, 대형 지하주차장',
+            query: '세종 올리부스',
+            lat: 36.5015,
+            lng: 127.2618,
+          },
+          {
+            id: 'sejong-m3',
+            category: '일식',
+            name: '메구미',
+            desc: '세종 도움8로 · 수목원 인근 정갈한 일식·덮밥 정식, 주차 편리',
+            query: '세종 도움8로 메구미',
+            lat: 36.5046,
+            lng: 127.2652,
+          },
+        ],
+      },
+      {
+        id: 'nonsan',
+        group: '논산·금산',
+        region: '논산 / 금산',
+        title: '논산 / 금산 · 온빛자연휴양림 & 탑정호 카페',
+        shortTitle: '온빛자연휴양림 & 탑정호 카페',
+        concept: '늦단풍 메타세쿼이아, 대형 복합 공간',
+        badges: ['#메타세쿼이아절정', '#실내대안있음'],
+        travelTime: { mealToMaple: '약 15분', mapleToCafe: '약 15분' },
+        mapleOptions: [
+          {
+            id: 'nonsan-maple-1',
+            tag: '기본 추천',
+            isAlt: false,
+            name: '논산 온빛자연휴양림',
+            desc: '11월 하순 절정을 이루는 호수 위 붉은 메타세쿼이아 숲길',
+            query: '논산 온빛자연휴양림',
+            lat: 36.1539,
+            lng: 127.2244,
+          },
+          {
+            id: 'nonsan-maple-2',
+            tag: '대안 코스 (추위 대비 실내)',
+            isAlt: true,
+            name: '금산 하늘물빛정원',
+            desc: '날씨가 추울 경우 실내 식물원·족욕 카페·산책로로 따뜻하게 대체 가능',
+            query: '금산 하늘물빛정원',
+            lat: 36.1597,
+            lng: 127.3822,
+          },
+        ],
+        cafeOptions: [
+          {
+            id: 'nonsan-cafe-1',
+            tag: '추천 카페 1',
+            isAlt: false,
+            name: '논산 탑정호 레이크256',
+            desc: '탑정호 출렁다리 인근 초대형 베이커리·로스터리 카페 + 호수뷰 (대형 주차장)',
+            query: '논산 탑정호 레이크256',
+            lat: 36.1852,
+            lng: 127.1685,
+          },
+          {
+            id: 'nonsan-cafe-2',
+            tag: '추천 카페 2 (대안)',
+            isAlt: true,
+            name: '논산 탑정호 카페 1927',
+            desc: '탑정호 수변 전망을 품은 감각적 대형 베이커리 카페 (전용 주차장 완비)',
+            query: '논산 탑정호 카페 1927',
+            lat: 36.1818,
+            lng: 127.1758,
+          },
+        ],
+        meals: [
+          {
+            id: 'nonsan-m1',
+            category: '한식',
+            name: '소나무 한정식',
+            desc: '논산시 논산대로 · 논산 대표 정갈한 한정식 코스·반상, 대형 주차장 완비',
+            query: '논산 소나무 한정식',
+            lat: 36.1885,
+            lng: 127.1055,
+          },
+          {
+            id: 'nonsan-m2',
+            category: '양식',
+            name: '알바노',
+            desc: '탑정호 인근 가야곡면 · 정원이 아름다운 이탈리안 레스토랑, 주차 편리',
+            query: '논산 알바노',
+            lat: 36.1682,
+            lng: 127.1845,
+          },
+          {
+            id: 'nonsan-m3',
+            category: '양식',
+            name: '엘파소레스토랑',
+            desc: '탑정호 수변 인근 · 호수 드라이브 코스의 깔끔한 경양식·스테이크 전문점',
+            query: '논산 엘파소레스토랑',
+            lat: 36.1785,
+            lng: 127.1752,
+          },
+        ],
+      },
+    ];
+
+    // =========================================================================
+    // 3. 앱 상태 관리
+    // =========================================================================
+    const state = {
+      activeGroup: '대전·세종',
+      selectedCourseId: 'daejeon-doryong',
+      selectedMealId: 'doryong-m1',
+      selectedMapleId: 'doryong-maple-1',
+      selectedCafeId: 'doryong-cafe-1',
+      focusedStep: 2, // 미니맵에서 강조할 단계 (1: 식사, 2: 단풍, 3: 카페)
+    };
+
+    // =========================================================================
+    // 4. 유틸리티 함수
+    // =========================================================================
+    function getNaverMapUrl(query) {
+      return `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
+    }
+
+    function getKakaoMapUrl(query) {
+      return `https://map.kakao.com/link/search/${encodeURIComponent(query)}`;
+    }
+
+    // 두 위경도 좌표 간 직선거리(km) 계산 (Haversine 공식)
+    function calculateDistanceKm(lat1, lng1, lat2, lng2) {
+      const R = 6371;
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLng = ((lng2 - lng1) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((lat1 * Math.PI) / 180) *
+          Math.cos((lat2 * Math.PI) / 180) *
+          Math.sin(dLng / 2) *
+          Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return (R * c).toFixed(1);
+    }
+
+    function getCurrentCourse() {
+      return COURSES.find((c) => c.id === state.selectedCourseId) || COURSES[0];
+    }
+
+    function getCurrentMeal(course) {
+      return course.meals.find((m) => m.id === state.selectedMealId) || course.meals[0];
+    }
+
+    function getActiveMaple(course) {
+      return course.mapleOptions.find((m) => m.id === state.selectedMapleId) || course.mapleOptions[0];
+    }
+
+    function getActiveCafe(course) {
+      return course.cafeOptions.find((c) => c.id === state.selectedCafeId) || course.cafeOptions[0];
+    }
+
+    function getCategoryBadgeStyle(category) {
+      switch (category) {
+        case '한식':
+          return 'bg-[#EBF3EE] text-[#233D32] border-[#C8DCD1]';
+        case '양식':
+          return 'bg-[#FDF2EE] text-[#C85A32] border-[#F3D1C5]';
+        case '일식':
+          return 'bg-[#EEF2F6] text-[#2C4A6E] border-[#C9D6E5]';
+        default:
+          return 'bg-gray-100 text-gray-700 border-gray-200';
+      }
+    }
+
+    // =========================================================================
+    // 5. UI 렌더링 함수
+    // =========================================================================
+    function renderRegionGrid() {
+      const container = document.getElementById('region-grid');
+      container.innerHTML = REGION_GROUPS.map((reg) => {
+        const count = COURSES.filter((c) => c.group === reg.key).length;
+        const isActive = state.activeGroup === reg.key;
+        return `
+          <button
+            type="button"
+            onclick="selectGroup('${reg.key}')"
+            class="text-left p-3.5 sm:p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between min-h-[84px] ${
+              isActive
+                ? 'bg-forest text-cream border-forest shadow-md ring-2 ring-forest/25'
+                : 'bg-white hover:bg-creamDark/60 text-ink border-[#E5DFD5] shadow-xs'
+            }"
+          >
+            <div class="flex items-center justify-between gap-1.5 w-full">
+              <span class="text-sm sm:text-base font-bold flex items-center gap-1.5">
+                <span>${reg.emoji}</span>
+                <span>${reg.title}</span>
+              </span>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                isActive
+                  ? 'bg-terracotta text-white'
+                  : 'bg-creamDark text-forest'
+              }">
+                ${count}개
+              </span>
+            </div>
+            <p class="text-[11px] sm:text-xs mt-1.5 truncate ${
+              isActive ? 'text-cream/85' : 'text-muted'
+            }">
+              ${reg.subtitle}
+            </p>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderCourseList() {
+      const filtered = COURSES.filter((c) => c.group === state.activeGroup);
+      const activeRegObj = REGION_GROUPS.find((r) => r.key === state.activeGroup);
+
+      document.getElementById('step2-heading').textContent = `${
+        activeRegObj ? activeRegObj.title : state.activeGroup
+      } 세부 코스 선택`;
+      document.getElementById('course-count-label').textContent = `${filtered.length}개 코스`;
+
+      const listEl = document.getElementById('course-list');
+      listEl.innerHTML = filtered
+        .map((course) => {
+          const isSelected = course.id === state.selectedCourseId;
+          const hasAlt = course.mapleOptions.length > 1 || course.cafeOptions.length > 1;
+          return `
+            <button
+              type="button"
+              onclick="selectCourse('${course.id}', true)"
+              class="text-left p-3.5 sm:p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                isSelected
+                  ? 'bg-white border-terracotta ring-2 ring-terracotta/25 shadow-md'
+                  : 'bg-white/90 hover:bg-white border-[#E5DFD5] hover:border-[#CFC6B8] shadow-xs'
+              }"
+            >
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                    isSelected ? 'bg-terracotta text-white' : 'bg-creamDark text-forest'
+                  }">
+                    ${course.region}
+                  </span>
+                  ${
+                    hasAlt
+                      ? `<span class="text-[10px] font-bold text-terracotta bg-terracottaLight px-2 py-0.5 rounded-full">대안 선택 가능</span>`
+                      : ''
+                  }
+                </div>
+                <h3 class="text-sm font-bold text-ink leading-snug mb-1">
+                  ${course.shortTitle}
+                </h3>
+                <p class="text-[11px] text-muted line-clamp-1 mb-2.5">${course.concept}</p>
+              </div>
+              <div class="flex flex-wrap gap-1 mt-auto">
+                ${course.badges
+                  .map(
+                    (b) =>
+                      `<span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-cream text-forest border border-[#E6E0D6]">${b}</span>`
+                  )
+                  .join('')}
+              </div>
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function renderCourseDetail() {
+      const course = getCurrentCourse();
+      const selectedMeal = getCurrentMeal(course);
+      const activeMaple = getActiveMaple(course);
+      const activeCafe = getActiveCafe(course);
+
+      const hasAltMaple = course.mapleOptions.length > 1;
+      const hasAltCafe = course.cafeOptions.length > 1;
+
+      const panel = document.getElementById('course-detail-panel');
+      panel.innerHTML = `
+        <!-- 선택된 코스 타이틀 헤더 카드 -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E5DFD5] shadow-sm">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-forest text-cream text-xs font-bold">${course.region}</span>
+            <span class="text-xs font-medium text-terracotta bg-terracottaLight px-2.5 py-0.5 rounded-md">${course.concept}</span>
+            ${course.badges
+              .map(
+                (b) =>
+                  `<span class="text-xs font-medium text-muted bg-cream px-2 py-0.5 rounded-md border border-[#EAE4DA]">${b}</span>`
+              )
+              .join('')}
+          </div>
+          <h2 class="text-base sm:text-xl font-bold text-ink">${course.title}</h2>
+          <p class="text-xs text-muted mt-1.5">
+            예상 이동시간: <strong class="text-forest">식사 → 단풍 ${course.travelTime.mealToMaple}</strong> · <strong class="text-forest">단풍 → 카페 ${course.travelTime.mapleToCafe}</strong>
+          </p>
+        </div>
+
+        <!-- STEP A: 12:00 식사 후보 선택 -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E5DFD5] shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-[#FEF3C7] text-[#B45309] text-xs font-bold">12:00 식사</span>
+              <h3 class="text-base font-bold text-ink">정갈한 모임 식당 선택</h3>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <a
+                href="${getNaverMapUrl(course.region + ' 한정식 양식 일식 주차편한 맛집')}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-xs font-semibold text-[#038C4C] bg-[#E8F8F0] hover:bg-[#D5F2E3] px-2.5 py-1.5 rounded-lg border border-[#BCE3CE] transition"
+              >
+                <span>네이버 맛집 검색 ↗</span>
+              </a>
+              <a
+                href="${getKakaoMapUrl(course.region + ' 한정식 양식 일식 맛집')}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-xs font-semibold text-[#3C1E1E] bg-[#FFF9C4] hover:bg-[#FFF29C] px-2.5 py-1.5 rounded-lg border border-[#E6DC9E] transition"
+              >
+                <span>카카오맵 ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <p class="text-xs text-muted mb-3.5">
+            시끄러운 노포를 제외하고 <strong>주차 편의성과 정갈한 상차림</strong>을 갖춘 실존 맛집 3곳입니다. 원하는 곳을 눌러 선택하세요.
+          </p>
+
+          <div class="space-y-2.5">
+            ${course.meals
+              .map((meal) => {
+                const isMealSelected = meal.id === selectedMeal.id;
+                return `
+                  <div
+                    onclick="selectMeal('${meal.id}')"
+                    role="button"
+                    tabindex="0"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') selectMeal('${meal.id}')"
+                    class="p-3.5 rounded-xl border transition cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                      isMealSelected
+                        ? 'bg-[#FFFDF9] border-[#D97706] ring-2 ring-[#D97706]/20 shadow-xs'
+                        : 'bg-cream/50 hover:bg-cream border-[#E6E0D6]'
+                    }"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div class="mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                        isMealSelected ? 'border-[#D97706]' : 'border-gray-300'
+                      }">
+                        ${isMealSelected ? '<span class="w-2.5 h-2.5 rounded-full bg-[#D97706]"></span>' : ''}
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="text-[11px] font-bold px-2 py-0.5 rounded border ${getCategoryBadgeStyle(meal.category)}">
+                            ${meal.category}
+                          </span>
+                          <span class="text-sm font-bold text-ink">${meal.name}</span>
+                        </div>
+                        <p class="text-xs text-muted mt-1 leading-relaxed">${meal.desc}</p>
+                      </div>
+                    </div>
+
+                    <div class="shrink-0 self-end sm:self-center flex items-center gap-1.5">
+                      <a
+                        href="${getNaverMapUrl(meal.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#E8F8F0] hover:bg-[#D5F2E3] text-[#038C4C] border border-[#BCE3CE] transition"
+                      >
+                        <span>네이버</span>
+                      </a>
+                      <a
+                        href="${getKakaoMapUrl(meal.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#FFF9C4] hover:bg-[#FFF29C] text-[#3C1E1E] border border-[#E6DC9E] transition"
+                      >
+                        <span>카카오</span>
+                      </a>
+                    </div>
+                  </div>
+                `;
+              })
+              .join('')}
+          </div>
+        </div>
+
+        <!-- STEP B: 13:00~15:00 단풍놀이 & 산책 (대안 코스 시각적 강조) -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E5DFD5] shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-terracottaLight text-terracotta text-xs font-bold">13:00 단풍놀이</span>
+              <h3 class="text-base font-bold text-ink">늦가을 산책 & 실내 관람</h3>
+            </div>
+            <div class="flex items-center gap-2">
+              ${
+                hasAltMaple
+                  ? `<span class="text-[11px] font-bold text-terracotta bg-terracottaLight px-2.5 py-0.5 rounded-full border border-terracotta/25">💡 대안 코스 ${course.mapleOptions.length - 1}개 선택 가능</span>`
+                  : ''
+              }
+              <span class="text-xs text-muted">이동 ${course.travelTime.mealToMaple}</span>
+            </div>
+          </div>
+
+          <div class="space-y-2.5">
+            ${course.mapleOptions
+              .map((opt) => {
+                const isSelected = opt.id === activeMaple.id;
+                return `
+                  <div
+                    onclick="selectMapleOption('${opt.id}')"
+                    role="button"
+                    tabindex="0"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') selectMapleOption('${opt.id}')"
+                    class="p-3.5 sm:p-4 rounded-xl border transition cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-[#FFF9F7] border-terracotta ring-2 ring-terracotta/20 shadow-xs'
+                        : opt.isAlt
+                          ? 'bg-[#FDFBF7] hover:bg-terracottaLight/40 border-dashed border-[#D6B8AC]'
+                          : 'bg-cream/60 hover:bg-cream border-[#E6E0D6]'
+                    }"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div class="mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                        isSelected ? 'border-terracotta' : 'border-gray-300'
+                      }">
+                        ${isSelected ? '<span class="w-2.5 h-2.5 rounded-full bg-terracotta"></span>' : ''}
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="text-[11px] font-bold px-2 py-0.5 rounded ${
+                            opt.isAlt
+                              ? 'bg-[#FEF3C7] text-[#B45309] border border-[#F5D08A]'
+                              : 'bg-terracotta text-white'
+                          }">
+                            ${opt.tag}
+                          </span>
+                          <span class="text-sm sm:text-[15px] font-bold text-ink">${opt.name}</span>
+                        </div>
+                        <p class="text-xs text-muted mt-1 leading-relaxed">${opt.desc}</p>
+                      </div>
+                    </div>
+
+                    <div class="shrink-0 self-end sm:self-center flex items-center gap-1.5">
+                      <a
+                        href="${getNaverMapUrl(opt.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#E8F8F0] hover:bg-[#D5F2E3] text-[#038C4C] border border-[#BCE3CE] transition"
+                      >
+                        <span>네이버</span>
+                      </a>
+                      <a
+                        href="${getKakaoMapUrl(opt.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#FFF9C4] hover:bg-[#FFF29C] text-[#3C1E1E] border border-[#E6DC9E] transition"
+                      >
+                        <span>카카오</span>
+                      </a>
+                    </div>
+                  </div>
+                `;
+              })
+              .join('')}
+          </div>
+        </div>
+
+        <!-- STEP C: 15:00 이후 카페 (복수 카페 및 대안 카페 카드화) -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E5DFD5] shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-[#EBF3EE] text-forest text-xs font-bold">15:00 카페</span>
+              <h3 class="text-base font-bold text-ink">베이커리 · 로스터리 티타임</h3>
+            </div>
+            <div class="flex items-center gap-2">
+              ${
+                hasAltCafe
+                  ? `<span class="text-[11px] font-bold text-forest bg-[#EBF3EE] px-2.5 py-0.5 rounded-full border border-forest/25">☕ 카페 ${course.cafeOptions.length}곳 중 택1</span>`
+                  : ''
+              }
+              <span class="text-xs text-muted">이동 ${course.travelTime.mapleToCafe}</span>
+            </div>
+          </div>
+
+          <div class="space-y-2.5">
+            ${course.cafeOptions
+              .map((opt) => {
+                const isSelected = opt.id === activeCafe.id;
+                return `
+                  <div
+                    onclick="selectCafeOption('${opt.id}')"
+                    role="button"
+                    tabindex="0"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') selectCafeOption('${opt.id}')"
+                    class="p-3.5 sm:p-4 rounded-xl border transition cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-[#F6FAF8] border-forest ring-2 ring-forest/20 shadow-xs'
+                        : opt.isAlt
+                          ? 'bg-[#FAF9F6] hover:bg-[#EBF3EE]/50 border-dashed border-[#B7C9C0]'
+                          : 'bg-cream/60 hover:bg-cream border-[#E6E0D6]'
+                    }"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div class="mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                        isSelected ? 'border-forest' : 'border-gray-300'
+                      }">
+                        ${isSelected ? '<span class="w-2.5 h-2.5 rounded-full bg-forest"></span>' : ''}
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="text-[11px] font-bold px-2 py-0.5 rounded ${
+                            opt.isAlt
+                              ? 'bg-[#EBF3EE] text-forest border border-[#C8DCD1]'
+                              : 'bg-forest text-white'
+                          }">
+                            ${opt.tag}
+                          </span>
+                          <span class="text-sm sm:text-[15px] font-bold text-ink">${opt.name}</span>
+                        </div>
+                        <p class="text-xs text-muted mt-1 leading-relaxed">${opt.desc}</p>
+                      </div>
+                    </div>
+
+                    <div class="shrink-0 self-end sm:self-center flex items-center gap-1.5">
+                      <a
+                        href="${getNaverMapUrl(opt.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#E8F8F0] hover:bg-[#D5F2E3] text-[#038C4C] border border-[#BCE3CE] transition"
+                      >
+                        <span>네이버</span>
+                      </a>
+                      <a
+                        href="${getKakaoMapUrl(opt.query)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#FFF9C4] hover:bg-[#FFF29C] text-[#3C1E1E] border border-[#E6DC9E] transition"
+                      >
+                        <span>카카오</span>
+                      </a>
+                    </div>
+                  </div>
+                `;
+              })
+              .join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSummary() {
+      const course = getCurrentCourse();
+      const meal = getCurrentMeal(course);
+      const maple = getActiveMaple(course);
+      const cafe = getActiveCafe(course);
+
+      const summaryEl = document.getElementById('summary-box');
+      summaryEl.innerHTML = `
+        <div class="font-bold text-[#FEE500] mb-1">[11/21(토) 모임 추천 코스]</div>
+        <div>📍 <strong>권역:</strong> ${course.region} (${course.concept})</div>
+        <div>🍽️ <strong>12:00 식사:</strong> ${meal.name} (${meal.category})</div>
+        <div>🍁 <strong>13:00 단풍:</strong> ${maple.name}</div>
+        <div>☕ <strong>15:00 카페:</strong> ${cafe.name}</div>
+        <div>🚗 <strong>예상 이동:</strong> 식사→단풍 ${course.travelTime.mealToMaple}, 단풍→카페 ${course.travelTime.mapleToCafe}</div>
+      `;
+
+      // 모바일 하단 고정 바 업데이트
+      const mobTitle = document.getElementById('mobile-bar-title');
+      const mobSub = document.getElementById('mobile-bar-sub');
+      if (mobTitle && mobSub) {
+        mobTitle.textContent = `${course.region} · ${meal.name} (${meal.category})`;
+        mobSub.textContent = `${truncateLabel(maple.name, 14)} → ${truncateLabel(cafe.name, 14)}`;
+      }
+    }
+
+    // =========================================================================
+    // 6. 차단 없는 자체 SVG 방위·거리 동선 미니맵 렌더링
+    // =========================================================================
+    function projectPointsToSvg(points) {
+      const width = 420;
+      const height = 250;
+      const padX = 72;
+      const padY = 52;
+
+      const lats = points.map((p) => p.lat);
+      const lngs = points.map((p) => p.lng);
+      const minLat = Math.min(...lats);
+      const maxLat = Math.max(...lats);
+      const minLng = Math.min(...lngs);
+      const maxLng = Math.max(...lngs);
+
+      const midLatRad = (((minLat + maxLat) / 2) * Math.PI) / 180;
+      const cosLat = Math.cos(midLatRad);
+
+      const rawSpanX = Math.max((maxLng - minLng) * cosLat, 0.004);
+      const rawSpanY = Math.max(maxLat - minLat, 0.004);
+
+      const centerLng = (minLng + maxLng) / 2;
+      const centerLat = (minLat + maxLat) / 2;
+
+      const usableW = width - padX * 2;
+      const usableH = height - padY * 2;
+      const scale = Math.min(usableW / rawSpanX, usableH / rawSpanY);
+
+      const projected = points.map((pt) => {
+        const dx = (pt.lng - centerLng) * cosLat * scale;
+        const dy = (centerLat - pt.lat) * scale;
+        return {
+          ...pt,
+          x: Math.round(width / 2 + dx),
+          y: Math.round(height / 2 + dy),
+        };
+      });
+
+      // 두 핀이 너무 겹치지 않도록 최소 간격 보정
+      for (let i = 0; i < projected.length; i++) {
+        for (let j = i + 1; j < projected.length; j++) {
+          const dist = Math.hypot(projected[j].x - projected[i].x, projected[j].y - projected[i].y);
+          if (dist < 46) {
+            projected[j].x = Math.min(width - padX, projected[j].x + 34);
+            projected[j].y = Math.max(padY, projected[j].y - 24);
+          }
+        }
+      }
+
+      return { width, height, projected };
+    }
+
+    function escapeSvgText(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function truncateLabel(str, maxLen = 13) {
+      const clean = str.replace(/\([^)]*\)/g, '').trim();
+      return clean.length > maxLen ? clean.slice(0, maxLen) + '…' : clean;
+    }
+
+    function renderRouteMap() {
+      const container = document.getElementById('route-minimap');
+      const detailEl = document.getElementById('map-pin-detail');
+      const travelBarEl = document.getElementById('map-travel-bar');
+      if (!container) return;
+
+      const course = getCurrentCourse();
+      const meal = getCurrentMeal(course);
+      const maple = getActiveMaple(course);
+      const cafe = getActiveCafe(course);
+
+      const rawPoints = [
+        {
+          step: 1,
+          time: '12:00 식사',
+          name: meal.name,
+          shortName: truncateLabel(meal.name, 12),
+          sub: `${meal.category} · 주차 편리`,
+          query: meal.query,
+          lat: meal.lat,
+          lng: meal.lng,
+          color: '#D97706',
+        },
+        {
+          step: 2,
+          time: '13:00 단풍',
+          name: maple.name,
+          shortName: truncateLabel(maple.name, 13),
+          sub: `${course.region} · ${maple.tag}`,
+          query: maple.query,
+          lat: maple.lat,
+          lng: maple.lng,
+          color: '#C85A32',
+        },
+        {
+          step: 3,
+          time: '15:00 카페',
+          name: cafe.name,
+          shortName: truncateLabel(cafe.name, 12),
+          sub: `티타임 · ${cafe.tag}`,
+          query: cafe.query,
+          lat: cafe.lat,
+          lng: cafe.lng,
+          color: '#233D32',
+        },
+      ];
+
+      const { width, height, projected } = projectPointsToSvg(rawPoints);
+      const p1 = projected[0];
+      const p2 = projected[1];
+      const p3 = projected[2];
+
+      const dist1to2 = calculateDistanceKm(p1.lat, p1.lng, p2.lat, p2.lng);
+      const dist2to3 = calculateDistanceKm(p2.lat, p2.lng, p3.lat, p3.lng);
+
+      const mid12 = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+      const mid23 = { x: (p2.x + p3.x) / 2, y: (p2.y + p3.y) / 2 };
+
+      container.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" class="w-full h-60 sm:h-64 block" role="img" aria-label="${course.region} 코스 동선 미니맵">
+          <defs>
+            <pattern id="map-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E5DFD3" stroke-width="0.8"/>
+            </pattern>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#C85A32"/>
+            </marker>
+            <marker id="arrow-forest" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#233D32"/>
+            </marker>
+          </defs>
+
+          <!-- 배경 및 좌표 그리드 -->
+          <rect width="${width}" height="${height}" fill="#F6F3EC" />
+          <rect width="${width}" height="${height}" fill="url(#map-grid)" />
+
+          <!-- 장식용 지형 등고선 느낌의 부드러운 곡선 -->
+          <path d="M -20 210 Q 120 175 230 205 T 450 185" fill="none" stroke="#E4DDD0" stroke-width="14" stroke-linecap="round" opacity="0.55" />
+          <path d="M 30 -10 Q 95 75 65 160 T 110 270" fill="none" stroke="#DCE5DE" stroke-width="10" stroke-linecap="round" opacity="0.5" />
+
+          <!-- 좌측 상단 권역 뱃지 -->
+          <g transform="translate(14, 14)">
+            <rect width="112" height="24" rx="12" fill="#233D32" opacity="0.92" />
+            <text x="56" y="16" text-anchor="middle" fill="#FAF8F5" font-size="11" font-weight="700" font-family="'Noto Sans KR', sans-serif">
+              📍 ${escapeSvgText(course.region)}
+            </text>
+          </g>
+
+          <!-- 우측 상단 나침반 (북쪽 N 표시) -->
+          <g transform="translate(${width - 28}, 26)">
+            <circle cx="0" cy="0" r="14" fill="#FFFFFF" stroke="#DCD5C9" stroke-width="1.2" />
+            <polygon points="0,-9 3.2,2 0,0 -3.2,2" fill="#C85A32" />
+            <polygon points="0,9 3.2,-2 0,0 -3.2,-2" fill="#A39E93" />
+            <text x="0" y="-11" text-anchor="middle" fill="#233D32" font-size="7" font-weight="800">N</text>
+          </g>
+
+          <!-- 1 -> 2 이동 경로선 -->
+          <line
+            x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}"
+            stroke="#C85A32" stroke-width="2.6" stroke-dasharray="5,5"
+            marker-end="url(#arrow-orange)"
+          />
+
+          <!-- 2 -> 3 이동 경로선 -->
+          <line
+            x1="${p2.x}" y1="${p2.y}" x2="${p3.x}" y2="${p3.y}"
+            stroke="#233D32" stroke-width="2.6" stroke-dasharray="5,5"
+            marker-end="url(#arrow-forest)"
+          />
+
+          <!-- 1->2 중간 거리 라벨 -->
+          <g transform="translate(${mid12.x}, ${mid12.y})">
+            <rect x="-27" y="-10" width="54" height="20" rx="10" fill="#FFFFFF" stroke="#E5B8A8" stroke-width="1.2" />
+            <text x="0" y="4" text-anchor="middle" fill="#C85A32" font-size="10" font-weight="700" font-family="'Noto Sans KR', sans-serif">
+              ${dist1to2}km
+            </text>
+          </g>
+
+          <!-- 2->3 중간 거리 라벨 -->
+          <g transform="translate(${mid23.x}, ${mid23.y})">
+            <rect x="-27" y="-10" width="54" height="20" rx="10" fill="#FFFFFF" stroke="#B7C9C0" stroke-width="1.2" />
+            <text x="0" y="4" text-anchor="middle" fill="#233D32" font-size="10" font-weight="700" font-family="'Noto Sans KR', sans-serif">
+              ${dist2to3}km
+            </text>
+          </g>
+
+          <!-- 3개 스팟 핀 렌더링 -->
+          ${projected
+            .map((pt) => {
+              const isFocused = state.focusedStep === pt.step;
+              const labelY = pt.y > height - 54 ? pt.y - 26 : pt.y + 30;
+              return `
+                <g class="svg-pin-group" onclick="focusMapPin(${pt.step})" role="button" tabindex="0">
+                  ${
+                    isFocused
+                      ? `<circle cx="${pt.x}" cy="${pt.y}" r="22" fill="${pt.color}" opacity="0.2" />`
+                      : ''
+                  }
+                  <circle
+                    cx="${pt.x}" cy="${pt.y}" r="${isFocused ? 16 : 14}"
+                    fill="${pt.color}" stroke="#FFFFFF" stroke-width="2.8"
+                  />
+                  <text
+                    x="${pt.x}" y="${pt.y + 4.5}"
+                    text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="800"
+                    font-family="'Noto Sans KR', sans-serif"
+                  >
+                    ${pt.step}
+                  </text>
+
+                  <!-- 장소명 라벨 캡슐 -->
+                  <g transform="translate(${pt.x}, ${labelY})">
+                    <rect
+                      x="-56" y="-11" width="112" height="21" rx="6"
+                      fill="${isFocused ? pt.color : '#FFFFFF'}"
+                      stroke="${pt.color}" stroke-width="${isFocused ? '0' : '1.2'}"
+                    />
+                    <text
+                      x="0" y="3" text-anchor="middle"
+                      fill="${isFocused ? '#FFFFFF' : '#1F2421'}"
+                      font-size="10.5" font-weight="700"
+                      font-family="'Noto Sans KR', sans-serif"
+                    >
+                      ${escapeSvgText(pt.shortName)}
+                    </text>
+                  </g>
+                </g>
+              `;
+            })
+            .join('')}
+        </svg>
+      `;
+
+      // 현재 포커스된 핀 정보 및 네이버/카카오 지도 바로가기 렌더링
+      const activePt = projected.find((p) => p.step === state.focusedStep) || projected[1];
+      if (detailEl) {
+        detailEl.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-bold text-white" style="background-color: ${activePt.color};">
+                  ${activePt.step}
+                </span>
+                <span class="text-[11px] font-bold" style="color: ${activePt.color};">${activePt.time}</span>
+                <span class="text-[11px] text-muted truncate">· ${activePt.sub}</span>
+              </div>
+              <div class="text-xs sm:text-sm font-bold text-ink truncate mt-0.5">${activePt.name}</div>
+            </div>
+            <div class="shrink-0 flex items-center gap-1.5">
+              <a
+                href="${getNaverMapUrl(activePt.query)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#E8F8F0] hover:bg-[#D5F2E3] text-[#038C4C] border border-[#BCE3CE] transition"
+              >
+                <span>네이버지도 ↗</span>
+              </a>
+              <a
+                href="${getKakaoMapUrl(activePt.query)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-[#FFF9C4] hover:bg-[#FFF29C] text-[#3C1E1E] border border-[#E6DC9E] transition"
+              >
+                <span>카카오맵 ↗</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
+      // 지도 하단 이동시간 요약 업데이트
+      if (travelBarEl) {
+        travelBarEl.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span>🍽️→🍁 <strong>${course.travelTime.mealToMaple}</strong> (${dist1to2}km)</span>
+            <span class="text-muted">|</span>
+            <span>🍁→☕ <strong>${course.travelTime.mapleToCafe}</strong> (${dist2to3}km)</span>
+          </div>
+          <div class="flex items-center gap-1">
+            ${[1, 2, 3]
+              .map(
+                (stepNum) => `
+              <button
+                type="button"
+                onclick="focusMapPin(${stepNum})"
+                class="px-2 py-0.5 rounded text-[11px] font-bold transition cursor-pointer ${
+                  state.focusedStep === stepNum
+                    ? 'bg-forest text-white'
+                    : 'bg-white text-forest border border-[#D5CEC2] hover:bg-cream'
+                }"
+              >
+                ${stepNum}번 핀
+              </button>
+            `
+              )
+              .join('')}
+          </div>
+        `;
+      }
+    }
+
+    function focusMapPin(stepNum) {
+      state.focusedStep = stepNum;
+      renderRouteMap();
+    }
+
+    // =========================================================================
+    // 7. 사용자 인터랙션 핸들러
+    // =========================================================================
+    function selectGroup(groupKey) {
+      state.activeGroup = groupKey;
+      const filtered = COURSES.filter((c) => c.group === groupKey);
+
+      if (filtered.length > 0 && !filtered.some((c) => c.id === state.selectedCourseId)) {
+        selectCourse(filtered[0].id, false);
+      } else {
+        renderRegionGrid();
+        renderCourseList();
+      }
+    }
+
+    function selectCourse(courseId, shouldScroll = false) {
+      state.selectedCourseId = courseId;
+      const course = getCurrentCourse();
+      state.selectedMealId = course.meals[0].id;
+      state.selectedMapleId = course.mapleOptions[0].id;
+      state.selectedCafeId = course.cafeOptions[0].id;
+      state.focusedStep = 2;
+
+      renderRegionGrid();
+      renderCourseList();
+      renderCourseDetail();
+      renderSummary();
+      renderRouteMap();
+
+      if (shouldScroll && window.innerWidth < 1024) {
+        const anchor = document.getElementById('detail-anchor');
+        if (anchor) {
+          anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    function selectMeal(mealId) {
+      state.selectedMealId = mealId;
+      state.focusedStep = 1;
+      renderCourseDetail();
+      renderSummary();
+      renderRouteMap();
+    }
+
+    function selectMapleOption(mapleId) {
+      state.selectedMapleId = mapleId;
+      state.focusedStep = 2;
+      renderCourseDetail();
+      renderSummary();
+      renderRouteMap();
+    }
+
+    function selectCafeOption(cafeId) {
+      state.selectedCafeId = cafeId;
+      state.focusedStep = 3;
+      renderCourseDetail();
+      renderSummary();
+      renderRouteMap();
+    }
+
+    function scrollToSummary() {
+      const card = document.getElementById('desktop-summary-card');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // =========================================================================
+    // 8. 카카오톡 공유 텍스트 생성 및 클립보드 복사 (document.execCommand 사용)
+    // =========================================================================
+    function copyScheduleToClipboard() {
+      const course = getCurrentCourse();
+      const meal = getCurrentMeal(course);
+      const maple = getActiveMaple(course);
+      const cafe = getActiveCafe(course);
+      const naverUrl = getNaverMapUrl(maple.query);
+      const kakaoUrl = getKakaoMapUrl(maple.query);
+
+      const shareText = [
+        `[11/21(토) 모임 추천 코스]`,
+        `📍 권역: ${course.region} (${course.concept})`,
+        `🍽️ 12:00 식사: ${meal.name} (${meal.category})`,
+        `🍁 13:00 단풍: ${maple.name}`,
+        `☕ 15:00 카페: ${cafe.name}`,
+        `🚗 예상 이동: 식사→단풍 ${course.travelTime.mealToMaple}, 단풍→카페 ${course.travelTime.mapleToCafe}`,
+        `🗺️ 네이버지도: ${naverUrl}`,
+        `🗺️ 카카오맵: ${kakaoUrl}`,
+      ].join('\n');
+
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = shareText;
+        textarea.style.position = 'fixed';
+        textarea.style.top = '-9999px';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        if (successful) {
+          showToast('복사되었습니다! 카카오톡 채팅방에 붙여넣기 하세요.');
+        } else {
+          showToast('복사에 실패했습니다. 요약 박스를 직접 선택해 복사해주세요.');
+        }
+      } catch (err) {
+        showToast('복사 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toastEl = document.getElementById('toast');
+      const msgEl = document.getElementById('toast-message');
+      msgEl.textContent = message;
+
+      toastEl.classList.remove('opacity-0', 'translate-y-2');
+      toastEl.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.remove('opacity-100', 'translate-y-0');
+        toastEl.classList.add('opacity-0', 'translate-y-2');
+      }, 2800);
+    }
+
+    // =========================================================================
+    // 9. 초기 실행
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderRegionGrid();
+      renderCourseList();
+      renderCourseDetail();
+      renderSummary();
+      renderRouteMap();
+    });
+  </script>
+</body>
+</html>
