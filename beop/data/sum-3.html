@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>법과 사회 III. 사회생활과 법 — 시험대비 세부분석</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --navy:#132039;
+  --navy2:#1c2f4f;
+  --paper:#f7f4ec;
+  --paper2:#efe9db;
+  --ink:#20232a;
+  --gold:#a9792c;
+  --gold-light:#e9d9b8;
+  --red:#a5312a;
+  --red-bg:#fbe9e7;
+  --blue:#1f4e8c;
+  --blue-bg:#e8f0fb;
+  --green:#2f6b3a;
+  --green-bg:#e9f4e7;
+  --line:#d9d0bb;
+  --mono:'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Noto Serif KR","Nanum Myeongjo",serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  padding-bottom:80px;
+}
+h1,h2,h3,h4{font-family:"Noto Serif KR",serif; letter-spacing:-0.01em;}
+
+/* ===== HEADER ===== */
+header.top{
+  background:linear-gradient(160deg,var(--navy) 0%, var(--navy2) 100%);
+  color:#f2ede0;
+  padding:36px 20px 26px;
+  position:relative;
+  overflow:hidden;
+}
+header.top::after{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:220px;height:220px;
+  border:1px solid rgba(233,217,184,0.18);
+  border-radius:50%;
+}
+header.top::before{
+  content:"";
+  position:absolute; right:20px; top:30px;
+  width:140px;height:140px;
+  border:1px solid rgba(233,217,184,0.13);
+  border-radius:50%;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px; letter-spacing:0.22em;
+  color:var(--gold-light); text-transform:uppercase;
+  margin-bottom:10px;
+}
+header.top h1{
+  font-size:clamp(24px,4vw,34px);
+  margin:0 0 8px; font-weight:700;
+  max-width:760px;
+}
+header.top p.sub{
+  margin:0; color:#c9c2ac; font-size:14.5px; max-width:640px;
+}
+.scale-note{
+  display:inline-block; margin-top:14px; font-size:12px;
+  font-family:var(--mono); color:#e9d9b8;
+  border:1px solid rgba(233,217,184,0.4);
+  padding:4px 10px; border-radius:20px;
+}
+
+/* ===== SEARCH (STICKY) ===== */
+.search-bar{
+  position:sticky; top:0; z-index:100;
+  background:var(--navy);
+  border-bottom:2px solid var(--gold);
+  padding:10px 20px;
+  display:flex; gap:10px; align-items:center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.18);
+}
+.search-bar input{
+  flex:1; max-width:560px;
+  padding:9px 14px;
+  border-radius:6px;
+  border:1px solid #3a4d6e;
+  background:#0e1830;
+  color:#f2ede0;
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:14px;
+  outline:none;
+}
+.search-bar input::placeholder{color:#8592ab;}
+.search-bar input:focus{border-color:var(--gold);}
+.search-btn{
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; color:#0e1830; background:var(--gold-light);
+  border:none; padding:9px 12px; border-radius:6px; cursor:pointer;
+  white-space:nowrap;
+}
+.search-btn:hover{background:#fff;}
+#searchCount{
+  color:#c9c2ac; font-family:var(--mono); font-size:12px; white-space:nowrap;
+}
+mark.hit{background:#ffe28a; color:#2a1c00; border-radius:2px; padding:0 1px;}
+mark.hit.current{background:var(--gold); color:#fff;}
+
+/* ===== METRO NAV ===== */
+nav.metro{
+  background:var(--paper2);
+  padding:26px 20px 30px;
+  border-bottom:1px solid var(--line);
+}
+nav.metro h2{
+  text-align:center; font-size:14px; letter-spacing:0.15em;
+  color:var(--navy); text-transform:uppercase;
+  font-family:"Noto Sans KR",sans-serif; margin:0 0 20px;
+}
+.metro-line{
+  max-width:960px; margin:0 auto; display:flex;
+  align-items:center; justify-content:space-between;
+  position:relative; flex-wrap:wrap; gap:14px;
+}
+.metro-line::before{
+  content:""; position:absolute; left:6%; right:6%; top:22px;
+  height:3px; background:repeating-linear-gradient(90deg,var(--gold),var(--gold) 8px,transparent 8px,transparent 14px);
+  z-index:0;
+}
+.metro-stop{
+  position:relative; z-index:1; flex:1; min-width:150px;
+  text-align:center; text-decoration:none; color:var(--ink);
+}
+.metro-dot{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--navy); color:#f2ede0;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px; font-weight:700; font-family:var(--mono);
+  border:3px solid var(--paper2); box-shadow:0 0 0 2px var(--gold);
+  transition:transform .15s ease;
+}
+.metro-stop:hover .metro-dot{transform:scale(1.1); background:var(--gold);}
+.metro-stop .m-title{font-weight:700; font-size:14.5px; display:block;}
+.metro-stop .m-sub{font-size:11.5px; color:#6b6153; font-family:"Noto Sans KR",sans-serif;}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:900px; margin:0 auto; padding:0 20px;}
+section.unit{padding:44px 0 10px; border-bottom:1px dashed var(--line);}
+.unit-head{
+  display:flex; align-items:baseline; gap:14px; margin-bottom:6px;
+}
+.unit-num{
+  font-family:var(--mono); font-size:34px; color:var(--gold); font-weight:700;
+}
+.unit-head h2{font-size:24px; margin:0; color:var(--navy);}
+.unit-desc{color:#6b6153; font-size:14px; margin:0 0 26px; font-family:"Noto Sans KR",sans-serif;}
+
+.lesson{margin-bottom:38px;}
+.lesson-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:18px; color:var(--navy2); border-bottom:2px solid var(--navy2);
+  padding-bottom:8px; margin-bottom:16px;
+}
+.lesson-title .tag{
+  font-family:var(--mono); font-size:11px; background:var(--navy2); color:#fff;
+  padding:2px 8px; border-radius:4px;
+}
+
+.block{
+  background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:16px 20px; margin-bottom:14px;
+}
+.block h4{
+  margin:0 0 8px; font-size:15.5px; color:var(--navy);
+  display:flex; align-items:center; gap:8px;
+}
+.block h4::before{content:"▍"; color:var(--gold);}
+.block p{margin:6px 0; font-size:15px;}
+.block ul{margin:6px 0; padding-left:20px;}
+.block li{margin-bottom:4px; font-size:14.8px;}
+
+/* importance highlight spans */
+.hi-red{color:var(--red); background:var(--red-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-blue{color:var(--blue); background:var(--blue-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-green{color:var(--green); background:var(--green-bg); padding:0 3px; border-radius:3px; font-weight:600;}
+
+.legend{
+  display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; font-family:"Noto Sans KR",sans-serif;
+  background:#fff; border:1px solid var(--line); border-radius:8px;
+  padding:10px 16px; margin:18px 0 30px; color:#4a4536;
+}
+.legend span{display:flex; align-items:center; gap:6px;}
+.legend .dot{width:11px;height:11px;border-radius:3px; display:inline-block;}
+
+/* exam tip callout */
+.tip{
+  border-left:5px solid var(--gold);
+  background:#fffaf0; border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:14.5px;
+}
+.tip .tip-label{
+  font-family:"Noto Sans KR",sans-serif; font-weight:700; font-size:12px;
+  color:var(--gold); text-transform:uppercase; letter-spacing:0.05em;
+  display:block; margin-bottom:4px;
+}
+
+/* confusion box */
+.confuse{
+  border:2px solid var(--red); border-radius:10px; overflow:hidden;
+  margin:16px 0; background:#fff;
+}
+.confuse-head{
+  background:var(--red); color:#fff; font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; font-weight:700; padding:8px 14px;
+}
+.confuse-body{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+.confuse-col{padding:12px 16px; font-size:14px;}
+.confuse-col:first-child{border-right:1px dashed var(--line);}
+.confuse-col h5{margin:0 0 6px; color:var(--navy); font-size:14.5px;}
+.confuse-body.triple{grid-template-columns:1fr 1fr 1fr;}
+.confuse-body.triple .confuse-col{border-right:1px dashed var(--line);}
+.confuse-body.triple .confuse-col:last-child{border-right:none;}
+@media(max-width:640px){.confuse-body{grid-template-columns:1fr;} .confuse-body.triple{grid-template-columns:1fr;} .confuse-col{border-right:none !important; border-bottom:1px dashed var(--line);}}
+
+/* case box */
+.case{
+  background:var(--green-bg); border:1px solid #bcd8b9; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.case .case-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:var(--green); font-size:12.5px; display:block; margin-bottom:4px;}
+
+/* law amendment box */
+.reform{
+  background:#f4f0ff; border:1px solid #cdbfe8; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.reform .reform-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:#5b3fa0; font-size:12.5px; display:block; margin-bottom:4px;}
+
+table.cmp{width:100%; border-collapse:collapse; font-size:13.6px; margin:10px 0;}
+table.cmp th{background:var(--navy); color:#fff; padding:8px 10px; text-align:left; font-family:"Noto Sans KR",sans-serif; font-weight:500;}
+table.cmp td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+table.cmp tr:nth-child(even) td{background:#faf7ef;}
+
+/* flow diagram */
+.flow{display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:12px 0; font-family:"Noto Sans KR",sans-serif; font-size:13.5px;}
+.flow .fstep{background:var(--navy); color:#fff; padding:7px 13px; border-radius:20px; white-space:nowrap;}
+.flow .farrow{color:var(--gold); font-weight:700;}
+
+/* summary section */
+.summary-sec{background:var(--navy); color:#f2ede0; padding:44px 20px 60px; margin-top:20px;}
+.summary-sec h2{color:#f2ede0; font-size:22px; text-align:center; margin-bottom:6px;}
+.summary-sec p.sub{text-align:center; color:#a9a08a; font-size:13px; font-family:"Noto Sans KR",sans-serif; margin-bottom:30px;}
+.sum-grid{max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
+@media(max-width:760px){.sum-grid{grid-template-columns:1fr;}}
+.sum-card{
+  background:#1c2f4f; border:1px solid #33456a; border-radius:10px; padding:16px 18px;
+}
+.sum-card h4{margin:0 0 10px; color:var(--gold-light); font-size:15px; border-bottom:1px solid #33456a; padding-bottom:8px;}
+.sum-card ul{margin:0; padding-left:18px; font-size:13.2px; color:#d8d3c2;}
+.sum-card li{margin-bottom:6px;}
+.sum-card li b{color:#fff;}
+
+/* checklist */
+.checklist{max-width:900px; margin:26px auto 0; background:#0e1830; border:1px solid #33456a; border-radius:10px; padding:20px 24px;}
+.checklist h4{color:var(--gold-light); margin:0 0 10px; font-size:15px;}
+.checklist label{display:flex; gap:8px; align-items:flex-start; font-size:13.4px; color:#e3ddc9; margin-bottom:8px; font-family:"Noto Sans KR",sans-serif;}
+.checklist input{margin-top:3px;}
+
+footer{
+  text-align:center; padding:26px; color:#a09776; font-size:12px;
+  font-family:"Noto Sans KR",sans-serif; background:var(--navy);
+}
+
+.scroll-top{
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  background:var(--gold); color:#1c1200; border:none; border-radius:50%;
+  width:44px; height:44px; font-size:18px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+::selection{background:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">비상교육 · 22개정 고등 법과 사회 교과서</div>
+  <h1>III. 사회생활과 법 — 시험대비 세부 분석</h1>
+  <p class="sub">01 근로자의 권리 · 02 사회보장과 경제생활 · 03 현대 생활과 법 — 교과서 원문 기반 핵심 개념·판례·조문 정리</p>
+  <span class="scale-note">교과서 100~130쪽 대응</span>
+</header>
+
+<div class="search-bar">
+  <input id="searchInput" type="text" placeholder="키워드 검색 (예: 근로 3권, 사회보험, 제조물책임법, 지적재산권...)">
+  <button class="search-btn" id="prevBtn">◀ 이전</button>
+  <button class="search-btn" id="nextBtn">다음 ▶</button>
+  <span id="searchCount"></span>
+</div>
+
+<nav class="metro">
+  <h2>단원 지도 · Unit Map</h2>
+  <div class="metro-line">
+    <a class="metro-stop" href="#u1">
+      <div class="metro-dot">01</div>
+      <span class="m-title">근로자의 권리</span>
+      <span class="m-sub">노동법·근로3권·연소근로자</span>
+    </a>
+    <a class="metro-stop" href="#u2">
+      <div class="metro-dot">02</div>
+      <span class="m-title">사회보장과 경제생활</span>
+      <span class="m-sub">사회보장제도·공정거래·소비자</span>
+    </a>
+    <a class="metro-stop" href="#u3">
+      <div class="metro-dot">03</div>
+      <span class="m-title">현대 생활과 법</span>
+      <span class="m-sub">플랫폼노동·지적재산권</span>
+    </a>
+    <a class="metro-stop" href="#summary">
+      <div class="metro-dot">★</div>
+      <span class="m-title">시험 총정리</span>
+      <span class="m-sub">비교표·체크리스트</span>
+    </a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--red)"></span> 빨강 = 최우선 암기 (수치·순서·요건)</span>
+  <span><span class="dot" style="background:var(--blue)"></span> 파랑 = 핵심 개념 정의</span>
+  <span><span class="dot" style="background:var(--green)"></span> 초록 = 판례·사례 포인트</span>
+</div>
+
+<!-- ================= UNIT 1 ================= -->
+<section class="unit" id="u1">
+  <div class="unit-head"><span class="unit-num">01</span><h2>근로자의 권리</h2></div>
+  <p class="unit-desc">교과서 101~109쪽 · 노동법의 등장 배경 → 개인·단체로서 근로자의 권리 → 연소 근로자의 특별 보호</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 노동법의 의의</div>
+
+    <div class="block">
+      <h4>사회법의 등장</h4>
+      <p>근대 자본주의 국가는 <span class="hi-blue">자유방임주의</span>를 바탕으로 국가의 사적 영역 간섭을 최소화 → 그 결과 <span class="hi-red">근로자·자본가 대립, 빈익빈 부익부, 독과점 기업의 시장 지배</span> 등 사회문제 발생 → 국가가 사적 영역에 적극 개입해 사회·경제적 약자를 보호해야 한다는 요구 → <span class="hi-blue">사회법</span> 등장.</p>
+      <p><span class="hi-red">사회법 = 사법 영역에 공법적 규제가 더해진 것</span>(공법과 사법의 중간법·제3의 영역).</p>
+      <table class="cmp">
+        <tr><th>사회법의 종류</th><th>목적</th></tr>
+        <tr><td>노동법</td><td>근로 조건 개선, 근로 3권 보장</td></tr>
+        <tr><td>사회보장법</td><td>최소한의 인간다운 생활 보장</td></tr>
+        <tr><td>경제법</td><td>불공정 행위 규제, 소비자 보호</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>사회법 3종류(노동법/사회보장법/경제법)를 목적과 짝짓는 빈칸 문제가 단원마무리에 매번 출제됨. 노동법=근로자보호, 사회보장법=인간다운생활, 경제법=공정경쟁·소비자보호로 키워드 매칭.</div>
+    </div>
+
+    <div class="block">
+      <h4>노동법의 핵심 법률과 헌법 근거</h4>
+      <table class="cmp">
+        <tr><th>헌법 조항</th><th>내용</th><th>구체화 법률</th></tr>
+        <tr><td><span class="hi-red">제32조</span></td><td>고용 증진 의무, 적정 임금·최저임금제, 근로 조건 기준 법정주의, 여성 근로자 평등 대우</td><td><span class="hi-blue">「근로 기준법」</span> — 근로자의 실질적 지위 보호·개선, 근로 조건의 최저 기준 규정</td></tr>
+        <tr><td><span class="hi-red">제33조</span></td><td>근로 3권(단결권·단체교섭권·단체행동권)</td><td><span class="hi-blue">「노동조합 및 노동관계 조정법」</span> — 집단적 노사관계 규율</td></tr>
+      </table>
+      <p>「최저 임금법」: 국가가 임금 결정 과정에 개입해 최저 수준을 강제 → 근로자의 <span class="hi-blue">생활 안정</span>과 <span class="hi-blue">노동력의 질적 향상</span> 목적. 우리나라는 <span class="hi-red">1953년 근로기준법에 규정 → 1986년 최저임금법 제정 → 1988년 실시</span> 순으로 도입.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 법으로 보장되는 근로자의 권리</div>
+
+    <div class="block">
+      <h4>개인인 근로자의 권리 — 「근로 기준법」</h4>
+      <table class="cmp">
+        <tr><th>구분</th><th>기준</th></tr>
+        <tr><td>임금 지급</td><td><span class="hi-red">직접·전액·매월 1회 이상</span>, 일정 날짜에 지급</td></tr>
+        <tr><td>근로 시간</td><td><span class="hi-red">1일 8시간, 1주 40시간</span> 초과 불가 (합의 시 1주 12시간 한도로 연장 가능)</td></tr>
+        <tr><td>휴게 시간</td><td>근로시간 <span class="hi-red">4시간→30분 이상, 8시간→1시간 이상</span> (근로시간 도중 부여)</td></tr>
+        <tr><td>재해 보상</td><td>업무상 부상·질병·사망 시 근로자·유족에게 적정 보상</td></tr>
+      </table>
+      <p>근로조건은 근로자·사용자가 <span class="hi-blue">동등한 지위</span>에서 자유의사로 결정, 성별·국적·신앙·사회적 신분 이유의 차별 금지. 기준 위반 근로계약은 <span class="hi-red">그 부분만 무효</span>(전체 무효 아님, 무효 부분은 법정 기준으로 대체).</p>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 퇴직 vs 해고</div>
+        <div class="confuse-body">
+          <div class="confuse-col"><h5>퇴직</h5><p><b>근로자의 자유로운 의사</b>로 근로관계 종료</p></div>
+          <div class="confuse-col"><h5>해고</h5><p><b>사용자의 일방적 의사</b>로 근로관계 종료 → <span class="hi-red">정당한 이유 필요 + 30일 전 예고 + 해고 사유·시기 서면 통지</span> 필수(엄격한 제한)</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h4>단체로서 근로자의 권리 — 근로 3권</h4>
+      <div class="tip"><span class="tip-label">암기 필수 — 근로 3권의 순서와 정의</span>
+        ① <span class="hi-red">단결권</span> — 단체를 만들고 가입·활동(노동조합 결성의 근거) → ② <span class="hi-red">단체 교섭권</span> — 노동조합 구성원으로서 사용자와 근로조건 교섭(사용자는 정당한 사유 없이 거부 불가) → ③ <span class="hi-red">단체 행동권</span> — 교섭 결렬 시 쟁의 행위(파업·태업 등)
+      </div>
+      <p style="font-size:13.5px;color:#6b6153;"><b>파업</b>: 생산·업무를 일시적으로 전면 중단 / <b>태업</b>: 의식적으로 작업 능률만 떨어뜨림 — 정당한 쟁의 행위는 <span class="hi-red">위법성이 조각</span>되어 법적 책임을 지지 않음.</p>
+      <p><span class="hi-blue">부당 노동 행위</span>: 사용자가 노동조합 활동을 방해하는 행위(노조 가입·탈퇴를 고용조건으로 삼기, 노조 가입·단체행동을 이유로 해고·불이익 등) → 「노동조합 및 노동관계 조정법」이 금지.</p>
+      <div class="tip"><span class="tip-label">시험 포인트</span>단결권·단체교섭권·단체행동권 순서를 뒤섞어 (가)(나)(다)에 배열하는 문제가 단원마무리 1번에 반드시 출제됨. "단체를 만듦→교섭함→쟁의행동함"의 시간적 흐름으로 암기.</div>
+    </div>
+
+    <div class="block">
+      <h4>권리 침해 시 구제 절차</h4>
+      <div class="flow">
+        <span class="fstep">부당해고/부당노동행위 발생</span><span class="farrow">→ 3개월 이내 →</span>
+        <span class="fstep">지방 노동 위원회 구제 신청</span><span class="farrow">→ 불복 시 10일 이내 →</span>
+        <span class="fstep">중앙 노동 위원회 재심</span><span class="farrow">→ 불복 시 15일 이내 →</span>
+        <span class="fstep">행정 소송(행정법원→고등법원→대법원)</span>
+      </div>
+      <p>부당해고 인정 시 해고는 <span class="hi-red">무효</span> + 해고 기간 임금 상당액 지급. 노동위원회 구제절차와 별도로 <span class="hi-blue">법원에 해고 무효 확인 소송</span>도 제기 가능. 임금 체불 시 고용노동부 <span class="hi-blue">진정</span> 또는 「근로기준법」 위반으로 <span class="hi-blue">고소</span> 가능. <span class="hi-blue">화해 제도</span> 성립 시 재신청·불복 불가에 주의.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">3교시</span> 연소 근로자의 권리</div>
+
+    <div class="block">
+      <h4>연소 근로자의 특별 보호 (헌법 제32조 제5항)</h4>
+      <div class="tip"><span class="tip-label">암기 필수</span>
+        원칙: <span class="hi-red">15세 미만</span>인 사람 또는 <span class="hi-red">중학교 재학 중인 18세 미만</span>인 사람은 근로 불가. 예외: <span class="hi-red">고용노동부 장관의 취직 인허증</span>이 있으면 가능(13세 이상 15세 미만 발급 대상, 예술 공연 참가 시 13세 미만도 가능).
+      </div>
+      <ul>
+        <li><span class="hi-blue">법정대리인 동의</span>를 받아 <span class="hi-red">본인이 직접</span> 근로계약 체결 (법정대리인이 대리 체결하는 것 아님)</li>
+        <li>임금은 연소 근로자가 <span class="hi-red">독자적으로 청구</span> 가능</li>
+        <li>근로 시간: <span class="hi-red">1일 7시간, 1주 35시간</span> 초과 불가 (합의 시 1일 1시간, 1주 5시간 연장 가능)</li>
+        <li>야간(22:00~06:00)·휴일 근로 <span class="hi-red">원칙적으로 금지</span> — 예외: 본인 동의 + 고용노동부 장관 인가</li>
+        <li>사용자는 연소자의 <span class="hi-blue">연령 증명서 + 친권자/후견인 동의서</span>를 사업장에 갖춰 둬야 함</li>
+        <li>휴일·최저임금·주휴수당 등은 성인 근로자와 <span class="hi-blue">동일하게 적용</span></li>
+      </ul>
+      <div class="tip"><span class="tip-label">시험 포인트</span>연소근로자 근로계약서를 주고 오류를 찾는 서술형이 매년 출제됨. 시급이 최저임금 미달, 근로시간이 1일7시간·1주35시간 초과, 야간근로 포함, 노조가입 금지 조항(위법) 등을 체크리스트처럼 대조하는 연습 필요.</div>
+      <div class="reform"><span class="reform-label">법 개정 — 감정노동자 보호(「산업안전보건법」 제41조, 2021 개정)</span>고객의 폭언·폭행 등으로부터 <span class="hi-red">고객 응대 근로자</span>를 보호하기 위해 사업주에게 예방조치 의무 부과. 근로자가 조치를 요구해도 사업주가 <span class="hi-red">해고 등 불리한 처우 금지</span>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 2 ================= -->
+<section class="unit" id="u2">
+  <div class="unit-head"><span class="unit-num">02</span><h2>사회보장과 경제생활</h2></div>
+  <p class="unit-desc">교과서 111~117쪽 · 사회보장법과 3대 사회보장 제도 → 공정한 경쟁 촉진 → 소비자 권리 보호</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 사회보장을 위한 법</div>
+
+    <div class="block">
+      <h4>사회보장법의 의의</h4>
+      <p><span class="hi-blue">사회보장법</span> = 질병·장애·노령·실업·사망 등 <span class="hi-red">사회적 위험</span>으로부터 국가가 국민을 보호하고 빈곤을 해소하여 생활의 질을 높이는 법체계 전체. 헌법 <span class="hi-red">제34조</span>(인간다운 생활을 할 권리, 국가의 사회보장·복지 증진 의무) 근거, 「사회보장 기본법」이 국민의 권리와 국가·지자체 책임을 규정.</p>
+    </div>
+
+    <div class="block">
+      <h4>3대 사회보장 제도</h4>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 사회 보험 vs 공공 부조 vs 사회 서비스</div>
+        <div class="confuse-body triple">
+          <div class="confuse-col">
+            <h5>사회 보험</h5>
+            <p><span class="hi-red">보험 방식</span>으로 대처, 금전적. 국민연금·건강보험·고용보험·장기요양보험·산재보험</p>
+          </div>
+          <div class="confuse-col">
+            <h5>공공 부조</h5>
+            <p>국가·지자체 책임 아래 <span class="hi-red">생계 부조</span>(금전적, 사후적). 기초연금·생계급여·의료급여·주거급여·교육급여</p>
+          </div>
+          <div class="confuse-col">
+            <h5>사회 서비스</h5>
+            <p><span class="hi-red">비금전적</span> 복지 서비스(상담·재활·돌봄). 노인·장애인·아동·가정 복지 서비스</p>
+          </div>
+        </div>
+      </div>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"사회보험·공공부조=금전적 지원 / 사회서비스=비금전적 지원"이 첫 구분 축, "사회보험=보험방식(사전대비) / 공공부조=생활이 어려운 자를 사후 지원"이 두번째 구분 축. 관련 법률(국민기초생활보장법→공공부조, 국민건강보험법→사회보험 등)로 표를 채우는 문제가 빈출.</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 경제생활과 소비자 보호</div>
+
+    <div class="block">
+      <h4>공정한 경쟁을 위한 법 — 「독점 규제 및 공정 거래에 관한 법률」</h4>
+      <p>시장 지배적 사업자의 지위 남용, 경쟁 제한적 <span class="hi-blue">기업 결합</span>, 부당한 <span class="hi-blue">공동 행위(담합)</span>, 불공정 거래 행위 등을 금지 → <span class="hi-red">공정 거래 위원회</span>가 심의·의결.</p>
+      <ul>
+        <li>시장 지배적 지위 남용: 가격·생산량 부당 조절</li>
+        <li>담합: 사업자 간 가격 결정·인상, 시장 분할 등 경쟁 회피 합의</li>
+        <li>불공정 거래 행위: 부당한 거래 거절·차별, 경쟁사 고객 유인, 계열사 부당 지원, 인기품목 끼워팔기 등</li>
+      </ul>
+      <div class="case"><span class="case-label">판례 포인트 — 플랫폼 배차 알고리즘 조작</span>택시 호출 업체가 자회사 가맹 택시에 유리하게 배차 알고리즘을 조작 → 공정거래위원회가 <span class="hi-red">시정명령 + 과징금</span> 부과. 온라인 플랫폼 규제 강화 vs 중복규제·플랫폼 시장 위축 우려의 찬반 논쟁도 기억.</div>
+    </div>
+
+    <div class="block">
+      <h4>소비자 보호 관련 법률</h4>
+      <div class="tip"><span class="tip-label">암기 — 「소비자 기본법」상 8대 권리</span>
+        안전할 권리 · 알 권리 · 선택할 권리 · 의견을 반영시킬 권리 · <span class="hi-red">피해를 보상받을 권리</span> · 필요한 교육을 받을 권리 · 단체를 조직·활동할 권리 · 안전하고 쾌적한 환경에서 소비할 권리
+      </div>
+      <table class="cmp">
+        <tr><th>법률</th><th>핵심 내용</th></tr>
+        <tr><td>「전자 상거래 등에서의 소비자 보호에 관한 법률」</td><td>계약 서면 수령일 또는 재화 공급일로부터 <span class="hi-red">7일 이내 청약 철회</span> 가능. 기만적 유인·청약철회 방해·일방적 공급후 대금청구 금지</td></tr>
+        <tr><td><span class="hi-red">「제조물 책임법」</span></td><td>제품 결함으로 소비자 피해 시 제조업자가 배상책임. 소비자가 결함 증명이 어려운 점을 고려해 <span class="hi-blue">일정 사실 증명 시 결함·인과관계 추정</span>(증명책임 완화)</td></tr>
+      </table>
+      <div class="case"><span class="case-label">판례 포인트 — 비데 화재 사건</span>비데 내부 부품에서 화재가 발생한 사안에서 제조사가 「제조물 책임법」에 따라 피해를 보상 — <span class="hi-red">제조물이 정상 사용 상태에서 손해가 발생 + 제조업자의 실질적 지배영역에서 원인 발생 + 결함 없이는 통상 발생하지 않는 손해</span>라는 3가지 사실이 증명되면 결함·인과관계를 추정.</div>
+      <div class="tip"><span class="tip-label">시험 포인트</span>「제조물 책임법」의 증명책임 완화(추정 규정)는 02단원 특수불법행위의 "증명책임 전환" 논리와 연결되는 통합형 문제로 자주 출제됨.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 3 ================= -->
+<section class="unit" id="u3">
+  <div class="unit-head"><span class="unit-num">03</span><h2>현대 생활과 법</h2></div>
+  <p class="unit-desc">교과서 119~130쪽 · 현대 사회 변화와 새로운 법률관계 → 지적 재산권의 보호와 한계</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 현대적 법률관계의 특징</div>
+
+    <div class="block">
+      <h4>현대 사회의 3대 변화</h4>
+      <table class="cmp">
+        <tr><th>변화</th><th>정의</th><th>대응 법률(예)</th></tr>
+        <tr><td><span class="hi-red">저출생·고령화</span></td><td>출생아 수 감소 + 65세 이상 인구 비율 증가</td><td>「저출산·고령 사회 기본법」, 「남녀고용평등과 일가정양립지원에관한법률」</td></tr>
+        <tr><td><span class="hi-red">세계화</span></td><td>국가 간 교류·의존성 확대로 지구촌 단일체계로 통합</td><td>「재한외국인처우기본법」, 「기후위기대응을위한탄소중립·녹색성장기본법」</td></tr>
+        <tr><td><span class="hi-red">지능정보화</span></td><td>정보처리기술 활용 심화 → 지능정보사회로 발전</td><td>「전자상거래등에서의소비자보호에관한법률」, 「드론활용의촉진및기반조성에관한법률」</td></tr>
+      </table>
+    </div>
+
+    <div class="block">
+      <h4>인터넷 서비스 제공자(ISP)의 책임 문제</h4>
+      <p>전통적 입장: <span class="hi-blue">자기 책임 원칙</span> — 직접 행위하지 않은 것에는 책임 없음. 그러나 ISP가 관리하는 플랫폼에서 <span class="hi-red">저작권 침해가 발생한 경우, 관리·감독을 소홀히 했다면 방조 책임</span>을 질 수 있음 → 불법 복제·유통 방지를 위한 관리·감독 의무 발생.</p>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"모든 매개자는 항상 책임이 없다"(✕), "저작권 침해 방치 시 방조자로서 책임질 수 있다"(○)가 핵심 판단 포인트. 판매자·구매자·ISP의 3자 관계를 묻는 문제 빈출.</div>
+    </div>
+
+    <div class="block">
+      <h4>플랫폼 노동의 보호 문제</h4>
+      <p><span class="hi-blue">플랫폼 노동</span> = 앱·SNS 등 디지털 플랫폼의 중개·알선으로 노동이 거래되는 새 고용 형태. <span class="hi-red">서비스 수요자–제공자–플랫폼</span>의 삼각 관계로 형성, 사용자-근로자 간 <span class="hi-red">일대일 종속관계가 아님</span>이 특징.</p>
+      <ul>
+        <li>문제점: 사용자·근로자 경계가 모호 → 고용 책임 구조 불명확 → 「근로기준법」상 근로자 인정 여부가 쟁점 → 인정 안 되면 <span class="hi-red">사회 안전망(고용보험 등)에서 배제</span></li>
+        <li>대응 방향: ①근로자 범위에 포함·재정립 ②특수형태근로종사자로 정의 후 별도 보호 규정 ③제3의 영역 신설 — <span class="hi-blue">아직 명시적 규정 없음</span>, 논의 진행 중</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 지적 재산의 보호와 이용</div>
+
+    <div class="block">
+      <h4>지적 재산권의 의의</h4>
+      <p><span class="hi-blue">지적 재산권</span> = 인간의 창조적 활동·경험으로 창출·발견한 무형 자산 중 법으로 보호할 가치가 있는 창작물에 부여한 재산권(세계지적재산권기구 WIPO 정의). 헌법 <span class="hi-red">제22조 제2항</span>: 저작자·발명가·과학기술자·예술가의 권리는 법률로써 보호.</p>
+      <p style="font-size:13.5px;color:#6b6153;">'지식'으로 포괄 안 되는 상표·영업비밀·<span class="hi-blue">인격표지영리권(퍼블리시티권)</span>까지 아우르기 위해 '지적' 재산권이라는 용어를 사용.</p>
+    </div>
+
+    <div class="block">
+      <h4>지적 재산권의 분류</h4>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 저작권 vs 산업 재산권 vs 신지적 재산권</div>
+        <div class="confuse-body triple">
+          <div class="confuse-col"><h5>저작권</h5><p>문학·음악·미술·건축 등 <b>창작적 표현물</b> 보호. 「저작권법」</p></div>
+          <div class="confuse-col"><h5>산업 재산권</h5><p><b>특허권·실용신안권·디자인권·상표권</b> — 산업상 기능 수행</p></div>
+          <div class="confuse-col"><h5>신지적 재산권</h5><p>컴퓨터프로그램·반도체 배치설계권 등 <b>기존 분류 외</b> 새로운 지적 창작물</p></div>
+        </div>
+      </div>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 특허권 vs 실용신안권 (산업재산권 내부)</div>
+        <div class="confuse-body">
+          <div class="confuse-col"><h5>특허권</h5><p><span class="hi-red">신규성·진보성·산업상 이용가능성</span>을 갖춘 <b>고도한</b> 발명 (예: 자동차 브레이크 시스템 핵심기술)</p></div>
+          <div class="confuse-col"><h5>실용신안권</h5><p>고도성은 특허보다 <span class="hi-red">낮지만 실용적인</span> 개량 기술 (예: 의자 높낮이 조절 기술)</p></div>
+        </div>
+      </div>
+      <p>저작권 등록 시 등록 연월일에 저작물을 <span class="hi-blue">창작·공표한 것으로 추정</span>. 특허 등록 시 경쟁자의 모방으로부터 신기술 보호.</p>
+    </div>
+
+    <div class="block">
+      <h4>지적 재산권 보호의 한계 — 보호 기간</h4>
+      <p>과도한 보호는 <span class="hi-red">기술·정보 공유 제한, 후속 연구·발전 저해</span> 우려 → 지적 재산권법은 <span class="hi-blue">보호 기간</span>을 두어 기간 만료 시 독점 상태 → <span class="hi-blue">공유(퍼블릭 도메인) 상태</span>로 전환.</p>
+      <div class="tip"><span class="tip-label">암기 — 저작권법 제39조</span>저작 재산권은 <span class="hi-red">저작자 생존 기간 + 사망 후 70년간</span> 존속 (공동저작물은 마지막 사망자 기준 사망 후 70년).</div>
+      <div class="reform"><span class="reform-label">법 개정 — 화상 디자인 보호(「디자인 보호법」 2021 개정)</span>디지털·전자적 방식으로 표현되는 화상(예: 아이콘, VR/AR 그래픽)도 <span class="hi-red">디자인으로 등록 가능</span>하도록 '디자인'의 정의를 확장 — 디지털 경제 지원을 위한 최초의 법제화.</div>
+    </div>
+
+    <div class="block">
+      <h4>인공지능 창작물과 저작권 쟁점</h4>
+      <p>「저작권법」 제2조: 저작물 = <span class="hi-red">인간의 사상 또는 감정을 표현한 창작물</span>. AI 창작물이 이 정의에 해당하는지가 핵심 쟁점.</p>
+      <div class="tip"><span class="tip-label">3대 쟁점</span>① AI 창작물의 <span class="hi-blue">예술적 가치</span> 인정 여부 ② AI 창작물의 <span class="hi-blue">저작물성</span>(저작권법상 '저작물'에 해당하는가) ③ 저작물이라면 <span class="hi-blue">저작자는 누구인가</span>(제작자/프로그래머 vs AI 자체)</div>
+      <div class="case"><span class="case-label">사례 포인트 — AI 생성 사진의 국제 사진대회 수상</span>독일 사진작가가 AI로 생성한 이미지를 대회에 출품해 우승 후 <span class="hi-red">수상을 거부</span> — "AI 창작물 참가 자격 논쟁을 촉발하고 싶었다"고 밝힘. 주최 측은 실험적 접근을 환영하는 부문이라 문제없다는 입장. → AI 창작물의 예술성·정체성 표시 의무 논쟁 사례로 활용됨.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ================= SUMMARY ================= -->
+<section class="summary-sec" id="summary">
+  <h2>시험 직전 총정리</h2>
+  <p class="sub">단원 마무리(130~131쪽) 기출 유형 기반 최종 점검</p>
+
+  <div class="sum-grid">
+    <div class="sum-card">
+      <h4>01 근로자의 권리</h4>
+      <ul>
+        <li>사회법 3종: <b>노동법·사회보장법·경제법</b></li>
+        <li>근로기준법(헌법32조) vs 노동조합및노동관계조정법(헌법33조)</li>
+        <li>근로시간 <b>1일8시간·1주40시간</b> / 휴게 4h→30분, 8h→1h</li>
+        <li>근로3권 순서: <b>단결권→단체교섭권→단체행동권</b></li>
+        <li>연소근로자: <b>15세 미만 근로 불가</b>(취직인허증 예외), 1일7h·1주35h, 법정대리인 동의+본인 직접 계약</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>02 사회보장과 경제생활</h4>
+      <ul>
+        <li>사회보험(보험방식,금전) vs 공공부조(생계부조,금전) vs 사회서비스(비금전)</li>
+        <li>공정거래위원회 — 시장지배남용·기업결합·담합·불공정거래 규제</li>
+        <li>소비자 8대 권리(안전·알·선택·의견반영·보상·교육·단체활동·환경)</li>
+        <li>전자상거래: <b>7일 이내 청약철회</b></li>
+        <li>제조물책임법: 결함·인과관계 <b>추정</b> 규정으로 증명책임 완화</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>03 현대 생활과 법</h4>
+      <ul>
+        <li>현대사회 3대 변화: 저출생고령화·세계화·지능정보화</li>
+        <li>ISP: 자기책임원칙이나 관리소홀 시 <b>방조책임</b> 가능</li>
+        <li>플랫폼노동: 수요자-제공자-플랫폼 <b>삼각관계</b>, 근로자성 불명확</li>
+        <li>지적재산권: 저작권·산업재산권(특허·실용신안·디자인·상표)·신지적재산권</li>
+        <li>저작재산권 보호기간: <b>생존기간+사망후 70년</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>✔ 최종 자가 점검 체크리스트</h4>
+    <label><input type="checkbox"> 사회법 3종류(노동법·사회보장법·경제법)와 각 목적을 짝지을 수 있다</label>
+    <label><input type="checkbox"> 근로기준법상 임금·근로시간·휴게시간 기준 수치를 정확히 안다</label>
+    <label><input type="checkbox"> 근로 3권의 순서와 각각의 정의를 설명할 수 있다</label>
+    <label><input type="checkbox"> 부당해고 구제 절차(지방노동위→중앙노동위→행정소송) 순서와 기간을 안다</label>
+    <label><input type="checkbox"> 연소근로자의 근로계약 요건(연령·시간·동의)을 사례에 적용할 수 있다</label>
+    <label><input type="checkbox"> 사회보험·공공부조·사회서비스를 관련 법률과 짝지을 수 있다</label>
+    <label><input type="checkbox"> 소비자 8대 권리와 제조물책임법의 증명책임 완화 규정을 안다</label>
+    <label><input type="checkbox"> 인터넷서비스제공자의 책임 발생 조건(방조책임)을 설명할 수 있다</label>
+    <label><input type="checkbox"> 저작권·산업재산권·신지적재산권의 차이와 저작권 보호기간을 안다</label>
+  </div>
+</section>
+
+<footer>KANGWOO ENGLISH 자료 시리즈 · 비상교육 22개정 「법과 사회」 3단원 기반 · 원문 인용 없이 재구성</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+
+<script>
+(function(){
+  const input = document.getElementById('searchInput');
+  const countEl = document.getElementById('searchCount');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let marks = [];
+  let currentIdx = -1;
+
+  function clearMarks(){
+    document.querySelectorAll('mark.hit').forEach(m=>{
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+    marks = [];
+    currentIdx = -1;
+  }
+
+  function walkAndMark(term){
+    const regex = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    const container = document.querySelector('.wrap');
+    const summarySec = document.getElementById('summary');
+    const roots = [container, summarySec];
+    roots.forEach(root=>{
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node){
+          if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if(node.parentNode.closest('script,style')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      let n;
+      while(n = walker.nextNode()) nodes.push(n);
+      nodes.forEach(node=>{
+        const text = node.nodeValue;
+        if(!regex.test(text)) return;
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+        while((match = regex.exec(text)) !== null){
+          if(match.index > lastIndex){
+            frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          }
+          const mark = document.createElement('mark');
+          mark.className = 'hit';
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          lastIndex = match.index + match[0].length;
+        }
+        if(lastIndex < text.length){
+          frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  function doSearch(){
+    clearMarks();
+    const term = input.value.trim();
+    if(!term){
+      countEl.textContent = '';
+      return;
+    }
+    walkAndMark(term);
+    marks = Array.from(document.querySelectorAll('mark.hit'));
+    if(marks.length === 0){
+      countEl.textContent = '검색 결과 없음';
+      return;
+    }
+    currentIdx = 0;
+    updateCurrent();
+  }
+
+  function updateCurrent(){
+    marks.forEach(m=>m.classList.remove('current'));
+    if(marks.length === 0) return;
+    const m = marks[currentIdx];
+    m.classList.add('current');
+    m.scrollIntoView({behavior:'smooth', block:'center'});
+    countEl.textContent = (currentIdx+1) + ' / ' + marks.length;
+  }
+
+  input.addEventListener('input', doSearch);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      if(marks.length){
+        currentIdx = (currentIdx + 1) % marks.length;
+        updateCurrent();
+      }
+    }
+  });
+  nextBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx + 1) % marks.length;
+    updateCurrent();
+  });
+  prevBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx - 1 + marks.length) % marks.length;
+    updateCurrent();
+  });
+})();
+</script>
+
+</body>
+</html>

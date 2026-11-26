@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>법과 사회 IV. 학교생활과 법 — 시험대비 세부분석</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --navy:#132039;
+  --navy2:#1c2f4f;
+  --paper:#f7f4ec;
+  --paper2:#efe9db;
+  --ink:#20232a;
+  --gold:#a9792c;
+  --gold-light:#e9d9b8;
+  --red:#a5312a;
+  --red-bg:#fbe9e7;
+  --blue:#1f4e8c;
+  --blue-bg:#e8f0fb;
+  --green:#2f6b3a;
+  --green-bg:#e9f4e7;
+  --line:#d9d0bb;
+  --mono:'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Noto Serif KR","Nanum Myeongjo",serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  padding-bottom:80px;
+}
+h1,h2,h3,h4{font-family:"Noto Serif KR",serif; letter-spacing:-0.01em;}
+
+/* ===== HEADER ===== */
+header.top{
+  background:linear-gradient(160deg,var(--navy) 0%, var(--navy2) 100%);
+  color:#f2ede0;
+  padding:36px 20px 26px;
+  position:relative;
+  overflow:hidden;
+}
+header.top::after{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:220px;height:220px;
+  border:1px solid rgba(233,217,184,0.18);
+  border-radius:50%;
+}
+header.top::before{
+  content:"";
+  position:absolute; right:20px; top:30px;
+  width:140px;height:140px;
+  border:1px solid rgba(233,217,184,0.13);
+  border-radius:50%;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px; letter-spacing:0.22em;
+  color:var(--gold-light); text-transform:uppercase;
+  margin-bottom:10px;
+}
+header.top h1{
+  font-size:clamp(24px,4vw,34px);
+  margin:0 0 8px; font-weight:700;
+  max-width:760px;
+}
+header.top p.sub{
+  margin:0; color:#c9c2ac; font-size:14.5px; max-width:640px;
+}
+.scale-note{
+  display:inline-block; margin-top:14px; font-size:12px;
+  font-family:var(--mono); color:#e9d9b8;
+  border:1px solid rgba(233,217,184,0.4);
+  padding:4px 10px; border-radius:20px;
+}
+
+/* ===== SEARCH (STICKY) ===== */
+.search-bar{
+  position:sticky; top:0; z-index:100;
+  background:var(--navy);
+  border-bottom:2px solid var(--gold);
+  padding:10px 20px;
+  display:flex; gap:10px; align-items:center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.18);
+}
+.search-bar input{
+  flex:1; max-width:560px;
+  padding:9px 14px;
+  border-radius:6px;
+  border:1px solid #3a4d6e;
+  background:#0e1830;
+  color:#f2ede0;
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:14px;
+  outline:none;
+}
+.search-bar input::placeholder{color:#8592ab;}
+.search-bar input:focus{border-color:var(--gold);}
+.search-btn{
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; color:#0e1830; background:var(--gold-light);
+  border:none; padding:9px 12px; border-radius:6px; cursor:pointer;
+  white-space:nowrap;
+}
+.search-btn:hover{background:#fff;}
+#searchCount{
+  color:#c9c2ac; font-family:var(--mono); font-size:12px; white-space:nowrap;
+}
+mark.hit{background:#ffe28a; color:#2a1c00; border-radius:2px; padding:0 1px;}
+mark.hit.current{background:var(--gold); color:#fff;}
+
+/* ===== METRO NAV ===== */
+nav.metro{
+  background:var(--paper2);
+  padding:26px 20px 30px;
+  border-bottom:1px solid var(--line);
+}
+nav.metro h2{
+  text-align:center; font-size:14px; letter-spacing:0.15em;
+  color:var(--navy); text-transform:uppercase;
+  font-family:"Noto Sans KR",sans-serif; margin:0 0 20px;
+}
+.metro-line{
+  max-width:960px; margin:0 auto; display:flex;
+  align-items:center; justify-content:space-between;
+  position:relative; flex-wrap:wrap; gap:14px;
+}
+.metro-line::before{
+  content:""; position:absolute; left:6%; right:6%; top:22px;
+  height:3px; background:repeating-linear-gradient(90deg,var(--gold),var(--gold) 8px,transparent 8px,transparent 14px);
+  z-index:0;
+}
+.metro-stop{
+  position:relative; z-index:1; flex:1; min-width:150px;
+  text-align:center; text-decoration:none; color:var(--ink);
+}
+.metro-dot{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--navy); color:#f2ede0;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px; font-weight:700; font-family:var(--mono);
+  border:3px solid var(--paper2); box-shadow:0 0 0 2px var(--gold);
+  transition:transform .15s ease;
+}
+.metro-stop:hover .metro-dot{transform:scale(1.1); background:var(--gold);}
+.metro-stop .m-title{font-weight:700; font-size:14.5px; display:block;}
+.metro-stop .m-sub{font-size:11.5px; color:#6b6153; font-family:"Noto Sans KR",sans-serif;}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:900px; margin:0 auto; padding:0 20px;}
+section.unit{padding:44px 0 10px; border-bottom:1px dashed var(--line);}
+.unit-head{
+  display:flex; align-items:baseline; gap:14px; margin-bottom:6px;
+}
+.unit-num{
+  font-family:var(--mono); font-size:34px; color:var(--gold); font-weight:700;
+}
+.unit-head h2{font-size:24px; margin:0; color:var(--navy);}
+.unit-desc{color:#6b6153; font-size:14px; margin:0 0 26px; font-family:"Noto Sans KR",sans-serif;}
+
+.lesson{margin-bottom:38px;}
+.lesson-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:18px; color:var(--navy2); border-bottom:2px solid var(--navy2);
+  padding-bottom:8px; margin-bottom:16px;
+}
+.lesson-title .tag{
+  font-family:var(--mono); font-size:11px; background:var(--navy2); color:#fff;
+  padding:2px 8px; border-radius:4px;
+}
+
+.block{
+  background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:16px 20px; margin-bottom:14px;
+}
+.block h4{
+  margin:0 0 8px; font-size:15.5px; color:var(--navy);
+  display:flex; align-items:center; gap:8px;
+}
+.block h4::before{content:"▍"; color:var(--gold);}
+.block p{margin:6px 0; font-size:15px;}
+.block ul{margin:6px 0; padding-left:20px;}
+.block li{margin-bottom:4px; font-size:14.8px;}
+
+/* importance highlight spans */
+.hi-red{color:var(--red); background:var(--red-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-blue{color:var(--blue); background:var(--blue-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-green{color:var(--green); background:var(--green-bg); padding:0 3px; border-radius:3px; font-weight:600;}
+
+.legend{
+  display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; font-family:"Noto Sans KR",sans-serif;
+  background:#fff; border:1px solid var(--line); border-radius:8px;
+  padding:10px 16px; margin:18px 0 30px; color:#4a4536;
+}
+.legend span{display:flex; align-items:center; gap:6px;}
+.legend .dot{width:11px;height:11px;border-radius:3px; display:inline-block;}
+
+/* exam tip callout */
+.tip{
+  border-left:5px solid var(--gold);
+  background:#fffaf0; border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:14.5px;
+}
+.tip .tip-label{
+  font-family:"Noto Sans KR",sans-serif; font-weight:700; font-size:12px;
+  color:var(--gold); text-transform:uppercase; letter-spacing:0.05em;
+  display:block; margin-bottom:4px;
+}
+
+/* confusion box */
+.confuse{
+  border:2px solid var(--red); border-radius:10px; overflow:hidden;
+  margin:16px 0; background:#fff;
+}
+.confuse-head{
+  background:var(--red); color:#fff; font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; font-weight:700; padding:8px 14px;
+}
+.confuse-body{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+.confuse-col{padding:12px 16px; font-size:14px;}
+.confuse-col:first-child{border-right:1px dashed var(--line);}
+.confuse-col h5{margin:0 0 6px; color:var(--navy); font-size:14.5px;}
+.confuse-body.triple{grid-template-columns:1fr 1fr 1fr;}
+.confuse-body.triple .confuse-col{border-right:1px dashed var(--line);}
+.confuse-body.triple .confuse-col:last-child{border-right:none;}
+@media(max-width:640px){.confuse-body{grid-template-columns:1fr;} .confuse-body.triple{grid-template-columns:1fr;} .confuse-col{border-right:none !important; border-bottom:1px dashed var(--line);}}
+
+/* case box */
+.case{
+  background:var(--green-bg); border:1px solid #bcd8b9; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.case .case-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:var(--green); font-size:12.5px; display:block; margin-bottom:4px;}
+
+/* law amendment box */
+.reform{
+  background:#f4f0ff; border:1px solid #cdbfe8; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.reform .reform-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:#5b3fa0; font-size:12.5px; display:block; margin-bottom:4px;}
+
+table.cmp{width:100%; border-collapse:collapse; font-size:13.6px; margin:10px 0;}
+table.cmp th{background:var(--navy); color:#fff; padding:8px 10px; text-align:left; font-family:"Noto Sans KR",sans-serif; font-weight:500;}
+table.cmp td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+table.cmp tr:nth-child(even) td{background:#faf7ef;}
+table.cmp td.center, table.cmp th.center{text-align:center;}
+
+/* flow diagram */
+.flow{display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:12px 0; font-family:"Noto Sans KR",sans-serif; font-size:13.5px;}
+.flow .fstep{background:var(--navy); color:#fff; padding:7px 13px; border-radius:20px; white-space:nowrap;}
+.flow .farrow{color:var(--gold); font-weight:700;}
+
+/* summary section */
+.summary-sec{background:var(--navy); color:#f2ede0; padding:44px 20px 60px; margin-top:20px;}
+.summary-sec h2{color:#f2ede0; font-size:22px; text-align:center; margin-bottom:6px;}
+.summary-sec p.sub{text-align:center; color:#a9a08a; font-size:13px; font-family:"Noto Sans KR",sans-serif; margin-bottom:30px;}
+.sum-grid{max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
+@media(max-width:760px){.sum-grid{grid-template-columns:1fr;}}
+.sum-card{
+  background:#1c2f4f; border:1px solid #33456a; border-radius:10px; padding:16px 18px;
+}
+.sum-card h4{margin:0 0 10px; color:var(--gold-light); font-size:15px; border-bottom:1px solid #33456a; padding-bottom:8px;}
+.sum-card ul{margin:0; padding-left:18px; font-size:13.2px; color:#d8d3c2;}
+.sum-card li{margin-bottom:6px;}
+.sum-card li b{color:#fff;}
+
+/* checklist */
+.checklist{max-width:900px; margin:26px auto 0; background:#0e1830; border:1px solid #33456a; border-radius:10px; padding:20px 24px;}
+.checklist h4{color:var(--gold-light); margin:0 0 10px; font-size:15px;}
+.checklist label{display:flex; gap:8px; align-items:flex-start; font-size:13.4px; color:#e3ddc9; margin-bottom:8px; font-family:"Noto Sans KR",sans-serif;}
+.checklist input{margin-top:3px;}
+
+footer{
+  text-align:center; padding:26px; color:#a09776; font-size:12px;
+  font-family:"Noto Sans KR",sans-serif; background:var(--navy);
+}
+
+.scroll-top{
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  background:var(--gold); color:#1c1200; border:none; border-radius:50%;
+  width:44px; height:44px; font-size:18px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+::selection{background:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">비상교육 · 22개정 고등 법과 사회 교과서</div>
+  <h1>IV. 학교생활과 법 — 시험대비 세부 분석</h1>
+  <p class="sub">01 청소년의 특징과 법적 지위 · 02 학교생활의 법적 문제 · 03 민주 시민의 법적 문제 해결 — 교과서 원문 기반 핵심 개념·판례·조문 정리</p>
+  <span class="scale-note">교과서 137~167쪽 대응</span>
+</header>
+
+<div class="search-bar">
+  <input id="searchInput" type="text" placeholder="키워드 검색 (예: 촉법소년, 학교폭력, 선거권 연령, 판례...)">
+  <button class="search-btn" id="prevBtn">◀ 이전</button>
+  <button class="search-btn" id="nextBtn">다음 ▶</button>
+  <span id="searchCount"></span>
+</div>
+
+<nav class="metro">
+  <h2>단원 지도 · Unit Map</h2>
+  <div class="metro-line">
+    <a class="metro-stop" href="#u1">
+      <div class="metro-dot">01</div>
+      <span class="m-title">청소년의 특징과 법적 지위</span>
+      <span class="m-sub">연령기준·형사미성년자·선거권</span>
+    </a>
+    <a class="metro-stop" href="#u2">
+      <div class="metro-dot">02</div>
+      <span class="m-title">학교생활의 법적 문제</span>
+      <span class="m-sub">학교폭력·학교규칙</span>
+    </a>
+    <a class="metro-stop" href="#u3">
+      <div class="metro-dot">03</div>
+      <span class="m-title">민주 시민의 법적 문제 해결</span>
+      <span class="m-sub">법·조약·판례·입법자료</span>
+    </a>
+    <a class="metro-stop" href="#summary">
+      <div class="metro-dot">★</div>
+      <span class="m-title">시험 총정리</span>
+      <span class="m-sub">비교표·체크리스트</span>
+    </a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--red)"></span> 빨강 = 최우선 암기 (수치·순서·요건)</span>
+  <span><span class="dot" style="background:var(--blue)"></span> 파랑 = 핵심 개념 정의</span>
+  <span><span class="dot" style="background:var(--green)"></span> 초록 = 판례·사례 포인트</span>
+</div>
+
+<!-- ================= UNIT 1 ================= -->
+<section class="unit" id="u1">
+  <div class="unit-head"><span class="unit-num">01</span><h2>청소년의 특징과 법적 지위</h2></div>
+  <p class="unit-desc">교과서 137~143쪽 · 청소년의 권리와 국가의 의무 → 연령별 보호와 제한 → 형사 미성년자·선거권 쟁점</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 청소년의 권리와 국가의 의무</div>
+
+    <div class="block">
+      <h4>청소년의 정의와 법률별 연령 기준</h4>
+      <p><span class="hi-blue">청소년</span> = 소년(어린아이)과 청년을 아우르는 말, 대체로 <span class="hi-blue">10대</span>를 지칭. 청소년도 성인처럼 권리·의무의 주체이지만 <span class="hi-red">경험·판단 능력 부족</span>으로 법적 책임을 제한·면제받고, 유해 환경으로부터 보호받음.</p>
+      <table class="cmp">
+        <tr><th>법률</th><th>연령 기준</th></tr>
+        <tr><td>「아동 복지법」</td><td>18세 미만</td></tr>
+        <tr><td>「아동·청소년의 성 보호에 관한 법률」</td><td>19세 미만 (19세 되는 해 1월 1일을 맞은 자는 제외)</td></tr>
+        <tr><td>「청소년 보호법」</td><td>19세 미만 (위와 동일 예외)</td></tr>
+        <tr><td>「청소년 기본법」</td><td>9세 이상 24세 이하</td></tr>
+        <tr><td>「청년 기본법」</td><td>19세 이상 34세 이하</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>법률마다 청소년 연령 기준이 다른 이유는 <span class="hi-red">각 법률이 추구하는 목적에 맞춰 적용 대상 범위를 다르게 정하기 때문</span>. 표의 수치를 뒤섞어 옳고 그름을 묻는 문제가 빈출.</div>
+    </div>
+
+    <div class="block">
+      <h4>청소년 권리 구현을 위한 국가·학교의 역할</h4>
+      <p>헌법 <span class="hi-red">제34조</span>: 국가에 청소년 복지 향상을 위한 정책 시행 의무 부여. 국제 연합 <span class="hi-blue">「아동의 권리에 관한 협약」</span> 제12조: 청소년이 자신에게 영향을 미치는 문제에 대해 자유롭게 의견을 표현할 권리 보장.</p>
+      <table class="cmp">
+        <tr><th>법률</th><th>역할</th></tr>
+        <tr><td>「교육 기본법」</td><td>학교 설치, 전문 교원 배치, 보호자의 교육 권리·책임 규정</td></tr>
+        <tr><td>「초·중등 교육법」</td><td>학생 자치활동 권장, 학생 인권 보장(+타인 인권 침해 금지), 학교의 지도·감독 권한 부여</td></tr>
+        <tr><td>「청소년 기본법」</td><td>청소년 권리·정책의 기본 방향 제시</td></tr>
+        <tr><td>「청소년 보호법」</td><td>건강한 성장을 위한 보호 조치 규정(유해 매체·약물·업소 규제)</td></tr>
+      </table>
+      <p><span class="hi-blue">청소년증</span>: <span class="hi-red">9세 이상 18세 이하</span> 청소년에게 기초자치단체장이 발급하는 공적 신분증(학생·비학생 무관, 무료). <span class="hi-blue">청소년 참여 기구</span>: 청소년 특별 회의·참여 위원회·운영 위원회 — 청소년이 정책에 직접 참여.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 청소년의 보호와 쟁점</div>
+
+    <div class="block">
+      <h4>연령별 법률상 권리·의무 총정리</h4>
+      <table class="cmp">
+        <tr><th>연령</th><th>법률</th><th>내용</th></tr>
+        <tr><td class="center">14세</td><td>「형법」</td><td>형사 처벌 <span class="hi-red">가능</span>(14세부터 형사 미성년자 아님)</td></tr>
+        <tr><td class="center">14세</td><td>「개인정보 보호법」</td><td>법정대리인 동의 없이 개인정보 처리 동의 가능</td></tr>
+        <tr><td class="center">15세</td><td>「근로 기준법」</td><td>연소 근로자로 고용 가능</td></tr>
+        <tr><td class="center">16세</td><td>「도로 교통법」</td><td>원동기 운전면허 취득 가능</td></tr>
+        <tr><td class="center">17세</td><td>「주민등록법」/「민법」</td><td>주민등록증 발급 가능 / <span class="hi-red">유언 가능</span></td></tr>
+        <tr><td class="center">18세</td><td>「근로기준법」/「도로교통법」</td><td>성인 근로자로 고용 가능 / 자동차 운전면허 취득 가능</td></tr>
+        <tr><td class="center">18세</td><td>「민법」/「병역법」</td><td>법정대리인 동의로 약혼·혼인(성년의제) / 병역준비역 편입(현역 입대 가능)</td></tr>
+        <tr><td class="center">18세</td><td>「공직선거법」</td><td><span class="hi-red">대통령·국회의원·지방선거·교육감 선거권</span>, 국회의원·지방선거 피선거권</td></tr>
+        <tr><td class="center">19세</td><td>「민법」/「병역법」</td><td>민법상 성인 / 병역판정검사 대상</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>이 표를 뒤섞어 "16세부터 원동기 면허 취득 가능"(○), "19세부터 대통령 선거 참여"(✕, 실제로는 18세)처럼 옳고 그름을 묻는 <보기>형 문제가 단원마무리 2번에 반드시 출제됨.</div>
+    </div>
+
+    <div class="block">
+      <h4>형사 미성년자 연령 기준 쟁점</h4>
+      <div class="tip"><span class="tip-label">암기 필수 — 연령에 따른 형벌·보호처분</span>
+        <table class="cmp" style="margin-top:8px;">
+          <tr><th>구분</th><th class="center">범법소년</th><th class="center">촉법소년</th><th class="center">범죄소년</th></tr>
+          <tr><td>연령</td><td class="center">10세 미만</td><td class="center"><span class="hi-red">10세 이상~14세 미만</span></td><td class="center">14세 이상~19세 미만</td></tr>
+          <tr><td>보호 처분</td><td class="center">✕</td><td class="center"><span class="hi-red">○</span></td><td class="center">○</td></tr>
+          <tr><td>형사 처벌</td><td class="center">✕</td><td class="center"><span class="hi-red">✕</span></td><td class="center">○</td></tr>
+        </table>
+      </div>
+      <p>형법 제9조: <span class="hi-red">14세 미만</span> 형사 미성년자는 형사 처벌 불가. 10세 이상 14세 미만은 「소년법」상 <span class="hi-blue">촉법소년</span>으로 <span class="hi-blue">보호 처분</span>(형사처벌 아니므로 <span class="hi-red">전과 기록 남지 않음</span>) 가능.</p>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 형사 미성년자 연령 하향 찬반 논거</div>
+        <div class="confuse-body">
+          <div class="confuse-col"><h5>하향 찬성</h5><p>청소년이 처벌 면제를 악용해 범죄를 저지르고, 범죄가 <b>흉포화</b>되는 경향 → 기준을 낮춰야 함</p></div>
+          <div class="confuse-col"><h5>하향 반대</h5><p>청소년은 아직 행동 결과를 완전히 이해·예측하기 어려운 <b>정신적 미성숙</b> 상태 → 형사처벌보다 치료적·교화적 개입이 적절</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h4>선거권 연령 기준의 변화</h4>
+      <div class="tip"><span class="tip-label">암기 필수 — 선거권 연령 변천사</span>
+        <span class="hi-red">1948년 21세</span> → 1960년 20세 → 2005년 19세 → <span class="hi-red">2020년 18세</span> (「공직선거법」 개정)
+      </div>
+      <p>2020년 개정으로 <span class="hi-blue">선거권 + 국회의원·지방선거 피선거권 + 주민투표 참여 연령</span>도 모두 18세로 하향. 단, 18세 미만은 여전히 <span class="hi-red">국민투표, 주민소환, 교육감 선거에 참여 불가</span>(선거권이 완전하지 않음에 주의).</p>
+      <div class="case"><span class="case-label">쟁점 포인트 — 교육감 선거권 연령 하향 논쟁</span>16세로 낮추자는 주장(교육 정책 당사자인 학생 목소리 반영) vs 반대 주장(<span class="hi-red">16세는 정치적 판단 능력 미흡</span>, 교육감 선거만 예외적으로 낮추는 것은 부적절) — 찬반 논거를 각각 설명할 수 있어야 함.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 2 ================= -->
+<section class="unit" id="u2">
+  <div class="unit-head"><span class="unit-num">02</span><h2>학교생활의 법적 문제</h2></div>
+  <p class="unit-desc">교과서 145~151쪽 · 학교폭력의 이해와 해결 방법 → 학교생활 속 법적 문제와 학교 규칙</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 학교폭력에 대한 이해와 해결</div>
+
+    <div class="block">
+      <h4>학교폭력의 정의</h4>
+      <p><span class="hi-blue">학교폭력</span> = 학교 <span class="hi-red">내외</span>에서 학생을 대상으로 발생한 상해·폭행·감금·협박·약취유인·명예훼손·모욕·공갈·강요·성폭력·따돌림·사이버따돌림·정보통신망 이용 음란·폭력 정보 등에 의한 신체·정신·재산상 피해를 수반하는 행위(「학교폭력 예방 및 대책에 관한 법률」).</p>
+      <div class="tip"><span class="tip-label">시험 포인트</span>가해자가 <span class="hi-red">학생이 아닌 일반 시민이어도</span> 피해자가 학생이면 학교폭력에 해당. 학교 <span class="hi-red">밖</span>에서 벌어진 일도 학교폭력에 포함(밖에서 벌어졌다는 이유로 배제 ✕). 언어폭력·사이버폭력도 유형에 포함.</div>
+    </div>
+
+    <div class="block">
+      <h4>학교폭력을 해결하는 4가지 방법</h4>
+      <table class="cmp">
+        <tr><th>해결 방법</th><th>내용</th></tr>
+        <tr><td><span class="hi-red">행정법적 해결</span></td><td>「학교폭력 예방 및 대책에 관한 법률」에 따라 피해학생 보호, 가해학생 조치, 분쟁 조정</td></tr>
+        <tr><td><span class="hi-red">형법적 해결</span></td><td>가해 학생이 유죄면 상해·폭행·감금·협박·명예훼손·모욕·공갈·강요·강간 등으로 <span class="hi-blue">형사 처벌</span> (단, 14세 미만이면 「소년법」상 보호처분)</td></tr>
+        <tr><td><span class="hi-red">민법적 해결</span></td><td>피해학생이 민사소송으로 신체적·재산적·<span class="hi-blue">정신적 손해 배상</span> 청구 → 가해학생과 그 <span class="hi-blue">감독자</span>(부모 등)도 책임 가능</td></tr>
+        <tr><td><span class="hi-red">교육적 해결</span></td><td>조언·상담·훈계 등 생활교육, <span class="hi-blue">조정</span>·관계회복 프로그램으로 관계 회복·학교공동체 원상회복 지원</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>법적 해결(행정·형법·민법)은 <span class="hi-red">강제력이 있어 효과적이지만, 비용·시간이 많이 들고 감정적 치유가 어렵다</span>는 한계가 있음 — "법적 해결만으로 피해학생의 심리적 상처가 완전히 치유되지는 않는다"가 핵심 문장. 법적 해결은 다른 방법으로 해결 안 될 때 <span class="hi-blue">최후의 수단</span>으로 활용하는 것이 바람직.</div>
+    </div>
+
+    <div class="block">
+      <h4>학교폭력 사안 처리 절차</h4>
+      <div class="flow">
+        <span class="fstep">학교폭력 사안 발생·접수</span><span class="farrow">→</span>
+        <span class="fstep">전담 조사관 사안 조사</span><span class="farrow">→</span>
+        <span class="fstep">전담 기구 심의(학교장 자체해결 요건 충족 여부)</span>
+      </div>
+      <p>요건 충족 + 피해학생·보호자 동의 → <span class="hi-blue">학교장 자체 해결</span> / 요건 미충족 또는 부동의 → <span class="hi-blue">심의위원회 개최 → 교육장 조치 결정</span>(피해학생 보호조치, 가해학생 선도·교육조치, 학생부 기재 등).</p>
+      <p style="font-size:13.5px;color:#6b6153;"><span class="hi-red">교육장의 결정은 행정 처분</span>이므로 이의 시 <span class="hi-blue">행정심판·행정소송</span> 제기 가능. <span class="hi-blue">조정</span>은 강제력이 없어 한쪽이 불응하면 다른 절차로 넘어가야 하는 한계가 있음.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 학교생활 속 법적 문제의 해결</div>
+
+    <div class="block">
+      <h4>학교 내 법적 문제의 사례</h4>
+      <p>대표 사례: <span class="hi-blue">교내 휴대전화 사용</span>(교사의 수업권·다른 학생의 학습권 침해 + 불법촬영·배포로 인한 초상권 침해 문제), <span class="hi-blue">체벌 및 생활지도, 표현의 자유, 교권 침해</span> 등.</p>
+      <div class="reform"><span class="reform-label">법 개정 — 교원의 생활지도권 명시(「초·중등교육법」 개정, 2023)</span>교원의 정당한 생활지도에 불응하고 의도적으로 수업을 방해하는 행위를 <span class="hi-red">새로운 교육활동 침해 유형</span>으로 규정 → 「교원의 지위 향상 및 교육활동 보호를 위한 특별법」에 따라 학교 교권보호위원회가 <span class="hi-red">봉사·출석정지·학급교체</span> 등 조치 가능.</div>
+    </div>
+
+    <div class="block">
+      <h4>학교 규칙을 통한 해결</h4>
+      <p>학교 규칙은 <span class="hi-red">헌법과 법률 등 법령의 범위 내</span>에서 제·개정되어야 함. 학생 대표는 학교생활 관련 의견을 수렴해 <span class="hi-blue">학교 운영 위원회</span>에 제안 가능 — 학생이 학교 규칙 제·개정 과정에 참여함으로써 학교 내 법적 문제 해결에 기여할 수 있음.</p>
+    </div>
+
+    <div class="block">
+      <h4>학생 건강·안전 보장 법률</h4>
+      <table class="cmp">
+        <tr><th>법률</th><th>목적</th></tr>
+        <tr><td>「학교 체육 진흥법」</td><td>체육 활동 촉진, 체력 증진·건강한 성장 지원</td></tr>
+        <tr><td>「학교 급식법」</td><td>급식의 질·안전성 제고, 건강 관리</td></tr>
+        <tr><td>「학교 보건법」</td><td>보건 관리 기준·절차, 건강검사·응급대응</td></tr>
+        <tr><td>「학교 안전사고 예방 및 보상에 관한 법률」</td><td>안전사고 예방 + 사고 발생 시 <span class="hi-blue">공제 급여</span>(요양·장해·간병·유족급여, 장례비) 보상</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 3 ================= -->
+<section class="unit" id="u3">
+  <div class="unit-head"><span class="unit-num">03</span><h2>민주 시민의 법적 문제 해결</h2></div>
+  <p class="unit-desc">교과서 153~163쪽 · 법적 문제 해결에 필요한 4대 자료 → 전동 킥보드 사례로 보는 법해석·입법 절차</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 법적 문제 해결에 필요한 자료의 이해</div>
+
+    <div class="block">
+      <h4>법적 문제 해결의 4대 자료</h4>
+      <table class="cmp">
+        <tr><th>자료</th><th>정의</th></tr>
+        <tr><td><span class="hi-red">법</span></td><td><span class="hi-blue">강제력</span>이 있는 사회 규범(헌법·법률·대통령령·총리령·부령 등). 법적 문제 해결의 <span class="hi-red">1차적 근거</span></td></tr>
+        <tr><td><span class="hi-red">조약</span></td><td>둘 이상 국가가 서명·승인한 국제적 계약. 헌법에 의해 체결·공포된 조약은 <span class="hi-red">국내법과 같은 효력</span></td></tr>
+        <tr><td><span class="hi-red">판례</span></td><td>넓은 의미: 법원의 <span class="hi-blue">모든 실제 재판 사례</span>(재판례·선례) / 좁은 의미: 장래 다른 법원의 법해석에 <span class="hi-blue">지침이 되는 판단</span> — 법적 문제 해결의 <span class="hi-red">보조적 근거</span></td></tr>
+        <tr><td><span class="hi-red">입법자료</span></td><td>법률 제·개정 과정에서 생성되는 문서(법률안 원본, 위원회 검토보고서·회의록 등) — <span class="hi-blue">제·개정 배경과 과정</span> 이해에 중요</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"법은 2차적 근거"(✕, 1차적 근거가 맞음), "좁은 의미 판례=법원의 모든 실제 사례"(✕, 이건 넓은 의미)처럼 정의를 바꿔치기하는 오답 함정이 단원마무리 6번에 출제됨.</div>
+      <p style="font-size:13.5px;color:#6b6153;">검색 경로: 법·조약 → <span class="hi-blue">국가법령정보센터</span>(law.go.kr) / 판례 → <span class="hi-blue">사법정보공개포털</span>·헌법재판소 지능형통합검색 / 입법자료 → <span class="hi-blue">국회 의안정보시스템</span>.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 법적인 관점에서 사회문제 해결하기</div>
+
+    <div class="block">
+      <h4>사례로 보는 4단계 해결 절차 — 전동 킥보드 문제</h4>
+      <div class="flow">
+        <span class="fstep">① 문제 현황 파악</span><span class="farrow">→</span>
+        <span class="fstep">② 법적 자료 조사·해석</span><span class="farrow">→</span>
+        <span class="fstep">③ 해결 방안 모색(개정/입법)</span><span class="farrow">→</span>
+        <span class="fstep">④ 법 이외의 해결 방안 모색</span>
+      </div>
+      <p>전동 킥보드는 <span class="hi-blue">원동기 장치 자전거 중 개인형 이동장치</span>로 분류되어 「도로 교통법」의 규율을 받음.</p>
+      <table class="cmp">
+        <tr><th>시행일</th><th>주요 내용</th></tr>
+        <tr><td><span class="hi-red">2017. 3.</span></td><td>법적 지위: 원동기 장치 자전거(오토바이와 동일 취급) — 차도 통행, 보도 통행 불가</td></tr>
+        <tr><td><span class="hi-red">2020. 12.</span></td><td>개인형 이동장치로 세분화(최고속도 25km/h·중량 30kg 미만) — 자전거도로 통행, <span class="hi-blue">면허 불필요</span>, 13세 미만 운전 금지 신설</td></tr>
+        <tr><td><span class="hi-red">2021. 5.</span></td><td>동승자 탑승 금지·안전모 착용 등 운전자 <span class="hi-blue">주의 의무 부과</span>, 위반 시 범칙금(13세 미만 운전 시 보호자 범칙금)</td></tr>
+      </table>
+      <div class="case"><span class="case-label">판례 포인트 — 전동 킥보드 음주운전</span>대법원은 전동 킥보드가 원동기 장치 자전거의 일종이므로 <span class="hi-red">자동차·원동기 장치 자전거 음주운전 가중처벌 규정이 동일 적용</span>된다고 판시. 다만 음주운전 시 자동차와 동일 기준으로 운전면허를 취소하는 것이 과도한 제재인지는 <span class="hi-blue">하급심 판례가 엇갈림</span>(사회적으로 아직 확립되지 않은 쟁점임을 기억).</div>
+    </div>
+
+    <div class="block">
+      <h4>입법 과정의 유의점</h4>
+      <ul>
+        <li>법이 반드시 필요한 상황인지 판단(사회적 합의·도덕 규범으로 해결 가능한지 우선 검토)</li>
+        <li>특정 집단의 이익만 반영하거나 한쪽 권리를 <span class="hi-red">과도하게 제한하지 않는 균형</span></li>
+        <li><span class="hi-blue">다수 의견뿐 아니라 소수 의견도 고려</span></li>
+        <li>법의 <span class="hi-blue">명확성·법적 안정성</span> 고려</li>
+      </ul>
+      <p>여전히 남은 문제(무단 방치 규제 부재, 무면허 청소년 이용, 단속의 한계)는 <span class="hi-red">법 개정/제정 요구로 이어짐</span> — 입법 제안서는 ①제안 내용 ②예상 반대 의견 ③반론 및 보완점 구조로 작성.</p>
+    </div>
+
+    <div class="block">
+      <h4>법 이외의 보완적 해결 방안</h4>
+      <p>법적 규제만으로 <span class="hi-red">행동 변화를 충분히 이끌어내기 어려운 한계</span> → 교육(안전 교육 강화, 체험형 교육), 홍보 캠페인, 지방자치단체의 지역 맞춤 대응(민·관 협력, 방치 신고 대화방 운영 등)으로 <span class="hi-blue">상호 보완</span>. 딥페이크 성범죄 사례에서도 처벌 강화(법적 대응)만으로 한계가 있어 <span class="hi-blue">교육적·기술적 대응</span>이 함께 필요하다는 논리와 동일한 패턴.</p>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"사회문제는 법적 해결만으로 완전히 해결 가능하다"는 항상 오답. 법 + 교육 + 정책 등 <span class="hi-red">상호 보완적 해결</span>이 핵심 결론임을 서술형에서 반드시 언급.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ================= SUMMARY ================= -->
+<section class="summary-sec" id="summary">
+  <h2>시험 직전 총정리</h2>
+  <p class="sub">단원 마무리(166~167쪽) 기출 유형 기반 최종 점검</p>
+
+  <div class="sum-grid">
+    <div class="sum-card">
+      <h4>01 청소년의 특징과 법적 지위</h4>
+      <ul>
+        <li>법률마다 청소년 연령 기준이 다름 — <b>목적에 따라 범위 설정</b></li>
+        <li>연령별 법적 권리(14~19세) 순서와 내용 암기</li>
+        <li>범법소년(10세미만)·<b>촉법소년(10~14세, 보호처분○형사✕)</b>·범죄소년(14~19세)</li>
+        <li>선거권 연령: <b>1948(21)→1960(20)→2005(19)→2020(18)</b></li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>02 학교생활의 법적 문제</h4>
+      <ul>
+        <li>학교폭력 = 학교 <b>내외</b>, 가해자가 학생 아니어도 성립</li>
+        <li>해결 4방법: 행정법적·형법적·민법적·<b>교육적</b>(법적해결은 최후수단)</li>
+        <li>사안처리: 접수→조사→심의→(동의+요건)학교장자체해결/(미충족)교육장조치</li>
+        <li>학교규칙은 <b>법령 범위 내</b>에서 제개정, 학생 참여 가능</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>03 민주 시민의 법적 문제 해결</h4>
+      <ul>
+        <li>4대 자료: <b>법(1차적근거)·조약·판례(보조적근거)·입법자료</b></li>
+        <li>판례: 넓은의미(모든실제사례) vs 좁은의미(해석지침)</li>
+        <li>전동킥보드 사례: 도로교통법 3단계 개정(2017→2020→2021)</li>
+        <li>입법만으로 부족 — <b>교육·정책 등 상호보완적 해결</b> 필요</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>✔ 최종 자가 점검 체크리스트</h4>
+    <label><input type="checkbox"> 법률별 청소년 연령 기준(아동복지법·청소년보호법·청소년기본법 등)을 구분한다</label>
+    <label><input type="checkbox"> 연령별 법적 권리(14~19세)를 순서대로 설명할 수 있다</label>
+    <label><input type="checkbox"> 범법소년·촉법소년·범죄소년의 연령 기준과 보호처분·형사처벌 여부를 안다</label>
+    <label><input type="checkbox"> 선거권 연령 변천사(21→20→19→18세)를 순서대로 말할 수 있다</label>
+    <label><input type="checkbox"> 학교폭력의 정의(학교 내외, 가해자 무관)를 정확히 안다</label>
+    <label><input type="checkbox"> 학교폭력 4가지 해결방법과 각각의 효과·한계를 설명할 수 있다</label>
+    <label><input type="checkbox"> 학교폭력 사안처리절차(학교장자체해결 vs 심의위원회) 분기점을 안다</label>
+    <label><input type="checkbox"> 법·조약·판례·입법자료 4대 자료의 정의와 근거로서의 위상(1차적/보조적)을 구분한다</label>
+    <label><input type="checkbox"> 법적 해결의 한계와 교육·정책 등 상호보완적 해결의 필요성을 서술할 수 있다</label>
+  </div>
+</section>
+
+<footer>KANGWOO ENGLISH 자료 시리즈 · 비상교육 22개정 「법과 사회」 4단원 기반 · 원문 인용 없이 재구성</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+
+<script>
+(function(){
+  const input = document.getElementById('searchInput');
+  const countEl = document.getElementById('searchCount');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let marks = [];
+  let currentIdx = -1;
+
+  function clearMarks(){
+    document.querySelectorAll('mark.hit').forEach(m=>{
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+    marks = [];
+    currentIdx = -1;
+  }
+
+  function walkAndMark(term){
+    const regex = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    const container = document.querySelector('.wrap');
+    const summarySec = document.getElementById('summary');
+    const roots = [container, summarySec];
+    roots.forEach(root=>{
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node){
+          if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if(node.parentNode.closest('script,style')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      let n;
+      while(n = walker.nextNode()) nodes.push(n);
+      nodes.forEach(node=>{
+        const text = node.nodeValue;
+        if(!regex.test(text)) return;
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+        while((match = regex.exec(text)) !== null){
+          if(match.index > lastIndex){
+            frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          }
+          const mark = document.createElement('mark');
+          mark.className = 'hit';
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          lastIndex = match.index + match[0].length;
+        }
+        if(lastIndex < text.length){
+          frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  function doSearch(){
+    clearMarks();
+    const term = input.value.trim();
+    if(!term){
+      countEl.textContent = '';
+      return;
+    }
+    walkAndMark(term);
+    marks = Array.from(document.querySelectorAll('mark.hit'));
+    if(marks.length === 0){
+      countEl.textContent = '검색 결과 없음';
+      return;
+    }
+    currentIdx = 0;
+    updateCurrent();
+  }
+
+  function updateCurrent(){
+    marks.forEach(m=>m.classList.remove('current'));
+    if(marks.length === 0) return;
+    const m = marks[currentIdx];
+    m.classList.add('current');
+    m.scrollIntoView({behavior:'smooth', block:'center'});
+    countEl.textContent = (currentIdx+1) + ' / ' + marks.length;
+  }
+
+  input.addEventListener('input', doSearch);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      if(marks.length){
+        currentIdx = (currentIdx + 1) % marks.length;
+        updateCurrent();
+      }
+    }
+  });
+  nextBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx + 1) % marks.length;
+    updateCurrent();
+  });
+  prevBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx - 1 + marks.length) % marks.length;
+    updateCurrent();
+  });
+})();
+</script>
+
+</body>
+</html>

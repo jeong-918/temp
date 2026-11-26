@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>법과 사회 시험대비 통합노트 (1~4단원)</title>
+<style>
+:root{
+  --navy:#0b1220;
+  --navy2:#101a2e;
+  --navy3:#16213a;
+  --line:#243252;
+  --gold:#e0b64f;
+  --gold-soft:#f1d891;
+  --text:#e8ecf6;
+  --text-dim:#9fb0cf;
+  --red:#ff6b6b;
+  --red-bg:#3a1a22;
+  --orange:#ffb454;
+  --orange-bg:#3a2a14;
+  --green:#7ee0a8;
+  --green-bg:#123227;
+  --blue:#7fb8ff;
+  --blue-bg:#122a44;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:"Pretendard","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Malgun Gothic",sans-serif;
+  background:var(--navy);
+  color:var(--text);
+  line-height:1.65;
+}
+a{color:var(--gold-soft);}
+
+/* ===== Sticky search bar ===== */
+#searchBar{
+  position:sticky; top:0; z-index:100;
+  background:linear-gradient(180deg,var(--navy2) 0%, var(--navy2) 85%, transparent 100%);
+  backdrop-filter:blur(6px);
+  padding:10px 14px 16px;
+  border-bottom:1px solid var(--line);
+}
+#searchBar .inner{max-width:960px;margin:0 auto;display:flex;gap:8px;align-items:center;}
+#searchInput{
+  flex:1;
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--navy3);
+  color:var(--text);
+  font-size:15px;
+}
+#searchInput:focus{outline:2px solid var(--gold);}
+.search-nav-btn{
+  background:var(--navy3);
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:8px;
+  padding:9px 12px;
+  cursor:pointer;
+  font-size:14px;
+}
+.search-nav-btn:hover{border-color:var(--gold);}
+#searchCount{font-size:13px;color:var(--text-dim);min-width:56px;text-align:center;}
+mark.hit{background:var(--gold);color:#1a1206;border-radius:3px;padding:0 1px;}
+mark.hit.current{background:var(--red);color:#fff;}
+
+/* ===== Header ===== */
+header{max-width:960px;margin:0 auto;padding:28px 18px 8px;text-align:center;}
+header h1{
+  font-size:26px;margin:0 0 6px;color:var(--gold-soft);
+  letter-spacing:.5px;
+}
+header p{color:var(--text-dim);margin:0;font-size:14px;}
+
+/* ===== Metro map unit nav ===== */
+nav.metro{max-width:1000px;margin:22px auto 10px;padding:0 14px;}
+.metro-track{
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;
+}
+.metro-track::before{
+  content:"";position:absolute;left:5%;right:5%;top:22px;height:3px;
+  background:linear-gradient(90deg,#c0392b,#2980b9,#27ae60,#8e44ad);
+  opacity:.6;z-index:0;
+}
+.metro-stop{
+  flex:1;text-align:center;position:relative;z-index:1;
+  text-decoration:none;color:var(--text);
+}
+.metro-dot{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 6px;font-weight:700;font-size:15px;
+  border:3px solid var(--navy);
+  color:#fff;
+}
+.metro-stop:nth-child(1) .metro-dot{background:#c0392b;}
+.metro-stop:nth-child(2) .metro-dot{background:#2980b9;}
+.metro-stop:nth-child(3) .metro-dot{background:#27ae60;}
+.metro-stop:nth-child(4) .metro-dot{background:#8e44ad;}
+.metro-label{font-size:13px;color:var(--text-dim);}
+.metro-stop:hover .metro-label{color:var(--gold-soft);}
+
+/* ===== Layout ===== */
+main{max-width:900px;margin:0 auto;padding:20px 16px 80px;}
+.unit-block{margin-top:56px;}
+.unit-title{
+  display:flex;align-items:baseline;gap:10px;
+  border-bottom:3px solid var(--gold);
+  padding-bottom:10px;margin-bottom:18px;
+}
+.unit-title .num{font-size:14px;color:var(--navy);background:var(--gold);border-radius:6px;padding:3px 9px;font-weight:700;}
+.unit-title h2{font-size:22px;margin:0;color:#fff;}
+
+.chapter{
+  background:var(--navy2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px 20px 22px;
+  margin-bottom:22px;
+}
+.chapter h3{
+  margin:0 0 14px;font-size:18px;color:var(--gold-soft);
+  display:flex;align-items:center;gap:8px;
+}
+.chapter h3 .chip{
+  font-size:11px;background:var(--navy3);border:1px solid var(--line);
+  color:var(--text-dim);padding:2px 8px;border-radius:20px;font-weight:400;
+}
+.chapter h4{font-size:15px;color:var(--text);margin:18px 0 8px;border-left:3px solid var(--gold);padding-left:8px;}
+
+/* concept list */
+ul.concepts{margin:0 0 4px;padding-left:20px;}
+ul.concepts li{margin-bottom:6px;font-size:14.5px;}
+ul.concepts b{color:var(--gold-soft);}
+ul.concepts small{color:var(--text-dim);}
+
+/* importance tags */
+.tag{
+  display:inline-block;font-size:11px;font-weight:700;border-radius:5px;
+  padding:1px 6px;margin-right:6px;vertical-align:middle;
+}
+.tag.high{background:var(--red-bg);color:var(--red);border:1px solid var(--red);}
+.tag.mid{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange);}
+.tag.low{background:var(--green-bg);color:var(--green);border:1px solid var(--green);}
+
+/* callout boxes */
+.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:14px;}
+.box-tip{background:var(--blue-bg);border:1px solid #2a5c99;}
+.box-tip .label{color:var(--blue);font-weight:700;font-size:12.5px;margin-bottom:6px;display:block;}
+.box-warn{background:var(--red-bg);border:1px solid #8a3030;}
+.box-warn .label{color:var(--red);font-weight:700;font-size:12.5px;margin-bottom:6px;display:block;}
+.box-law{background:var(--navy3);border:1px dashed var(--line);font-family:"Noto Serif KR",serif;font-size:13.5px;color:var(--text-dim);}
+.box-law .label{color:var(--gold-soft);font-weight:700;font-size:12px;margin-bottom:6px;display:block;font-family:inherit;}
+
+/* confusion compare table */
+.compare{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;}
+.compare th{background:var(--navy3);color:var(--gold-soft);padding:8px 10px;text-align:left;border:1px solid var(--line);}
+.compare td{padding:8px 10px;border:1px solid var(--line);vertical-align:top;}
+.compare tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+/* checklist */
+.checklist{list-style:none;padding:0;margin:10px 0;}
+.checklist li{
+  display:flex;gap:8px;padding:6px 0;font-size:14px;border-bottom:1px solid var(--line);
+}
+.checklist li::before{content:"☐";color:var(--gold);flex-shrink:0;}
+
+/* summary / final section */
+.final{
+  margin-top:60px;padding:26px;border-radius:16px;
+  background:linear-gradient(135deg,var(--navy3),var(--navy2));
+  border:1px solid var(--gold);
+}
+.final h2{color:var(--gold-soft);margin-top:0;}
+.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:700px){.final-grid{grid-template-columns:1fr;}}
+.final-card{background:var(--navy2);border:1px solid var(--line);border-radius:10px;padding:14px;}
+.final-card h4{margin:0 0 8px;color:var(--gold-soft);font-size:14.5px;}
+.final-card ul{margin:0;padding-left:18px;font-size:13.5px;}
+
+footer{text-align:center;color:var(--text-dim);font-size:12px;padding:30px 16px 60px;}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;}
+
+.back-top{
+  position:fixed;bottom:20px;right:20px;
+  background:var(--gold);color:var(--navy);
+  border:none;border-radius:50%;width:44px;height:44px;
+  font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.4);
+  display:none;z-index:99;
+}
+</style>
+</head>
+<body>
+
+<div id="searchBar">
+  <div class="inner">
+    <input type="text" id="searchInput" placeholder="🔍 용어·개념 검색 (예: 친양자, 죄형 법정주의, 대항력...)">
+    <button class="search-nav-btn" id="prevBtn">◀ 이전</button>
+    <span id="searchCount">0 / 0</span>
+    <button class="search-nav-btn" id="nextBtn">다음 ▶</button>
+  </div>
+</div>
+
+<header>
+  <h1>법과 사회 시험대비 통합노트</h1>
+  <p>비상교육 22개정 고등 법과 사회 · 1~4단원 통합 · 세부 분석 &amp; 시험 포인트</p>
+</header>
+
+<nav class="metro">
+  <div class="metro-track">
+    <a class="metro-stop" href="#unit1"><div class="metro-dot">Ⅰ</div><div class="metro-label">개인 생활과 법</div></a>
+    <a class="metro-stop" href="#unit2"><div class="metro-dot">Ⅱ</div><div class="metro-label">국가 생활과 법</div></a>
+    <a class="metro-stop" href="#unit3"><div class="metro-dot">Ⅲ</div><div class="metro-label">사회생활과 법</div></a>
+    <a class="metro-stop" href="#unit4"><div class="metro-dot">Ⅳ</div><div class="metro-label">학교생활과 법</div></a>
+  </div>
+</nav>
+
+<main id="content">
+
+<section class="unit-block" id="unit1">
+  <div class="unit-title"><span class="num">UNIT Ⅰ</span><h2>개인 생활과 법</h2></div>
+
+  <div class="chapter" id="u1c1">
+    <h3>01 가족생활과 법 <span class="chip">혼인·이혼·친자·상속</span></h3>
+
+    <h4>① 부부간의 법률관계</h4>
+    <ul class="concepts">
+      <li><b>법률관계</b>: 법의 규율 대상이 되는 생활관계 (↔ 호의관계: 법적 의무 없음) <small>비교 포인트</small></li>
+      <li><b>민법</b>: 개인 간 법률관계(재산관계·가족관계) 규율 → <b>사적 자치의 원칙(=계약 자유의 원칙)</b>이 기본 원리</li>
+      <li><b>민법 구조</b>: 재산법(총칙·물권·채권) + 가족법(친족·상속)</li>
+      <li><b>혼인 성립 요건</b>: 18세 이상(미성년자는 부모 동의) + 혼인 의사 + 근친 아님 + <b>혼인 신고</b> 필수 → 신고 없으면 <b>사실혼</b>(제한적 보호)</li>
+      <li><b>혼인의 효과</b>: 친족관계 발생, 부양·협조 의무, <b>미성년자 혼인 시 성년 의제</b>, 부부 별산제(원칙), 일상 가사 대리권·연대 채무</li>
+      <li><b>이혼</b>: 협의 이혼(이혼 숙려 기간 → 이혼 신고 시 효력) / 재판상 이혼(민법 제840조 사유 필요 → 판결 확정 시 효력)</li>
+      <li><b>이혼의 효과</b>: 친족관계 소멸(부모-자녀 관계는 유지), <b>면접교섭권</b>, <b>재산분할청구권</b>, 위자료청구권</li>
+    </ul>
+    <div class="box box-warn"><span class="label">⚠ 자주 틀리는 포인트</span>부부 별산제는 "별도 약정이 <b>없을 때</b>" 적용 / 혼인 중 부부 협력 취득 재산은 명의와 무관하게 <b>공동재산</b> 인정 / 일상가사 채무는 부부 <b>연대책임</b>(남편만 X)</div>
+
+    <h4>② 부모와 자녀 간의 법률관계</h4>
+    <ul class="concepts">
+      <li><b>친자관계</b>: 혈연(친생자) 또는 입양(양자)으로 형성</li>
+      <li><b>친생자</b> = 혼인 중의 출생자(법률혼) + 혼인 외의 출생자(모: 출산으로 당연 인정 / 부: <b>인지</b> 필요)</li>
+      <li><b>일반 입양</b>: 합의 필요(미성년자 입양은 가정법원 허가) → 양자는 양부모 친생자와 같은 지위 <b>+ 친생부모와 친족관계 유지</b>(상속권 有)</li>
+      <li><b>친양자</b>: 가정법원 인가 → 양부모의 혼인 중 자녀로 간주, 양부모 성·본 따름, <b>친생부모와 친족관계 종료</b> <span class="tag high">최다출제</span></li>
+      <li><b>친권</b>: 부모가 미성년 자녀에게 갖는 신분·재산상 권리·의무 (오늘날 '의무'적 성격 강조) → 자녀 복리 최우선, 부모 공동행사 원칙</li>
+    </ul>
+    <div class="box box-tip"><span class="label">💡 비교 포인트: 일반입양 vs 친양자</span>일반입양=친생부모와 관계 유지·상속권 존재 / 친양자=친생부모와 관계 <b>단절</b>·양부모 성본 사용</div>
+
+    <h4>③ 유언과 상속</h4>
+    <ul class="concepts">
+      <li><b>유언</b>: 사후 재산관계를 미리 정하는 법률행위, <b>17세 이상</b>이면 가능, 5가지 법정 방식(자필증서·녹음·공정증서·비밀증서·구수증서) 중 하나로만 유효</li>
+      <li><b>유류분</b>: 유언과 무관하게 일정 상속인에게 보장되는 최소한의 상속분</li>
+      <li><b>법정 상속 순위</b>: 1순위 직계비속 → 2순위 직계존속 → 3순위 형제자매 → 4순위 4촌 이내 방계혈족 / <b>배우자</b>는 1·2순위와 공동상속(선순위자 없으면 단독상속), 공동상속 시 <b>50% 가산</b></li>
+      <li><b>상속의 승인·포기</b>: 상속에는 재산뿐 아니라 <b>채무도 포함</b> → 단순승인/포기/한정승인 선택 가능(가정법원 청구)</li>
+      <li><b>2026년 시행 개정 민법</b>: 양육 의무를 저버리거나 학대한 부모의 <b>상속권 상실 선고</b> 제도 신설(제1004조의2) <span class="tag mid">최신 개정</span></li>
+    </ul>
+    <table class="compare">
+      <tr><th>순위</th><th>상속인</th><th>비고</th></tr>
+      <tr><td>1순위</td><td>직계비속(+배우자)</td><td>배우자는 50% 가산</td></tr>
+      <tr><td>2순위</td><td>직계존속(+배우자)</td><td>1순위 없을 때</td></tr>
+      <tr><td>3순위</td><td>형제자매</td><td>1·2순위 없을 때</td></tr>
+      <tr><td>4순위</td><td>4촌 이내 방계혈족</td><td>1~3순위 없을 때</td></tr>
+    </table>
+
+    <ul class="checklist">
+      <li>혼인 성립요건 4가지 + 신고주의 설명 가능</li>
+      <li>협의이혼 vs 재판상이혼 절차·효력 발생 시점 구분</li>
+      <li>일반입양과 친양자의 차이(친생부모와의 관계) 설명 가능</li>
+      <li>법정상속순위 및 배우자 상속분 계산 가능</li>
+      <li>유류분·상속포기·한정승인 개념 구분</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u1c2">
+    <h3>02 계약과 불법 행위 <span class="chip">계약 성립·채권채무·불법행위</span></h3>
+
+    <h4>① 계약의 성립과 효력</h4>
+    <ul class="concepts">
+      <li><b>계약</b>: 청약 + 승낙의 합치로 성립(계약서 작성은 성립 요건 아님, 증거자료 기능) — <b>계약 자유의 원칙</b></li>
+      <li><b>근대민법 3대원칙 → 수정</b>: 소유권 절대 원칙→소유권 상대화 / 계약자유 원칙→일부 제한(공서양속 위반 시 무효) / 과실책임 원칙→무과실책임 부분 도입 <span class="tag high">최다출제</span></li>
+      <li><b>계약의 효력</b>: 채권(청구할 권리) ↔ 채무(이행할 의무) 발생, 동시이행 관계는 <b>임의규정</b>(당사자 합의로 변경 가능)</li>
+      <li><b>채무불이행</b>: 강제이행 청구, 손해배상 청구, 계약 해제 가능</li>
+      <li><b>미성년자 계약</b>: 원칙적으로 법정대리인 동의 필요 → 동의 없으면 <b>취소 가능</b>(유효하지만 취소권 존재) / 단, <b>속임수(동의서·신분증 위조)</b> 사용 시 취소 불가 / 용돈 처분, 허락된 영업, 임금 청구는 동의 불요</li>
+      <li>상대방 보호: 확답 촉구권, (미성년자측 미추인 시) 상대방의 <b>철회권</b></li>
+    </ul>
+
+    <h4>② 불법 행위와 손해배상</h4>
+    <ul class="concepts">
+      <li><b>불법행위 성립요건 5가지</b>: ①고의·과실 ②위법성(정당방위·긴급피난 등은 <b>위법성 조각</b>) ③손해 발생 ④상당인과관계 ⑤책임능력 <span class="tag high">최다출제</span></li>
+      <li><b>손해배상</b>: 금전배상 원칙, 재산적 손해(적극적+소극적) + 정신적 손해(위자료) 모두 배상</li>
+      <li><b>특수불법행위</b>(자기 고의·과실 없어도 책임): 감독자책임/사용자책임/공작물책임/동물점유자책임 — 모두 <b>"상당한 주의를 다했음을 증명하면 면책"</b> 구조 공통</li>
+      <li><b>2026년 개정</b>: 미성년자 성적 침해 손해배상청구권의 소멸시효는 <b>성년이 될 때까지 정지</b></li>
+    </ul>
+    <table class="compare">
+      <tr><th>유형</th><th>책임자</th><th>면책 요건</th></tr>
+      <tr><td>감독자책임</td><td>책임무능력자의 감독의무자</td><td>감독 소홀 없었음 증명</td></tr>
+      <tr><td>사용자책임</td><td>사용자</td><td>선임·감독 주의 증명</td></tr>
+      <tr><td>공작물책임</td><td>점유자→(면책 시)소유자</td><td>점유자만 면책 가능(소유자는 무과실책임)</td></tr>
+      <tr><td>동물점유자책임</td><td>동물 점유자</td><td>보호·관리 주의 증명</td></tr>
+    </table>
+    <div class="box box-warn"><span class="label">⚠ 헷갈리기 쉬움</span>공작물 책임은 점유자가 면책되면 <b>소유자가 무과실책임</b>을 짐(소유자는 면책 불가) — 다른 유형과 차이</div>
+
+    <ul class="checklist">
+      <li>근대민법 3원칙과 현대적 수정 내용 짝짓기</li>
+      <li>미성년자 계약 취소 가능/불가능 사례 구분(속임수 여부)</li>
+      <li>불법행위 성립요건 5단계 순서대로 서술</li>
+      <li>정당방위·긴급피난·자구행위·피해자승낙 구분</li>
+      <li>특수불법행위 4유형과 면책요건 비교</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u1c3">
+    <h3>03 재산 관계와 법 <span class="chip">부동산·등기·임대차·담보</span></h3>
+
+    <h4>① 부동산 거래와 등기 제도</h4>
+    <ul class="concepts">
+      <li><b>물권</b>: 물건을 직접 지배하는 권리 (↔채권: 특정인에 대한 청구권, 당사자 간에만 효력) — 물권은 종류·내용 임의로 정할 수 없음(물권법정주의)</li>
+      <li><b>소유권</b>: 사용·수익·처분 모두 가능 / 제한물권(용익물권: 지상권·지역권·전세권, 담보물권: 유치권·질권·저당권)</li>
+      <li><b>부동산 vs 동산</b>: 부동산=토지+정착물(등기로 공시) / 동산=그 외(점유로 공시)</li>
+      <li><b>부동산 매매 계약</b>: 매도인(소유권 이전의무)-매수인(대금지급의무) / <b>소유권 취득 시점 = 등기 완료 시</b>(대금 지급·인도만으로는 소유권 취득 X, 민법 제186조) <span class="tag high">최다출제</span></li>
+      <li><b>등기부 구성</b>: 표제부(소재지·면적·구조) / 갑구(소유권 관련사항) / 을구(소유권 이외 권리: 저당권·전세권 등)</li>
+    </ul>
+    <div class="box box-tip"><span class="label">💡 시험포인트</span>등기부 갑구·을구·표제부 그림 문제 단골 출제 — "소유권"→갑구, "저당권·전세권"→을구, "면적·구조"→표제부</div>
+
+    <h4>② 주택 임대차와 임차인의 권리 보호</h4>
+    <ul class="concepts">
+      <li><b>주택 임대차</b>: 임대인(빌려줌)-임차인(빌림, 대가 지급) / 임차인은 원칙적으로 <b>물권 없는 채권자</b> → 「주택임대차보호법」으로 특별 보호</li>
+      <li><b>계약갱신요구권</b>: 임차인 1회 행사 가능, 임대인은 정당한 사유 없이 거절 불가</li>
+      <li><b>대항력</b>: 주택 인도 + 전입신고(다음 날 0시부터 발생) → 소유자 변경돼도 계속 거주 가능</li>
+      <li><b>우선변제권</b>: 대항력 + <b>확정일자</b> → 경매 시 우선순위에 따라 보증금 변제 <span class="tag high">최다출제 공식</span></li>
+      <li><b>임차권등기명령</b>: 이사 후에도 대항력·우선변제권 유지하기 위한 제도</li>
+    </ul>
+    <div class="box box-law"><span class="label">공식 암기</span>실거주+전입신고 = <b>대항력</b> &nbsp;|&nbsp; 대항력+확정일자 = <b>우선변제권</b></div>
+
+    <h4>③ 채권의 담보 제도</h4>
+    <ul class="concepts">
+      <li><b>인적 담보(보증)</b>: 채무자 아닌 타인이 대신 이행 — 서면 계약 필수, 채권 실현 확실성 상대적으로 <b>낮음</b></li>
+      <li><b>물적 담보(저당권)</b>: 특정 재산에서 우선 변제 — 저당권 설정 합의 + <b>등기</b> 필요, 먼저 등기한 저당권자가 우선</li>
+      <li><b>근저당권</b>: 채권최고액 범위 내 불특정 다수 채권 담보(일반 저당권보다 유연, 실무상 일반적)</li>
+    </ul>
+
+    <ul class="checklist">
+      <li>물권과 채권의 차이(효력 범위) 설명 가능</li>
+      <li>부동산 소유권 취득 시점(등기 시) 정확히 알기</li>
+      <li>등기부 갑구·을구·표제부 구분</li>
+      <li>대항력·우선변제권 성립 요건과 발생 순서 암기</li>
+      <li>인적담보(보증)와 물적담보(저당권) 비교</li>
+    </ul>
+  </div>
+
+  <div class="box box-tip" style="margin-top:26px;">
+    <span class="label">📌 Ⅰ단원 통합 시험 포인트</span>
+    1단원은 <b>혼인·이혼·상속</b>(가족관계)과 <b>계약·불법행위</b>(재산관계), <b>부동산·임대차</b>가 3대 축입니다. 특히 "대항력+확정일자=우선변제권" 공식과 "불법행위 5요건", "친양자 vs 일반입양"은 매년 빠지지 않는 단골 문제입니다.
+  </div>
+</section>
+
+<section class="unit-block" id="unit2">
+  <div class="unit-title"><span class="num">UNIT Ⅱ</span><h2>국가 생활과 법</h2></div>
+
+  <div class="chapter" id="u2c1">
+    <h3>01 국가 운영 원리 <span class="chip">민주주의·법치주의·권력분립</span></h3>
+    <ul class="concepts">
+      <li><b>민주주의</b>: 국민 뜻에 따라 국가 의사 결정(목적=인간 존엄성) / <b>법치주의</b>: 법에 근거해 국가기관 구성·운영(목적=자유·권리 보장) — 둘 다 <b>헌법의 기본원리</b></li>
+      <li>발전과정: 고대 아테네(직접민주정, 시민권=성인남성 한정) → 근대 시민혁명(명예혁명·미국독립혁명·프랑스혁명, 대의제·법치주의·입헌주의 성립) → 현대(보통선거, 직접민주제 요소 도입, <b>실질적 법치주의</b> 대두)</li>
+      <li><b>사회계약설 3인 비교</b> <span class="tag high">최다출제</span>: 홉스(자연상태=투쟁, 전부 양도·회수불가) / 로크(자연상태=자유·평등이나 불안정, 일부 위임·저항권 인정) / 루소(자연상태=자유·평화, 일반의지로 통합·양도불가)</li>
+      <li><b>직접민주제 요소</b>: 국민투표/국민발안/국민소환 — 우리나라는 <b>국민투표만</b> 인정</li>
+      <li><b>민주주의-법치주의 관계</b>: 상호보완 원칙이나 긴장관계 가능 → 민주주의 결여된 법치주의=독재의 합법화 도구 / 법치주의 결여된 민주주의=포퓰리즘</li>
+      <li><b>권력분립</b>: 입법권(국회)-행정권(대통령·행정부)-사법권(법원) 분리, 상호 견제·균형 → 목적은 <b>권력 남용 방지·국민 자유권 보장</b></li>
+      <li><b>헌법재판소</b>: 위헌법률심판, 헌법소원심판, 탄핵심판, 정당해산심판, 권한쟁의심판(5가지) 담당</li>
+    </ul>
+    <table class="compare">
+      <tr><th>구분</th><th>홉스</th><th>로크</th><th>루소</th></tr>
+      <tr><td>자연상태</td><td>투쟁(악한 존재)</td><td>자유·평등하나 불안정</td><td>자유·평화(선한 존재)</td></tr>
+      <tr><td>주권 양도</td><td>전부 양도, 회수 불가</td><td>일부 위임, 저항권 인정</td><td>일반의지로 통합, 양도·대표 불가</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>홉스·로크·루소 사회계약설 비교표 암기</li>
+      <li>고대~근대~현대 민주주의 발전과정 순서</li>
+      <li>우리나라 국가기관 간 견제수단(위헌법률심판제청권 등) 그림 이해</li>
+      <li>헌법재판소 5가지 심판 유형 암기</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u2c2">
+    <h3>02 우리나라 헌법 <span class="chip">헌법 기본원리·기본권</span></h3>
+    <ul class="concepts">
+      <li><b>헌법의 기능</b>: 국가창설, 기본권보장(목적), 국가기관 구성·운영(수단), 공동체 유지·통합, 정치적 평화 실현</li>
+      <li><b>헌법 기본원리 5가지</b> <span class="tag high">최다출제</span>: 민주주의 원리 / 법치주의 원리 / 복지국가 원리(사회권 보장) / 문화국가 원리(문화 자율성) / 평화주의 원리(국제평화+평화통일)</li>
+      <li><b>기본권 유형 5가지</b>: 자유권(포괄적·소극적, 가장 오래됨) / 참정권(능동적) / 사회권(적극적, 가장 최근 등장) / 청구권(수단적·절차적 권리) / 평등권(전제조건)</li>
+      <li><b>기본권 제한의 요건</b>(헌법 제37조 제2항): 목적요건(국가안전보장·질서유지·공공복리) + 형식요건(법률로써) + 방법요건(<b>과잉금지원칙</b>=목적정당성·수단적합성·피해최소성·법익균형성)</li>
+      <li><b>기본권 제한의 한계</b>: 제한하더라도 <b>본질적 내용 침해 불가</b></li>
+      <li><b>국민의 기본의무</b>: 근대형(납세·국방) + 현대형(교육·근로·재산권행사공공복리적합·환경보전)</li>
+    </ul>
+    <div class="box box-tip"><span class="label">💡 헌법 전문 분석 문제 단골</span>헌법 전문에서 "민주개혁"→민주주의, "평화적 통일"→평화주의, "국민생활 균등향상"→복지국가, "문화의 모든 영역"→문화국가 식으로 키워드 매칭 문제가 자주 출제됨</div>
+    <table class="compare">
+      <tr><th>기본권</th><th>성격</th><th>대표 조항</th></tr>
+      <tr><td>자유권</td><td>소극적·방어적, 포괄적</td><td>신체의 자유(12조) 등</td></tr>
+      <tr><td>참정권</td><td>능동적</td><td>선거권(24조)</td></tr>
+      <tr><td>사회권</td><td>적극적, 최근 등장</td><td>인간다운 생활(34조)</td></tr>
+      <tr><td>청구권</td><td>수단적·절차적</td><td>재판청구권(27조)</td></tr>
+      <tr><td>평등권</td><td>전제조건(상대적·실질적 평등)</td><td>평등(11조)</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>헌법 5대 기본원리와 구현 사례 매칭</li>
+      <li>기본권 5유형과 특성(포괄적/능동적/적극적/수단적/전제적) 구분</li>
+      <li>과잉금지원칙 4요소(목적정당성·수단적합성·피해최소성·법익균형성) 순서대로 서술</li>
+      <li>국민 기본의무 6가지(근대형 2 + 현대형 4) 암기</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u2c3">
+    <h3>03 형법과 형사 절차 <span class="chip">죄형법정주의·범죄성립·형사절차</span></h3>
+    <ul class="concepts">
+      <li><b>죄형법정주의</b>: "법률이 없으면 범죄도 형벌도 없다" → 현대는 <b>"적정한 법률이 없으면..."</b>(실질적 법치주의 반영)</li>
+      <li><b>파생원칙 4가지</b> <span class="tag high">최다출제</span>: 관습형법금지 / 소급효금지(행위자 유리하면 예외 허용) / 명확성 / 유추해석금지 — 모두 <b>행위자에게 유리한 경우는 예외 인정</b></li>
+      <li><b>범죄 3단계 성립요건</b>: ①구성요건해당성 ②위법성(정당방위·긴급피난·자구행위·피해자승낙·정당행위 시 <b>조각</b>) ③책임(14세 미만·심신상실자·강요된 행위는 <b>책임조각</b>, 심신미약·청각언어장애는 형 감경만)</li>
+      <li><b>형벌의 종류(9가지)</b>: 생명형(사형) / 자유형(징역·금고·구류) / 명예형(자격상실·자격정지) / 재산형(벌금·과료·몰수)</li>
+      <li><b>보안처분</b>: 형벌과 별개(재사회화 목적, 미래 위험성 대응) — 보호관찰·치료감호·사회봉사명령·수강명령 등</li>
+      <li><b>형사절차 흐름</b>: 수사(고소/고발/인지) → 검찰 송치·불송치 → 기소/불기소 → 공판(모두절차→심리절차→판결선고) → 형 집행</li>
+      <li><b>인권보장 원칙</b>: 적법절차원칙, 진술거부권, 변호인 조력권, 무죄추정원칙(미란다원칙 포함)</li>
+      <li><b>인권보장 제도</b>: 구속전피의자심문(=영장실질심사), 구속적부심, 보석제도, 공개재판주의, 증거재판주의, 불이익변경금지원칙, 일사부재리원칙</li>
+      <li><b>피해자·형사구제 제도</b>: 배상명령제도, 범죄피해자구조제도, 형사보상제도, 명예회복제도</li>
+    </ul>
+    <table class="compare">
+      <tr><th>구분</th><th>형벌</th><th>보안처분</th></tr>
+      <tr><td>기준</td><td>과거 행위</td><td>장래 위험성</td></tr>
+      <tr><td>목적</td><td>응보·예방</td><td>재사회화</td></tr>
+    </table>
+    <div class="box box-warn"><span class="label">⚠ 정확히 구분</span>구속 전 피의자 심문(수사단계, 영장청구 시) vs 구속 적부심(피의자·변호인 청구로 석방 심사) vs 보석(기소 후 재판단계에서만 가능)</div>
+    <ul class="checklist">
+      <li>죄형법정주의 파생원칙 4가지와 예외(유리한 경우) 암기</li>
+      <li>범죄 3단계 성립요건 순서 및 조각사유 구분</li>
+      <li>형벌 9종류(4대 분류) 암기</li>
+      <li>형사절차 흐름도(수사→기소→공판→형집행) 순서 암기</li>
+      <li>구속전피의자심문·구속적부심·보석 차이 구분</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u2c4">
+    <h3>04 사법의 의미와 한계 <span class="chip">법원·헌법재판소·법적삼단논법</span></h3>
+    <ul class="concepts">
+      <li><b>사법권의 독립</b>: 법원 조직 독자적 구성, 법관 신분 강하게 보장(헌법과 법률·양심에 따라 심판)</li>
+      <li><b>법원 조직</b>: 대법원(대법원장+대법관) - 고등법원 - 지방법원(+특허법원·군사법원·가정법원·행정법원·회생법원)</li>
+      <li><b>심급제도(3심제)</b>: 1심(지방법원 단독/합의부) → 2심(지방법원본원합의부 또는 고등법원) → 3심(대법원, 상고·재항고)</li>
+      <li><b>헌법재판소</b>: 재판관 9명(대통령 임명, 국회 선출 3+대법원장 지명 3+대통령 임명 3), 소장은 대통령이 국회 동의 얻어 재판관 중 임명</li>
+      <li><b>헌법재판소 5대 심판</b>: 위헌법률심판 / 헌법소원심판(권리구제형·위헌심사형) / 탄핵심판 / 정당해산심판 / 권한쟁의심판</li>
+      <li><b>의결정족수</b>: 위헌결정·탄핵결정·정당해산결정·헌법소원 인용 = <b>6명 이상 찬성</b> / 권한쟁의심판 = 과반수 찬성</li>
+      <li><b>헌법불합치결정</b>: 위헌이지만 즉시 무효화 시 혼란 → 법 개정 전까지 한시적 존속시키는 변형결정</li>
+      <li><b>법적 삼단논법</b>: 대전제(법규범) + 소전제(사실관계 확정) → 결론 도출</li>
+      <li><b>사법 vs 입법·행정</b>: 사법은 <b>소극적·수동적</b>(분쟁 발생 시에만 작동) / 입법·행정은 적극적·능동적</li>
+    </ul>
+    <ul class="checklist">
+      <li>3심제 흐름과 관할 법원(지방법원→고등법원→대법원) 암기</li>
+      <li>헌법재판소 5대 심판과 청구 요건 구분</li>
+      <li>위헌결정 등 의결정족수(6명 이상) 암기</li>
+      <li>헌법불합치결정의 의미와 필요성 설명 가능</li>
+      <li>법적삼단논법 구조(대전제-소전제-결론) 적용 문제 연습</li>
+    </ul>
+  </div>
+
+  <div class="box box-tip" style="margin-top:26px;">
+    <span class="label">📌 Ⅱ단원 통합 시험 포인트</span>
+    사회계약설 비교, 헌법 기본원리 5가지, 죄형법정주의 파생원칙, 헌법재판소 심판 유형은 <b>서술형 단골</b>입니다. "민주주의 vs 법치주의 관계"와 "형벌 vs 보안처분" 같은 비교형 문제도 자주 나옵니다.
+  </div>
+</section>
+
+<section class="unit-block" id="unit3">
+  <div class="unit-title"><span class="num">UNIT Ⅲ</span><h2>사회생활과 법</h2></div>
+
+  <div class="chapter" id="u3c1">
+    <h3>01 근로자의 권리 <span class="chip">노동법·근로3권·연소근로자</span></h3>
+    <ul class="concepts">
+      <li><b>사회법</b>: 공법+사법의 중간영역(제3의 영역) → 노동법/사회보장법/경제법으로 구성</li>
+      <li><b>노동법</b>: 헌법 제32조(근로권·최저임금 등)+제33조(근로3권) 구체화 — 핵심법률: <b>「근로기준법」</b>(최저 근로조건) + <b>「노동조합 및 노동관계조정법」</b>(집단적 노사관계·근로3권)</li>
+      <li><b>근로기준법 핵심 조건</b>: 임금(직접·전액·매월1회 이상 지급) / 근로시간(1일8·1주40시간, 합의 시 1주 12시간 한도 연장) / 휴게시간(4시간→30분↑, 8시간→1시간↑) / 해고제한(정당한 이유 필요, 30일 전 예고, 서면통지)</li>
+      <li><b>근로3권</b> <span class="tag high">최다출제</span>: 단결권(노조 결성) / 단체교섭권(사용자와 교섭) / 단체행동권(파업·태업 등 쟁의행위, 정당한 쟁의는 위법성 조각)</li>
+      <li><b>부당노동행위</b>: 사용자가 근로3권을 불공정하게 침해하는 행위(노조가입 불이익 등) → 지방노동위원회 구제신청</li>
+      <li><b>연소근로자 보호</b>: 원칙적으로 15세 미만 근로 금지(취직인허증 있으면 예외), 법정대리인 동의로 <b>본인이 직접</b> 계약체결, 임금은 <b>독자적</b> 청구 가능, 근로시간 1일7·1주35시간(합의시 1일1·1주5시간 연장), 야간·휴일근로 원칙 금지</li>
+      <li><b>구제절차</b>: 부당해고/부당노동행위 → 해고일로부터 <b>3개월 이내</b> 지방노동위원회 구제신청 → 불복 시 10일 이내 중앙노동위원회 재심 → 15일 이내 행정소송</li>
+    </ul>
+    <table class="compare">
+      <tr><th>권리</th><th>내용</th></tr>
+      <tr><td>단결권</td><td>노동조합 결성·가입</td></tr>
+      <tr><td>단체교섭권</td><td>근로조건에 대해 사용자와 교섭</td></tr>
+      <tr><td>단체행동권</td><td>쟁의행위(파업·태업 등)</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>「근로기준법」과 「노동조합및노동관계조정법」의 목적 구분</li>
+      <li>근로3권 3가지와 각각의 내용 암기</li>
+      <li>연소근로자 근로시간·임금청구·야간근로 규정 정확히 암기</li>
+      <li>부당해고 구제절차 순서(3개월→지방노동위원회→10일→중앙노동위원회) 암기</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u3c2">
+    <h3>02 사회보장과 경제생활 <span class="chip">사회보장제도·공정거래·소비자보호</span></h3>
+    <ul class="concepts">
+      <li><b>사회보장법</b>: 질병·장애·노령·실업·사망 등 사회적 위험으로부터 보호(헌법 제34조 근거, 「사회보장기본법」)</li>
+      <li><b>사회보장제도 3가지</b> <span class="tag high">최다출제</span>: 사회보험(금전적, 보험방식, 예: 국민연금·건강보험·고용보험·산재보험·노인장기요양보험) / 공공부조(금전적, 국가책임 최저생활보장, 예: 기초연금·생계급여) / 사회서비스(<b>비금전적</b>, 복지서비스 제공, 예: 노인·장애인·아동복지)</li>
+      <li><b>「독점규제 및 공정거래에 관한 법률」</b>: 시장지배적지위 남용, 부당한 공동행위(담합), 불공정거래행위 규제 — 집행기관: <b>공정거래위원회</b></li>
+      <li><b>소비자의 8대 기본적 권리</b>(「소비자기본법」): 안전할 권리, 알 권리, 선택할 권리, 의견반영권, 피해보상권, 교육받을 권리, 단체조직·활동권, 안전하고 쾌적한 환경에서 소비할 권리</li>
+      <li><b>전자상거래 소비자보호</b>: 청약철회권(계약서면 수령/재화공급일로부터 <b>7일</b> 이내)</li>
+      <li><b>소비자 피해구제 절차</b>: 사업자에 직접 보상요구 → 소비자단체·<b>한국소비자원</b> 피해구제 신청 → 소비자분쟁조정위원회 조정 → (불만족시)민사소송</li>
+      <li><b>「제조물책임법」</b>: 제품 결함으로 손해 발생 시 제조사 배상책임, 일정 요건 증명 시 결함·인과관계 <b>추정</b>(소비자 증명부담 완화)</li>
+    </ul>
+    <table class="compare">
+      <tr><th>구분</th><th>사회보험</th><th>공공부조</th><th>사회서비스</th></tr>
+      <tr><td>성격</td><td>금전적, 보험방식</td><td>금전적, 국가책임</td><td>비금전적, 복지서비스</td></tr>
+      <tr><td>대표법률</td><td>국민연금법·건강보험법</td><td>국민기초생활보장법</td><td>노인복지법·장애인복지법</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>사회보험·공공부조·사회서비스 개념·법률 구분(그림 문제 대비)</li>
+      <li>공정거래위원회의 역할과 「공정거래법」 규제행위 3가지 암기</li>
+      <li>소비자 8대 권리 암기</li>
+      <li>소비자피해 구제절차 순서(사업자→소비자원→분쟁조정위원회→소송)</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u3c3">
+    <h3>03 현대 생활과 법 <span class="chip">지능정보화·플랫폼노동·지적재산권</span></h3>
+    <ul class="concepts">
+      <li><b>현대사회 3대 변화</b>: 저출생·고령화 / 세계화 / 지능정보화</li>
+      <li><b>인터넷 서비스 제공자 책임</b>: 원칙은 자기책임원칙(직접행위 없으면 무책임)이나, 저작권 침해 관리·감독 소홀 시 <b>방조책임</b> 인정 가능</li>
+      <li><b>플랫폼 노동</b>: 수요자-제공자-플랫폼의 <b>삼각관계</b> → 「근로기준법」상 근로자 인정 여부가 쟁점(사회안전망 사각지대 문제)</li>
+      <li><b>지적재산권</b>: 창조적 활동으로 창출한 무형자산에 대한 재산권(헌법 제22조 제2항 근거)</li>
+      <li><b>지적재산권 분류</b> <span class="tag high">최다출제</span>: 저작권(문학·예술 창작표현) / 산업재산권(특허권·실용신안권·디자인권·상표권) / 신지적재산권(컴퓨터프로그램·반도체배치설계권 등 새로운 유형)</li>
+      <li><b>저작재산권 보호기간</b>: 저작자 생존기간 + 사망 후 <b>70년</b></li>
+      <li><b>지적재산권의 한계</b>: 보호기간 만료 시 공유상태 전환 → 과도한 보호는 정보공유·후속연구 저해 가능</li>
+    </ul>
+    <table class="compare">
+      <tr><th>구분</th><th>저작권</th><th>산업재산권</th></tr>
+      <tr><td>보호대상</td><td>문학·음악·미술 등 창작표현물</td><td>특허·실용신안·디자인·상표</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>현대사회 3대 변화양상과 그에 따른 법률문제 연결</li>
+      <li>플랫폼 노동의 삼각관계 구조 이해</li>
+      <li>저작권·산업재산권·신지적재산권 분류 및 예시 구분</li>
+      <li>저작재산권 보호기간(사후 70년) 암기</li>
+    </ul>
+  </div>
+
+  <div class="box box-tip" style="margin-top:26px;">
+    <span class="label">📌 Ⅲ단원 통합 시험 포인트</span>
+    사회보험·공공부조·사회서비스 구분표, 근로3권, 지적재산권 분류가 핵심입니다. 최신 사회문제(플랫폼노동, 인공지능 창작물 저작권)를 소재로 한 <b>자료해석형 문제</b>가 늘고 있으니 신문기사형 지문에 익숙해질 것.
+  </div>
+</section>
+
+<section class="unit-block" id="unit4">
+  <div class="unit-title"><span class="num">UNIT Ⅳ</span><h2>학교생활과 법</h2></div>
+
+  <div class="chapter" id="u4c1">
+    <h3>01 청소년의 특징과 법적 지위 <span class="chip">청소년 권리·연령기준·촉법소년</span></h3>
+    <ul class="concepts">
+      <li><b>청소년</b>: 소년+청년을 아우르는 말, 법률마다 연령기준 다름(예: 「청소년보호법」19세 미만 / 「청소년기본법」9~24세 / 「청년기본법」19~34세) <span class="tag mid">법률별 연령기준 혼동주의</span></li>
+      <li><b>청소년도 권리·의무 주체</b>이나 판단능력 부족 고려 → 법적 책임 제한/면제 + 국가·보호자의 보호 의무</li>
+      <li><b>연령별 법적 권리 총정리</b> <span class="tag high">최다출제</span>: 14세(형사처벌 가능, 개인정보 동의 가능) / 15세(연소근로자 고용 가능) / 16세(원동기면허) / 17세(주민등록증, 유언 가능) / 18세(성인근로자, 자동차면허, 혼인 성년의제, 병역준비역, <b>선거권·피선거권</b>) / 19세(민법상 성인, 병역판정검사)</li>
+      <li><b>형사미성년자 3단계</b>: 범법소년(10세 미만, 보호처분X·형사처벌X) / 촉법소년(10~14세 미만, 보호처분O·형사처벌X) / 범죄소년(14~19세 미만, 보호처분O·형사처벌O)</li>
+      <li><b>선거권 연령 변천</b>: 1948년 21세 → 1960년 20세 → 2005년 19세 → <b>2020년 18세</b>(현행)</li>
+    </ul>
+    <table class="compare">
+      <tr><th>구분</th><th>범법소년</th><th>촉법소년</th><th>범죄소년</th></tr>
+      <tr><td>연령</td><td>10세 미만</td><td>10~14세 미만</td><td>14~19세 미만</td></tr>
+      <tr><td>보호처분</td><td>X</td><td>O</td><td>O</td></tr>
+      <tr><td>형사처벌</td><td>X</td><td>X</td><td>O</td></tr>
+    </table>
+    <div class="box box-warn"><span class="label">⚠ 주의</span>보호처분은 형사처벌이 아니므로 <b>전과기록 남지 않음</b> — 촉법소년 연령 하향 찬반 논쟁 서술형 자주 출제</div>
+    <ul class="checklist">
+      <li>연령별(14~19세) 법적 권리 표 암기</li>
+      <li>범법소년·촉법소년·범죄소년 구분(보호처분/형사처벌 여부)</li>
+      <li>선거권 연령 변천사(21→20→19→18세) 암기</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u4c2">
+    <h3>02 학교생활의 법적 문제 <span class="chip">학교폭력·학교규칙</span></h3>
+    <ul class="concepts">
+      <li><b>학교폭력</b>: 학교 내외에서 학생 대상 발생한 상해·폭행·감금·협박·약취유인·명예훼손·모욕·공갈·강요·성폭력·따돌림·사이버폭력 등 → 피해자가 학생이면 <b>가해자가 학생 아니어도 성립</b></li>
+      <li><b>학교폭력 해결 방법 4가지</b> <span class="tag high">최다출제</span>: 행정법적 해결(「학교폭력예방법」-피해학생보호·가해학생조치·분쟁조정) / 형법적 해결(14세 미만은 「소년법」보호처분) / 민법적 해결(손해배상청구) / 교육적 해결(상담·관계회복프로그램)</li>
+      <li>법적 해결의 <b>한계</b>: 강제력은 있으나 비용·시간 소요, 감정적 치유·관계회복에는 한계 → 교육적 해결과 병행 필요</li>
+      <li><b>학교규칙</b>: 헌법·법률 등 법령 범위 내에서 제·개정, 학생대표가 의견수렴하여 학교운영위원회에 제안 가능</li>
+      <li>학교생활 법적 쟁점: 휴대전화 사용 제한(수업권·학습권 vs 통신의 자유), 체벌·생활지도, 교권 침해 등</li>
+    </ul>
+    <table class="compare">
+      <tr><th>해결방법</th><th>근거법</th><th>내용</th></tr>
+      <tr><td>행정법적</td><td>학교폭력예방법</td><td>피해자보호·가해자조치·분쟁조정</td></tr>
+      <tr><td>형법적</td><td>형법/소년법</td><td>형사처벌 또는(14세미만)보호처분</td></tr>
+      <tr><td>민법적</td><td>민법</td><td>손해배상청구</td></tr>
+      <tr><td>교육적</td><td>-</td><td>상담·관계회복프로그램</td></tr>
+    </table>
+    <ul class="checklist">
+      <li>학교폭력 해결 4가지 방법과 근거법 매칭</li>
+      <li>가해자가 학생이 아니어도 학교폭력 성립하는 이유 설명 가능</li>
+      <li>법적 해결방법의 효과와 한계 서술 연습</li>
+    </ul>
+  </div>
+
+  <div class="chapter" id="u4c3">
+    <h3>03 민주 시민의 법적 문제 해결 <span class="chip">법령검색·법해석·입법</span></h3>
+    <ul class="concepts">
+      <li><b>법적 문제 해결에 필요한 4대 자료</b>: 법(1차적 근거, 국가법령정보센터) / 조약(국제법규, 헌법에 의해 체결·공포되면 국내법과 같은 효력) / 판례(좁은 의미=법해석 기준, 법적 문제 해결의 <b>보조적</b> 근거) / 입법자료(법 제·개정 배경 파악)</li>
+      <li><b>사회문제의 법적 해결 절차</b>: ①문제현황 파악 → ②관련 법적자료(법·판례) 조사 및 해석 → ③해결방안 모색(입법 필요 시 입법 제안) → ④법 이외의 해결방안(교육·정책) 병행</li>
+      <li><b>입법 시 유의점</b>: 필요성 판단(다른 방법으로 해결 가능한지) / 특정집단 이익 편중 금지·균형 유지 / 소수의견 고려 / 법적 안정성 고려</li>
+      <li>법으로 해결하기 어려운 문제는 <b>교육·정책 등과 상호보완적</b>으로 해결해야 함(예: 전동킥보드 안전문제 = 법적규제+안전교육+지자체 정책 병행)</li>
+    </ul>
+    <ul class="checklist">
+      <li>법·조약·판례·입법자료의 성격과 역할 구분</li>
+      <li>사회문제의 법적 해결 4단계 절차 암기</li>
+      <li>입법 시 고려해야 할 유의점 서술 가능</li>
+    </ul>
+  </div>
+
+  <div class="box box-tip" style="margin-top:26px;">
+    <span class="label">📌 Ⅳ단원 통합 시험 포인트</span>
+    연령별 법적 권리표와 촉법소년/범죄소년 구분은 매번 출제되는 핵심입니다. 학교폭력 해결의 4가지 방법(행정·형법·민법·교육)을 각각의 근거법과 함께 구분해서 암기하세요.
+  </div>
+</section>
+
+<div class="final" id="finalReview">
+  <h2>🎯 전 단원 최종 정리 체크리스트</h2>
+  <p style="color:var(--text-dim);font-size:14px;margin-top:-6px;">시험 직전, 아래 항목을 스스로 설명할 수 있는지 점검해 보세요.</p>
+  <div class="final-grid">
+    <div class="final-card">
+      <h4>Ⅰ. 개인 생활과 법</h4>
+      <ul>
+        <li>혼인 성립요건·이혼 종류·효과</li>
+        <li>친양자 vs 일반입양 차이</li>
+        <li>법정상속순위와 배우자 상속분</li>
+        <li>불법행위 5요건·특수불법행위 4유형</li>
+        <li>대항력·우선변제권 성립순서</li>
+      </ul>
+    </div>
+    <div class="final-card">
+      <h4>Ⅱ. 국가 생활과 법</h4>
+      <ul>
+        <li>홉스·로크·루소 사회계약설 비교</li>
+        <li>헌법 5대 기본원리와 사례</li>
+        <li>기본권 5유형과 제한 요건(과잉금지)</li>
+        <li>죄형법정주의 파생원칙 4가지</li>
+        <li>범죄 3단계 성립요건·조각사유</li>
+        <li>헌법재판소 5대 심판 유형</li>
+      </ul>
+    </div>
+    <div class="final-card">
+      <h4>Ⅲ. 사회생활과 법</h4>
+      <ul>
+        <li>근로3권(단결·단체교섭·단체행동)</li>
+        <li>연소근로자 근로조건 특례</li>
+        <li>사회보험·공공부조·사회서비스 구분</li>
+        <li>소비자 8대 권리</li>
+        <li>저작권·산업재산권·신지적재산권 분류</li>
+      </ul>
+    </div>
+    <div class="final-card">
+      <h4>Ⅳ. 학교생활과 법</h4>
+      <ul>
+        <li>연령별(14~19세) 법적 권리표</li>
+        <li>범법소년·촉법소년·범죄소년 구분</li>
+        <li>학교폭력 해결 4가지 방법과 근거법</li>
+        <li>법·조약·판례·입법자료의 역할</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>비상교육 22개정 고등 「법과 사회」 교과서 기반 시험대비 통합노트 · Ⅰ~Ⅳ단원</footer>
+
+<button class="back-top" id="backTop">↑</button>
+
+<script>
+// ---- back to top ----
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{backTop.style.display=window.scrollY>500?'block':'none';});
+backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// ---- search with highlight + prev/next ----
+const searchInput=document.getElementById('searchInput');
+const searchCount=document.getElementById('searchCount');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const content=document.getElementById('content');
+let marks=[]; let currentIdx=-1;
+
+function clearHighlights(){
+  document.querySelectorAll('mark.hit').forEach(m=>{
+    const parent=m.parentNode;
+    parent.replaceChild(document.createTextNode(m.textContent),m);
+    parent.normalize();
+  });
+  marks=[]; currentIdx=-1;
+}
+
+function walkAndHighlight(node,regex){
+  if(node.nodeType===3){
+    const text=node.nodeValue;
+    if(regex.test(text)){
+      regex.lastIndex=0;
+      const frag=document.createDocumentFragment();
+      let lastIndex=0; let m;
+      while((m=regex.exec(text))!==null){
+        frag.appendChild(document.createTextNode(text.slice(lastIndex,m.index)));
+        const mark=document.createElement('mark');
+        mark.className='hit';
+        mark.textContent=m[0];
+        frag.appendChild(mark);
+        lastIndex=m.index+m[0].length;
+        if(m.index===regex.lastIndex) regex.lastIndex++;
+      }
+      frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+      node.parentNode.replaceChild(frag,node);
+    }
+  }else if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && !node.classList.contains('mark')){
+    Array.from(node.childNodes).forEach(child=>walkAndHighlight(child,regex));
+  }
+}
+
+function doSearch(){
+  clearHighlights();
+  const q=searchInput.value.trim();
+  if(!q){searchCount.textContent='0 / 0';return;}
+  const escaped=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const regex=new RegExp(escaped,'gi');
+  walkAndHighlight(content,regex);
+  marks=Array.from(document.querySelectorAll('mark.hit'));
+  if(marks.length>0){
+    currentIdx=0;
+    updateCurrent();
+  }else{
+    searchCount.textContent='0 / 0';
+  }
+}
+
+function updateCurrent(){
+  marks.forEach(m=>m.classList.remove('current'));
+  if(marks.length===0)return;
+  const m=marks[currentIdx];
+  m.classList.add('current');
+  m.scrollIntoView({behavior:'smooth',block:'center'});
+  searchCount.textContent=(currentIdx+1)+' / '+marks.length;
+}
+
+searchInput.addEventListener('input',doSearch);
+searchInput.addEventListener('keydown',(e)=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    if(marks.length>0){
+      currentIdx=(currentIdx+1)%marks.length;
+      updateCurrent();
+    }
+  }
+});
+nextBtn.addEventListener('click',()=>{
+  if(marks.length>0){currentIdx=(currentIdx+1)%marks.length;updateCurrent();}
+});
+prevBtn.addEventListener('click',()=>{
+  if(marks.length>0){currentIdx=(currentIdx-1+marks.length)%marks.length;updateCurrent();}
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>법과 사회 II. 국가 생활과 법 — 시험대비 세부분석</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+  --navy:#132039;
+  --navy2:#1c2f4f;
+  --paper:#f7f4ec;
+  --paper2:#efe9db;
+  --ink:#20232a;
+  --gold:#a9792c;
+  --gold-light:#e9d9b8;
+  --red:#a5312a;
+  --red-bg:#fbe9e7;
+  --blue:#1f4e8c;
+  --blue-bg:#e8f0fb;
+  --green:#2f6b3a;
+  --green-bg:#e9f4e7;
+  --line:#d9d0bb;
+  --mono:'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Noto Serif KR","Nanum Myeongjo",serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  padding-bottom:80px;
+}
+h1,h2,h3,h4{font-family:"Noto Serif KR",serif; letter-spacing:-0.01em;}
+
+/* ===== HEADER ===== */
+header.top{
+  background:linear-gradient(160deg,var(--navy) 0%, var(--navy2) 100%);
+  color:#f2ede0;
+  padding:36px 20px 26px;
+  position:relative;
+  overflow:hidden;
+}
+header.top::after{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:220px;height:220px;
+  border:1px solid rgba(233,217,184,0.18);
+  border-radius:50%;
+}
+header.top::before{
+  content:"";
+  position:absolute; right:20px; top:30px;
+  width:140px;height:140px;
+  border:1px solid rgba(233,217,184,0.13);
+  border-radius:50%;
+}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px; letter-spacing:0.22em;
+  color:var(--gold-light); text-transform:uppercase;
+  margin-bottom:10px;
+}
+header.top h1{
+  font-size:clamp(24px,4vw,34px);
+  margin:0 0 8px; font-weight:700;
+  max-width:760px;
+}
+header.top p.sub{
+  margin:0; color:#c9c2ac; font-size:14.5px; max-width:640px;
+}
+.scale-note{
+  display:inline-block; margin-top:14px; font-size:12px;
+  font-family:var(--mono); color:#e9d9b8;
+  border:1px solid rgba(233,217,184,0.4);
+  padding:4px 10px; border-radius:20px;
+}
+
+/* ===== SEARCH (STICKY) ===== */
+.search-bar{
+  position:sticky; top:0; z-index:100;
+  background:var(--navy);
+  border-bottom:2px solid var(--gold);
+  padding:10px 20px;
+  display:flex; gap:10px; align-items:center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.18);
+}
+.search-bar input{
+  flex:1; max-width:560px;
+  padding:9px 14px;
+  border-radius:6px;
+  border:1px solid #3a4d6e;
+  background:#0e1830;
+  color:#f2ede0;
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:14px;
+  outline:none;
+}
+.search-bar input::placeholder{color:#8592ab;}
+.search-bar input:focus{border-color:var(--gold);}
+.search-btn{
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; color:#0e1830; background:var(--gold-light);
+  border:none; padding:9px 12px; border-radius:6px; cursor:pointer;
+  white-space:nowrap;
+}
+.search-btn:hover{background:#fff;}
+#searchCount{
+  color:#c9c2ac; font-family:var(--mono); font-size:12px; white-space:nowrap;
+}
+mark.hit{background:#ffe28a; color:#2a1c00; border-radius:2px; padding:0 1px;}
+mark.hit.current{background:var(--gold); color:#fff;}
+
+/* ===== METRO NAV ===== */
+nav.metro{
+  background:var(--paper2);
+  padding:26px 20px 30px;
+  border-bottom:1px solid var(--line);
+}
+nav.metro h2{
+  text-align:center; font-size:14px; letter-spacing:0.15em;
+  color:var(--navy); text-transform:uppercase;
+  font-family:"Noto Sans KR",sans-serif; margin:0 0 20px;
+}
+.metro-line{
+  max-width:1000px; margin:0 auto; display:flex;
+  align-items:center; justify-content:space-between;
+  position:relative; flex-wrap:wrap; gap:14px;
+}
+.metro-line::before{
+  content:""; position:absolute; left:5%; right:5%; top:22px;
+  height:3px; background:repeating-linear-gradient(90deg,var(--gold),var(--gold) 8px,transparent 8px,transparent 14px);
+  z-index:0;
+}
+.metro-stop{
+  position:relative; z-index:1; flex:1; min-width:130px;
+  text-align:center; text-decoration:none; color:var(--ink);
+}
+.metro-dot{
+  width:46px; height:46px; border-radius:50%;
+  background:var(--navy); color:#f2ede0;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px; font-weight:700; font-family:var(--mono);
+  border:3px solid var(--paper2); box-shadow:0 0 0 2px var(--gold);
+  transition:transform .15s ease;
+}
+.metro-stop:hover .metro-dot{transform:scale(1.1); background:var(--gold);}
+.metro-stop .m-title{font-weight:700; font-size:13.5px; display:block;}
+.metro-stop .m-sub{font-size:11px; color:#6b6153; font-family:"Noto Sans KR",sans-serif;}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:900px; margin:0 auto; padding:0 20px;}
+section.unit{padding:44px 0 10px; border-bottom:1px dashed var(--line);}
+.unit-head{
+  display:flex; align-items:baseline; gap:14px; margin-bottom:6px;
+}
+.unit-num{
+  font-family:var(--mono); font-size:34px; color:var(--gold); font-weight:700;
+}
+.unit-head h2{font-size:24px; margin:0; color:var(--navy);}
+.unit-desc{color:#6b6153; font-size:14px; margin:0 0 26px; font-family:"Noto Sans KR",sans-serif;}
+
+.lesson{margin-bottom:38px;}
+.lesson-title{
+  display:flex; align-items:center; gap:10px;
+  font-size:18px; color:var(--navy2); border-bottom:2px solid var(--navy2);
+  padding-bottom:8px; margin-bottom:16px;
+}
+.lesson-title .tag{
+  font-family:var(--mono); font-size:11px; background:var(--navy2); color:#fff;
+  padding:2px 8px; border-radius:4px;
+}
+
+.block{
+  background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:16px 20px; margin-bottom:14px;
+}
+.block h4{
+  margin:0 0 8px; font-size:15.5px; color:var(--navy);
+  display:flex; align-items:center; gap:8px;
+}
+.block h4::before{content:"▍"; color:var(--gold);}
+.block p{margin:6px 0; font-size:15px;}
+.block ul{margin:6px 0; padding-left:20px;}
+.block li{margin-bottom:4px; font-size:14.8px;}
+
+/* importance highlight spans */
+.hi-red{color:var(--red); background:var(--red-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-blue{color:var(--blue); background:var(--blue-bg); padding:0 3px; border-radius:3px; font-weight:700;}
+.hi-green{color:var(--green); background:var(--green-bg); padding:0 3px; border-radius:3px; font-weight:600;}
+
+.legend{
+  display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; font-family:"Noto Sans KR",sans-serif;
+  background:#fff; border:1px solid var(--line); border-radius:8px;
+  padding:10px 16px; margin:18px 0 30px; color:#4a4536;
+}
+.legend span{display:flex; align-items:center; gap:6px;}
+.legend .dot{width:11px;height:11px;border-radius:3px; display:inline-block;}
+
+/* exam tip callout */
+.tip{
+  border-left:5px solid var(--gold);
+  background:#fffaf0; border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:14.5px;
+}
+.tip .tip-label{
+  font-family:"Noto Sans KR",sans-serif; font-weight:700; font-size:12px;
+  color:var(--gold); text-transform:uppercase; letter-spacing:0.05em;
+  display:block; margin-bottom:4px;
+}
+
+/* confusion box */
+.confuse{
+  border:2px solid var(--red); border-radius:10px; overflow:hidden;
+  margin:16px 0; background:#fff;
+}
+.confuse-head{
+  background:var(--red); color:#fff; font-family:"Noto Sans KR",sans-serif;
+  font-size:13px; font-weight:700; padding:8px 14px;
+}
+.confuse-body{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+.confuse-col{padding:12px 16px; font-size:14px;}
+.confuse-col:first-child{border-right:1px dashed var(--line);}
+.confuse-col h5{margin:0 0 6px; color:var(--navy); font-size:14.5px;}
+.confuse-body.triple{grid-template-columns:1fr 1fr 1fr;}
+.confuse-body.triple .confuse-col{border-right:1px dashed var(--line);}
+.confuse-body.triple .confuse-col:last-child{border-right:none;}
+@media(max-width:640px){.confuse-body{grid-template-columns:1fr;} .confuse-body.triple{grid-template-columns:1fr;} .confuse-col{border-right:none !important; border-bottom:1px dashed var(--line);}}
+
+/* case box */
+.case{
+  background:var(--green-bg); border:1px solid #bcd8b9; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.case .case-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:var(--green); font-size:12.5px; display:block; margin-bottom:4px;}
+
+/* law amendment box */
+.reform{
+  background:#f4f0ff; border:1px solid #cdbfe8; border-radius:8px;
+  padding:12px 16px; margin:14px 0; font-size:14px;
+}
+.reform .reform-label{font-family:"Noto Sans KR",sans-serif; font-weight:700; color:#5b3fa0; font-size:12.5px; display:block; margin-bottom:4px;}
+
+table.cmp{width:100%; border-collapse:collapse; font-size:13.6px; margin:10px 0;}
+table.cmp th{background:var(--navy); color:#fff; padding:8px 10px; text-align:left; font-family:"Noto Sans KR",sans-serif; font-weight:500;}
+table.cmp td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+table.cmp tr:nth-child(even) td{background:#faf7ef;}
+
+/* flow diagram */
+.flow{display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:12px 0; font-family:"Noto Sans KR",sans-serif; font-size:13.5px;}
+.flow .fstep{background:var(--navy); color:#fff; padding:7px 13px; border-radius:20px; white-space:nowrap;}
+.flow .farrow{color:var(--gold); font-weight:700;}
+
+/* summary section */
+.summary-sec{background:var(--navy); color:#f2ede0; padding:44px 20px 60px; margin-top:20px;}
+.summary-sec h2{color:#f2ede0; font-size:22px; text-align:center; margin-bottom:6px;}
+.summary-sec p.sub{text-align:center; color:#a9a08a; font-size:13px; font-family:"Noto Sans KR",sans-serif; margin-bottom:30px;}
+.sum-grid{max-width:960px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media(max-width:760px){.sum-grid{grid-template-columns:1fr;}}
+.sum-card{
+  background:#1c2f4f; border:1px solid #33456a; border-radius:10px; padding:16px 18px;
+}
+.sum-card h4{margin:0 0 10px; color:var(--gold-light); font-size:15px; border-bottom:1px solid #33456a; padding-bottom:8px;}
+.sum-card ul{margin:0; padding-left:18px; font-size:13.2px; color:#d8d3c2;}
+.sum-card li{margin-bottom:6px;}
+.sum-card li b{color:#fff;}
+
+/* checklist */
+.checklist{max-width:960px; margin:26px auto 0; background:#0e1830; border:1px solid #33456a; border-radius:10px; padding:20px 24px;}
+.checklist h4{color:var(--gold-light); margin:0 0 10px; font-size:15px;}
+.checklist label{display:flex; gap:8px; align-items:flex-start; font-size:13.4px; color:#e3ddc9; margin-bottom:8px; font-family:"Noto Sans KR",sans-serif;}
+.checklist input{margin-top:3px;}
+
+footer{
+  text-align:center; padding:26px; color:#a09776; font-size:12px;
+  font-family:"Noto Sans KR",sans-serif; background:var(--navy);
+}
+
+.scroll-top{
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  background:var(--gold); color:#1c1200; border:none; border-radius:50%;
+  width:44px; height:44px; font-size:18px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+::selection{background:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">비상교육 · 22개정 고등 법과 사회 교과서</div>
+  <h1>II. 국가 생활과 법 — 시험대비 세부 분석</h1>
+  <p class="sub">01 국가 운영 원리 · 02 우리나라 헌법 · 03 형법과 형사 절차 · 04 사법의 의미와 한계 — 교과서 원문 기반 핵심 개념·판례·조문 정리</p>
+  <span class="scale-note">교과서 47~97쪽 대응</span>
+</header>
+
+<div class="search-bar">
+  <input id="searchInput" type="text" placeholder="키워드 검색 (예: 죄형법정주의, 위헌법률심판, 기본권 제한, 심급제도...)">
+  <button class="search-btn" id="prevBtn">◀ 이전</button>
+  <button class="search-btn" id="nextBtn">다음 ▶</button>
+  <span id="searchCount"></span>
+</div>
+
+<nav class="metro">
+  <h2>단원 지도 · Unit Map</h2>
+  <div class="metro-line">
+    <a class="metro-stop" href="#u1">
+      <div class="metro-dot">01</div>
+      <span class="m-title">국가 운영 원리</span>
+      <span class="m-sub">민주주의·법치주의·권력분립</span>
+    </a>
+    <a class="metro-stop" href="#u2">
+      <div class="metro-dot">02</div>
+      <span class="m-title">우리나라 헌법</span>
+      <span class="m-sub">기본원리·기본권·제한</span>
+    </a>
+    <a class="metro-stop" href="#u3">
+      <div class="metro-dot">03</div>
+      <span class="m-title">형법과 형사 절차</span>
+      <span class="m-sub">죄형법정주의·범죄·형사절차</span>
+    </a>
+    <a class="metro-stop" href="#u4">
+      <div class="metro-dot">04</div>
+      <span class="m-title">사법의 의미와 한계</span>
+      <span class="m-sub">법원·헌법재판소·입법</span>
+    </a>
+    <a class="metro-stop" href="#summary">
+      <div class="metro-dot">★</div>
+      <span class="m-title">시험 총정리</span>
+      <span class="m-sub">비교표·체크리스트</span>
+    </a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--red)"></span> 빨강 = 최우선 암기 (수치·순서·요건)</span>
+  <span><span class="dot" style="background:var(--blue)"></span> 파랑 = 핵심 개념 정의</span>
+  <span><span class="dot" style="background:var(--green)"></span> 초록 = 판례·사례 포인트</span>
+</div>
+
+<!-- ================= UNIT 1 ================= -->
+<section class="unit" id="u1">
+  <div class="unit-head"><span class="unit-num">01</span><h2>국가 운영 원리</h2></div>
+  <p class="unit-desc">교과서 49~57쪽 · 민주주의와 법치주의의 발전 → 관계 → 우리나라 권력 분립의 원리</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 민주주의와 법치주의</div>
+
+    <div class="confuse">
+      <div class="confuse-head">헷갈림 주의 — 민주주의 vs 법치주의</div>
+      <div class="confuse-body">
+        <div class="confuse-col">
+          <h5>민주주의</h5>
+          <p>국민의 뜻에 따라 <b>국가 의사를 결정</b>해야 한다는 이념. 목적: 자유·평등 이념에 기반한 <span class="hi-red">인간 존엄성 보장</span>. 국민 주권(헌법 제1조 ②)에 근거.</p>
+        </div>
+        <div class="confuse-col">
+          <h5>법치주의</h5>
+          <p>법에 근거하여 <b>국가기관을 구성·운영</b>해야 한다는 이념. 목적: <span class="hi-red">국민의 자유와 권리 보장</span>. <span class="hi-blue">권력 분립 제도</span>를 기초로 함.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h4>민주주의·법치주의의 발전 단계</h4>
+      <div class="flow">
+        <span class="fstep">고대 아테네 — 직접 민주정치(시민만 참여)</span><span class="farrow">→</span>
+        <span class="fstep">근대 시민혁명 — 대의제·법치주의·입헌주의 확립</span><span class="farrow">→</span>
+        <span class="fstep">현대 — 보통선거·직접민주제 요소·실질적 법치주의</span>
+      </div>
+      <ul>
+        <li>근대 3대 시민혁명: <span class="hi-red">영국 명예혁명(1688)</span> → <span class="hi-red">미국 독립혁명(1776)</span> → <span class="hi-red">프랑스 혁명(1789)</span></li>
+        <li>근대: <span class="hi-blue">인치(人治)</span>를 대신하여 <span class="hi-blue">법치주의</span> 확립 + <span class="hi-blue">입헌주의</span>(헌법에 자유·권리 규정, 헌법에 따라 국가기관 운영) 성립</li>
+        <li>현대: <span class="hi-red">참정권 확대 운동</span>(영국 차티스트 운동→여성·흑인 참정권 운동) → <span class="hi-red">보통 선거</span> 확립 / 대의제 결함 보완 위해 <span class="hi-blue">직접 민주제 요소</span>(국민투표·국민발안·국민소환) 도입</li>
+        <li><span class="hi-red">우리나라는 직접 민주제 요소 중 국민 투표만 인정</span> (국민발안·국민소환 미채택 — 최다 출제 포인트)</li>
+        <li>현대: 합법적 절차의 법률도 다수의 횡포·독재를 부를 수 있다는 인식 확대 → <span class="hi-red">실질적 법치주의</span> 대두 (형식적 법치주의와 대비)</li>
+      </ul>
+    </div>
+
+    <div class="confuse">
+      <div class="confuse-head">헷갈림 주의 — 사회 계약설 3인방 (홉스·로크·루소)</div>
+      <div class="confuse-body triple">
+        <div class="confuse-col">
+          <h5>홉스</h5>
+          <p>자연 상태 = <span class="hi-red">만인의 만인에 대한 투쟁</span>. 주권을 <b>전부 양도</b>(리바이어던) → <span class="hi-red">저항권 부정</span>, 절대 군주정 옹호.</p>
+        </div>
+        <div class="confuse-col">
+          <h5>로크</h5>
+          <p>자연 상태 = 자유·평등하나 분쟁 해결 법·기관 없음. 자연권 <b>일부 위임</b> → 국가가 재산 보호 실패 시 <span class="hi-red">저항권 인정</span> (간접 민주정).</p>
+        </div>
+        <div class="confuse-col">
+          <h5>루소</h5>
+          <p>자연 상태 = <span class="hi-blue">자유롭고 평화로운 상태</span>(선한 인간). 개인 자유를 도덕적 인격체(일반의지)에 이전 → <span class="hi-red">주권은 양도·대표 불가</span>(직접 민주정 지향).</p>
+        </div>
+      </div>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"주권 양도 정도"가 핵심 구분 축: 홉스(전부 양도, 저항권✕) → 로크(일부 위임, 저항권○) → 루소(양도·대표 불가, 일반의지). 세 학자를 뒤섞어 내는 지문형 문제가 매우 잦음.</div>
+    </div>
+
+    <div class="block">
+      <h4>민주주의와 법치주의의 관계</h4>
+      <ul>
+        <li><span class="hi-red">민주주의 결여된 법치주의</span> → 독재 정권의 합법적 집권 근거로 악용</li>
+        <li><span class="hi-red">법치주의 결여된 민주주의</span> → 다수 의사만 대변하는 <span class="hi-blue">포퓰리즘</span>으로 전락</li>
+        <li>결론: 둘은 <span class="hi-blue">상호 보완적</span>이어야 함 — 국민 자유·권리 보장이라는 같은 목적 추구, 긴장 관계 발생 시 의회 입법으로 조율</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 우리나라 권력 분립의 원리</div>
+
+    <div class="block">
+      <h4>권력 분립의 목적과 구조</h4>
+      <p>목적: <span class="hi-blue">권력의 독점·남용 방지</span> + 국가기관 간 <span class="hi-blue">상호 견제와 균형</span> → 궁극적으로 국민의 자유·권리 보장.</p>
+      <table class="cmp">
+        <tr><th>기관</th><th>권한</th><th>헌법 근거</th></tr>
+        <tr><td>국회</td><td>입법권</td><td>제40조</td></tr>
+        <tr><td>대통령(정부)</td><td>행정권</td><td>제66조 ④</td></tr>
+        <tr><td>법원</td><td>사법권</td><td>제101조 ①</td></tr>
+      </table>
+      <div class="case"><span class="case-label">역사 사례 — 유신 헌법(1972)</span>통일주체국민회의에서 대통령 간선, 대통령에게 <span class="hi-red">국회 해산권</span> 부여 → 권력이 대통령에게 집중된 대표적 위헌적(반법치주의적) 사례로 자주 인용됨.</div>
+    </div>
+
+    <div class="block">
+      <h4>국가기관 간 견제 수단 (빈출 도식)</h4>
+      <ul>
+        <li><b>국회 → 행정부</b>: 국정 감사·조사권, 조약 체결·비준 동의권, 탄핵 소추권</li>
+        <li><b>행정부 → 국회</b>: 법률안 거부권</li>
+        <li><b>국회 → 법원</b>: 대법원장·대법관 임명 동의권, 법관 탄핵 소추권</li>
+        <li><b>법원 → 국회</b>: 위헌 법률 심판 <span class="hi-blue">제청권</span>(직접 결정 아님, 헌재에 제청만 가능)</li>
+        <li><b>행정부 → 법원</b>: 대법원장·대법관 <span class="hi-red">임명권</span></li>
+        <li><b>법원 → 행정부</b>: 명령·규칙·처분 심사권</li>
+        <li><b>헌법재판소</b>: 위헌 법률 심판권, 탄핵 심판권, 정당 해산 심판권, 권한쟁의 심판권, 헌법소원 심판권으로 국회·행정부·법원 모두 견제</li>
+      </ul>
+      <div class="tip"><span class="tip-label">시험 포인트</span>"법원은 위헌 법률을 직접 무효로 할 수 없고 헌법재판소에 <b>제청</b>만 한다"는 문장이 옳은 지문/함정 지문으로 자주 등장.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 2 ================= -->
+<section class="unit" id="u2">
+  <div class="unit-head"><span class="unit-num">02</span><h2>우리나라 헌법</h2></div>
+  <p class="unit-desc">교과서 59~69쪽 · 헌법의 의의·구성 → 기본 원리 5가지 → 기본권 유형 → 기본권 제한과 한계</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 헌법의 의의와 기본 원리</div>
+
+    <div class="block">
+      <h4>헌법의 기능과 구성</h4>
+      <p>헌법 = 국민의 <span class="hi-blue">기본권을 규정</span>하고 국가기관의 구성·운영을 정한 <span class="hi-red">국가 최고법</span>. 기능: ①국가 창설 ②국민 기본권 보장(목적) ③공동체 유지·통합 ④정치적 평화 실현.</p>
+      <p><span class="hi-blue">국가기관 구성·운영은 기본권 보장을 위한 수단</span>이라는 목적-수단 관계를 정확히 기억.</p>
+      <table class="cmp">
+        <tr><th>구성</th><th>내용</th></tr>
+        <tr><td>총론</td><td>전문 + 총강(제1~9조) — 기본 원리·가치, 개정 절차</td></tr>
+        <tr><td>기본권론</td><td>제10~39조 — 국민의 권리·의무, 제한 요건·한계</td></tr>
+        <tr><td>국가기관 구성·운영론</td><td>제40조~ — 국회·정부·법원·헌법재판소·선거관리·지방자치·경제</td></tr>
+      </table>
+    </div>
+
+    <div class="block">
+      <h4>헌법의 기본 원리 5가지</h4>
+      <div class="tip"><span class="tip-label">암기 필수</span>
+        ① <span class="hi-red">민주주의 원리</span>(국민 주권) ② <span class="hi-red">법치주의 원리</span>(권력분립·법치행정·적법절차) ③ <span class="hi-red">복지 국가 원리</span>(사회권 보장) ④ <span class="hi-red">문화 국가 원리</span>(문화 자율성) ⑤ <span class="hi-red">평화주의 원리</span>(국제평화·평화통일)
+      </div>
+      <table class="cmp">
+        <tr><th>원리</th><th>구현 수단(예)</th></tr>
+        <tr><td>민주주의 원리</td><td>직접민주제 요소, 대의제, 선거제도, 참정권</td></tr>
+        <tr><td>법치주의 원리</td><td>권력 분립, 법치 행정, 법률에 따른 재판, 적법 절차, 위헌 법률 심판</td></tr>
+        <tr><td>복지 국가 원리</td><td>사회권 보장, 수정 자본주의, 최저임금제, 사회보험·공공부조</td></tr>
+        <tr><td>문화 국가 원리</td><td>국가의 민족 문화 계승 의무(제9조), 학문·예술의 자유(제22조)</td></tr>
+        <tr><td>평화주의 원리</td><td>침략전쟁 부인, 국제법 존중, 평화 통일 지향(제4조)</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>헌법 <b>전문(前文)</b>의 문구를 5개 기본원리에 대응시키는 문제가 자주 출제됨. "정의·인도와 동포애로 민족의 단결" → 민주주의/문화, "항구적인 세계평화와 인류공영" → 평화주의, "국민생활의 균등한 향상" → 복지국가 식으로 키워드 매칭 연습 필요. 복지국가 원리는 <span class="hi-red">구체적 실현 규정이 상대적으로 적어 국회 역할이 중요</span>하다는 점도 기억.</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 기본권의 의미와 유형</div>
+
+    <div class="block">
+      <h4>인권 · 기본권 · 법률상 권리</h4>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 인권 vs 기본권 vs 법률상 권리</div>
+        <div class="confuse-body triple">
+          <div class="confuse-col"><h5>인권</h5><p>인간이 태어날 때부터 갖는 <b>천부적 권리</b>. 실정법과 무관하게 존재.</p></div>
+          <div class="confuse-col"><h5>기본권</h5><p>천부인권을 <b>헌법에</b> 규정하여 보장한 것. 헌법 제10조가 근거.</p></div>
+          <div class="confuse-col"><h5>법률상 권리</h5><p>천부인권을 <b>법률에</b> 규정하여 보장한 것 (기본권보다 하위 규범).</p></div>
+        </div>
+      </div>
+      <p>헌법에 열거되지 않은 권리(예: <span class="hi-blue">초상권</span>)도 헌법 제10조(인간 존엄·가치·행복추구권)를 근거로 헌법재판소가 새로운 기본권으로 도출·확장 가능.</p>
+    </div>
+
+    <div class="block">
+      <h4>기본권의 5가지 유형</h4>
+      <table class="cmp">
+        <tr><th>유형</th><th>성격</th><th>대표 조항</th></tr>
+        <tr><td><span class="hi-red">자유권</span></td><td>가장 오래됨, <span class="hi-blue">소극적·방어적</span>, 포괄적 성격(열거 안 돼도 보장)</td><td>신체·거주이전·직업선택·사생활·통신·양심·종교·언론출판·집회결사·학문예술·재산권(12~23조)</td></tr>
+        <tr><td><span class="hi-red">참정권</span></td><td><span class="hi-blue">능동적</span>, 정치 과정 참여</td><td>선거권(24조), 공무담임권(25조), 국민투표(72·130조)</td></tr>
+        <tr><td><span class="hi-red">사회권</span></td><td><span class="hi-blue">적극적</span>, 가장 최근 등장한 현대적 권리</td><td>교육(31조), 근로(32조), 근로3권(33조), 인간다운생활(34조), 환경(35조), 혼인가족·보건(36조)</td></tr>
+        <tr><td><span class="hi-red">청구권</span></td><td><span class="hi-blue">적극적</span>, 다른 기본권 보장을 위한 수단적·절차적 권리</td><td>청원(26조), 재판청구(27조), 형사보상청구(28조), 국가배상청구(29조), 범죄피해자구조청구(30조)</td></tr>
+        <tr><td><span class="hi-red">평등권</span></td><td>다른 모든 기본권 실현의 전제 조건</td><td>일반적 평등(11조), 근로 관련 평등(32조), 혼인·가족 양성평등(36조)</td></tr>
+      </table>
+      <div class="tip"><span class="tip-label">시험 포인트</span>자유권 = "가장 오래된, 소극적" / 사회권 = "가장 최근, 적극적" / 청구권 = "수단적·절차적" 키워드로 구분. 평등권의 '평등'은 <span class="hi-red">절대적·형식적 평등이 아니라 상대적·실질적 평등</span>(같은 것은 같게, 다른 것은 다르게)이라는 점이 빈출 함정.</div>
+    </div>
+
+    <div class="block">
+      <h4>국민의 기본 의무</h4>
+      <table class="cmp">
+        <tr><th>시대</th><th>의무</th></tr>
+        <tr><td>근대부터</td><td><span class="hi-blue">납세의 의무</span>(38조), <span class="hi-blue">국방의 의무</span>(39조) — 병역의무는 <span class="hi-red">18세 이상 남성</span>에게만 부과</td></tr>
+        <tr><td>현대에 추가</td><td>교육의 의무(31조②), 근로의 의무(32조②), 재산권 행사의 공공복리 적합 의무(23조②), 환경 보전의 의무(35조①)</td></tr>
+      </table>
+      <p>기본 의무 부과는 국민 자유 제한을 의미 → 반드시 <span class="hi-red">국회의 법률</span>로 구체화해야 함.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">3교시</span> 기본권의 제한과 한계</div>
+
+    <div class="block">
+      <h4>헌법 제37조 제2항 — 기본권 제한의 요건 (과잉금지 원칙)</h4>
+      <div class="tip"><span class="tip-label">암기 필수 — 과잉금지 원칙 4요소</span>
+        ① <span class="hi-red">목적의 정당성</span>(제한 목적이 정당) ② <span class="hi-red">수단의 적합성</span>(수단이 목적 달성에 적합) ③ <span class="hi-red">피해의 최소성</span>(피해 최소화) ④ <span class="hi-red">법익의 균형성</span>(보호 공익 &gt; 침해되는 사익)
+      </div>
+      <p>제한의 3요건: <span class="hi-blue">목적 요건</span>(국가안전보장·질서유지·공공복리) + <span class="hi-blue">형식 요건</span>(법률로써) + <span class="hi-blue">방법 요건</span>(과잉금지 원칙, 필요한 경우에 한해)</p>
+    </div>
+
+    <div class="block">
+      <h4>기본권 제한의 한계</h4>
+      <p>요건을 모두 충족해도 <span class="hi-red">기본권의 본질적 내용은 침해할 수 없음</span> (헌법 제37조 제2항 후단) — 요건과 한계 중 <span class="hi-red">어느 하나라도</span> 위반하면 위헌.</p>
+      <div class="case"><span class="case-label">판례 포인트 — 대체복무제 (헌재 2024)</span>양심적 병역거부자의 대체복무(36개월, 합숙, 교정시설 한정)에 대해 재판관 5:4로 <span class="hi-red">합헌(기각)</span> 결정. 병역 부담 형평 vs 병역기피 억지력이라는 두 논리가 팽팽했던 사례로, 과잉금지 원칙 적용 연습에 자주 활용됨.</div>
+      <div class="case"><span class="case-label">판례 포인트 — 태아 성별 고지 금지 위헌(헌재 2024)</span>구 「의료법」의 태아 성별 고지 금지 조항이 <span class="hi-red">위헌</span> 결정됨 — 남아선호사상 쇠퇴로 입법목적(성비불균형 방지)의 필요성 감소, 낙태 의도 없는 부모까지 규제하는 것은 <span class="hi-red">피해의 최소성 위반</span>. → 사회 변화에 따라 위헌 판단이 달라질 수 있음을 보여주는 사례.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 3 ================= -->
+<section class="unit" id="u3">
+  <div class="unit-head"><span class="unit-num">03</span><h2>형법과 형사 절차</h2></div>
+  <p class="unit-desc">교과서 71~81쪽 · 형법과 죄형 법정주의 → 범죄 성립요건과 형벌 → 형사 절차와 인권 보장</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 형법과 죄형 법정주의</div>
+
+    <div class="block">
+      <h4>죄형 법정주의</h4>
+      <p><span class="hi-red">"법률이 없으면 범죄도 없고 형벌도 없다"</span> — 근대 형법의 기본 원리. 오늘날은 <span class="hi-red">"적정한 법률이 없으면 범죄도 없고 형벌도 없다"</span>로 발전(형식적 → 실질적 법치주의 반영, 입법권의 자의적 행사도 제한).</p>
+      <div class="tip"><span class="tip-label">암기 필수 — 죄형 법정주의 파생 원칙 5가지</span>
+        ① <span class="hi-red">관습 형법 금지의 원칙</span>(불문법인 관습법으로 처벌 불가, 성문법 필요) ② <span class="hi-red">소급효 금지의 원칙</span>(행위 후 제정된 법으로 소급 처벌 불가) ③ <span class="hi-red">명확성의 원칙</span>(범죄·형벌을 명확히 규정) ④ <span class="hi-red">유추 해석 금지의 원칙</span>(유사 법률 적용 금지) ⑤ <span class="hi-red">비례성의 원칙</span>(=적정성/과잉금지, 범죄와 형벌이 비례)
+      </div>
+      <p style="font-size:13.5px;color:#6b6153;">단, 5원칙 모두 <span class="hi-blue">행위자에게 유리한 경우는 예외적으로 허용</span>(유리한 소급효·유추해석·관습형법 인정).</p>
+      <div class="case"><span class="case-label">판례 포인트 — '염소'는 '수축'인가? (대법원 1977)</span>「축산물 가공 처리법」에서 '수축'의 정의에 염소가 없는데 염소 도살을 처벌 → 법원은 <span class="hi-red">무죄</span> 판단 (유추 해석 금지 원칙 위반 방지 사례). '정치적 목적을 지닌 행위'처럼 모호한 규정은 <span class="hi-red">명확성의 원칙</span> 위반으로 위헌 판단(헌재 2021, 사회복무요원 1인시위 사건).</div>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 범죄와 형벌</div>
+
+    <div class="block">
+      <h4>범죄의 3단계 성립 요건</h4>
+      <div class="flow">
+        <span class="fstep">① 구성 요건 해당성</span><span class="farrow">→</span>
+        <span class="fstep">② 위법성</span><span class="farrow">→</span>
+        <span class="fstep">③ 책임</span>
+      </div>
+      <p><span class="hi-blue">셋 중 어느 하나라도 불충족 시 범죄 불성립</span>. ①은 '행위'가 형법 규정에 해당하는지, ③은 '행위자'를 비난할 수 있는지를 판단(대상이 다름에 주의).</p>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 위법성 조각 사유 vs 책임 조각 사유</div>
+        <div class="confuse-body">
+          <div class="confuse-col">
+            <h5>위법성 조각 사유 (5가지)</h5>
+            <p><span class="hi-red">정당행위·정당방위·긴급피난·자구행위·피해자의 승낙</span> — '행위' 자체의 위법성을 없앰</p>
+          </div>
+          <div class="confuse-col">
+            <h5>책임 조각 사유</h5>
+            <p><span class="hi-red">14세 미만자</span>의 행위, 심신상실자(사물 변별·의사결정 능력 없음)의 행위, 저항 불가능한 폭력·협박에 의한 강요된 행위 — '행위자'를 비난할 수 없음</p>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;color:#6b6153;">주의: <span class="hi-blue">심신 미약자</span>, <span class="hi-blue">청각·언어 장애를 모두 가진 자</span>의 행위는 책임 조각 아니라 <span class="hi-red">형 감경</span>에 그침.</p>
+    </div>
+
+    <div class="block">
+      <h4>형벌의 종류 vs 보안 처분</h4>
+      <table class="cmp">
+        <tr><th>구분</th><th>종류</th></tr>
+        <tr><td>생명형</td><td>사형</td></tr>
+        <tr><td>자유형</td><td>징역(1개월↑+노역), 금고(1개월↑), 구류(1일~30일 미만)</td></tr>
+        <tr><td>명예형</td><td>자격상실, 자격정지</td></tr>
+        <tr><td>재산형</td><td>벌금(5만원↑), 과료(2천원~5만원 미만), 몰수</td></tr>
+      </table>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 형벌 vs 보안 처분</div>
+        <div class="confuse-body">
+          <div class="confuse-col"><h5>형벌</h5><p>과거 <b>범죄 행위</b>에 대한 응보적 제재</p></div>
+          <div class="confuse-col"><h5>보안 처분</h5><p>장래 <b>재범 위험성</b> 방지 목적의 예방적 제재(보호관찰·치료감호·사회봉사명령·수강명령·전자장치부착 등) — <span class="hi-red">둘 다 법률·적법절차 필요(헌법 제12조①)</span></p></div>
+        </div>
+      </div>
+      <p>법관은 <span class="hi-blue">양형 위원회</span>가 정한 양형 기준을 참조하여 법정형 범위 내에서 형을 정함(양형 편차 방지 목적).</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">3교시</span> 형사 절차와 인권 보장</div>
+
+    <div class="block">
+      <h4>형사 절차의 흐름</h4>
+      <div class="flow">
+        <span class="fstep">수사</span><span class="farrow">→</span>
+        <span class="fstep">공판(모두절차→심리절차→판결선고)</span><span class="farrow">→</span>
+        <span class="fstep">형 집행</span>
+      </div>
+      <ul>
+        <li><span class="hi-blue">고소</span>(피해자·이해관계인이 처벌 요청) vs <span class="hi-blue">고발</span>(제3자가 범죄 사실 신고)</li>
+        <li>사법경찰관: 혐의 인정 → 검찰 <span class="hi-blue">송치</span> / 혐의 불인정 → <span class="hi-blue">불송치</span> 결정(1차 종결)</li>
+        <li>검사: 혐의 인정 → <span class="hi-red">공소 제기(기소)</span> / 혐의 불인정·공소시효 경과 등 → <span class="hi-blue">불기소 처분</span></li>
+      </ul>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 구속 전 피의자 심문 vs 구속 적부심</div>
+        <div class="confuse-body">
+          <div class="confuse-col">
+            <h5>구속 전 피의자 심문(구속영장실질심사)</h5>
+            <p>주체: <b>검사가 영장 청구</b> 시 판사가 진행. 시점: <span class="hi-red">구속 전</span>.</p>
+          </div>
+          <div class="confuse-col">
+            <h5>구속 적부심</h5>
+            <p>주체: <b>피의자·변호인이 법원에 신청</b>. 시점: <span class="hi-red">구속 후</span> — 이미 이루어진 체포·구속의 적법성·필요성 재심사.</p>
+          </div>
+        </div>
+      </div>
+      <p>재판 단계에서는 <span class="hi-blue">보석 제도</span>(구속된 피고인이 보증금 납부 조건으로 석방, 기소 후 가능) 존재. 공판은 <span class="hi-red">공개 재판주의·증거 재판주의</span> 원칙(위법 수집 증거·자백만 있는 경우 유죄 증거 불인정).</p>
+    </div>
+
+    <div class="confuse">
+      <div class="confuse-head">헷갈림 주의 — 집행 유예 vs 선고 유예</div>
+      <div class="confuse-body">
+        <div class="confuse-col">
+          <h5>집행 유예</h5>
+          <p><b>형을 선고</b>하되 일정 기간 <b>집행만 유예</b>. 기간 경과 시 선고한 형 자체가 <span class="hi-red">효력 상실</span>.</p>
+        </div>
+        <div class="confuse-col">
+          <h5>선고 유예</h5>
+          <p><b>형의 선고 자체</b>를 유예(1년 이하 징역·금고·자격정지·벌금 대상). 기간 경과 시 <span class="hi-red">면소</span>(공소 제기 없었던 것과 같은 효과) 간주.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h4>판결 선고 관련 인권 보장 원칙</h4>
+      <ul>
+        <li><span class="hi-blue">불이익 변경 금지 원칙</span>: 피고인만 항소한 사건은 원심보다 무거운 형 선고 불가</li>
+        <li><span class="hi-blue">일사부재리 원칙</span>: 판결 확정 후 같은 사건 재기소 불가</li>
+        <li>기타: <span class="hi-blue">적법 절차의 원칙, 진술 거부권, 변호인의 조력을 받을 권리, 무죄 추정의 원칙</span> (=미란다 원칙과 연결, 「형사소송법」 제244조의3)</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h4>범죄 피해자 보호 · 형사 구제 제도</h4>
+      <table class="cmp">
+        <tr><th>제도</th><th>내용</th></tr>
+        <tr><td>범죄 피해자 구조 제도</td><td>생명·신체 피해자(가족)에게 국가가 구조금 지급</td></tr>
+        <tr><td>배상 명령 제도</td><td>형사 재판 중 법원이 가해자에게 손해배상 명령(신속·간편)</td></tr>
+        <tr><td><span class="hi-red">형사 보상 제도</span></td><td>구금 후 불송치·불기소(무죄취지)·무죄판결·재심 무죄 시 국가에 보상 청구</td></tr>
+        <tr><td>명예 회복 제도</td><td>무죄 판결자가 법무부 누리집에 재판서 게재 청구 가능</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNIT 4 ================= -->
+<section class="unit" id="u4">
+  <div class="unit-head"><span class="unit-num">04</span><h2>사법의 의미와 한계</h2></div>
+  <p class="unit-desc">교과서 85~91쪽 · 법원과 헌법재판소의 구성·역할 → 사법과 입법의 관계</p>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">1교시</span> 법원과 헌법재판소</div>
+
+    <div class="block">
+      <h4>사법권의 독립</h4>
+      <p><span class="hi-blue">사법(司法)</span>: 법을 적용해 분쟁의 옳고 그름을 가리는 작용(개인 간 법률관계인 <span class="hi-blue">사법(私法)</span>과 한자·의미 모두 다름에 주의). 공정한 재판을 위해 <span class="hi-red">사법권의 독립</span> 필요 — 법원 조직의 독자적 구성 + 법관의 신분 독립 보장(헌법 제101조③, 제103조).</p>
+    </div>
+
+    <div class="block">
+      <h4>법원의 조직과 심급제</h4>
+      <p>최고법원 <span class="hi-blue">대법원</span>(대법원장+대법관, <span class="hi-red">국회 동의</span> 얻어 대통령 임명) + 각급 법원(고등법원·지방법원·특허법원·가정법원·행정법원·회생법원·군사법원).</p>
+      <div class="flow">
+        <span class="fstep">1심 — 지방법원(단독/합의부)</span><span class="farrow">→ 항소/항고 →</span>
+        <span class="fstep">2심 — 고등법원 (경미사건은 지방법원 본원합의부)</span><span class="farrow">→ 상고/재항고 →</span>
+        <span class="fstep">3심 — 대법원</span>
+      </div>
+      <div class="tip"><span class="tip-label">시험 포인트</span>사건의 경중에 따라 2심이 <b>고등법원이 아니라 지방법원 본원합의부</b>가 되는 경우가 있음(교과서 활동 사례: 과실치상 등 경미 사건) — "왜 2심이 지방법원인가?"를 묻는 서술형 빈출.</div>
+    </div>
+
+    <div class="block">
+      <h4>헌법재판소 구성과 5대 심판</h4>
+      <p>재판관 <span class="hi-red">9명</span> 구성: 국회 선출 3 + 대법원장 지명 3 + 대통령 임명 3, 모두 <span class="hi-blue">대통령이 임명</span>. 헌재소장은 대통령이 <span class="hi-red">국회 동의</span> 얻어 재판관 중 임명.</p>
+      <div class="tip"><span class="tip-label">암기 필수 — 헌법재판소 5대 심판</span>
+        ① <span class="hi-red">위헌 법률 심판</span> ② <span class="hi-red">헌법 소원 심판</span> ③ <span class="hi-red">탄핵 심판</span> ④ <span class="hi-red">정당 해산 심판</span> ⑤ <span class="hi-red">권한 쟁의 심판</span>
+      </div>
+      <div class="confuse">
+        <div class="confuse-head">헷갈림 주의 — 헌법 소원 심판 2종류 vs 위헌 법률 심판</div>
+        <div class="confuse-body triple">
+          <div class="confuse-col">
+            <h5>권리 구제형 헌법 소원</h5>
+            <p>공권력의 행사·불행사로 <b>기본권을 침해당한 국민</b>이 직접 청구</p>
+          </div>
+          <div class="confuse-col">
+            <h5>위헌 심사형 헌법 소원</h5>
+            <p>위헌 법률 심판 <b>제청 신청이 법원에서 기각</b>된 당사자가 직접 청구 (형식은 헌법소원, 실질은 위헌법률심판)</p>
+          </div>
+          <div class="confuse-col">
+            <h5>위헌 법률 심판</h5>
+            <p><b>담당 법원</b>이 직권 또는 당사자 제청 신청을 받아들여 <b>법원이</b> 헌재에 제청</p>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li>사건 심리 개시: 재판관 <span class="hi-red">7명 이상</span> 출석</li>
+        <li>심리 결과: 부적법 → <span class="hi-blue">각하</span> / 이유 없음·합헌 → <span class="hi-blue">기각(합헌)</span> / 이유 있음·위헌 → <span class="hi-blue">인용(위헌)</span></li>
+        <li><span class="hi-red">위헌 결정·탄핵 결정·정당해산 결정·헌법소원 인용 결정 = 재판관 6명 이상 찬성</span> 필요 (권한쟁의 심판은 과반수 찬성)</li>
+        <li>위헌 결정된 법률은 <span class="hi-blue">결정일부터 효력 상실</span>(장래효). 단 <span class="hi-red">형벌 법률·법률조항은 소급하여 효력 상실</span>(예외: 종전 합헌 결정이 있었다면 그 결정일 다음 날로 소급)</li>
+        <li><span class="hi-blue">헌법 불합치 결정</span>: 위헌이지만 즉시 무효화 시 혼란 우려 → 법 개정 전까지 한시적으로 존속시키는 변형 결정</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-title"><span class="tag">2교시</span> 사법과 입법의 관계</div>
+
+    <div class="block">
+      <h4>입법·사법·행정의 성격 비교</h4>
+      <table class="cmp">
+        <tr><th>작용</th><th>내용</th><th>성격</th></tr>
+        <tr><td>입법</td><td>법익을 일반적·추상적 법규범으로 정립</td><td rowspan="1">적극적·능동적</td></tr>
+        <tr><td>행정</td><td>법규범을 개별적·구체적으로 집행</td><td>적극적·능동적</td></tr>
+        <tr><td>사법</td><td>법규범 해석·적용으로 분쟁 해결</td><td><span class="hi-red">소극적·수동적</span>(분쟁 발생 시에만 발동)</td></tr>
+      </table>
+    </div>
+
+    <div class="block">
+      <h4>법적 삼단 논법</h4>
+      <div class="flow">
+        <span class="fstep">대전제 — 법 규범 탐색</span><span class="farrow">→</span>
+        <span class="fstep">소전제 — 사실관계 확정</span><span class="farrow">→</span>
+        <span class="fstep">결론 도출 — 법 적용</span>
+      </div>
+      <p>예: 대전제(형법 제250조 살인죄 규정) + 소전제(피고인이 고의로 살해한 사실 확정) → 결론(징역 5년 선고).</p>
+    </div>
+
+    <div class="block">
+      <h4>사법의 한계와 입법의 보완</h4>
+      <p>법은 <span class="hi-blue">행위 규범</span>(행위 기준 제시)이자 <span class="hi-blue">재판 규범</span>(재판 기준)으로 기능하며 <span class="hi-red">법적 안정성</span>을 추구 → 사회 변화를 즉각 반영하기 어려움(사법의 한계). 해결: <span class="hi-blue">입법을 통한 법률 개정·제정</span>으로 법 적용 범위 재설정. 입법과 사법은 상호 독립적 견제·균형 관계이면서도 <span class="hi-red">협력 필요성</span>도 있음.</p>
+      <div class="case"><span class="case-label">판례 포인트 — 온라인 암표 처벌 공백</span>구 「경범죄 처벌법」은 '정하여진 요금을 받고 입장시키는 곳'에서의 대면 암표 매매만 처벌 대상으로 규정 → 온라인 매크로 암표 매매는 처벌 불가(구성요건 미해당). 이후 「공연법」을 <span class="hi-red">개정하여 온라인 부정판매 처벌 조항 신설</span>(2023) — 사법이 해결 못한 공백을 입법이 보완한 대표 사례.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ================= SUMMARY ================= -->
+<section class="summary-sec" id="summary">
+  <h2>시험 직전 총정리</h2>
+  <p class="sub">단원 마무리(94~95쪽) 기출 유형 기반 최종 점검</p>
+
+  <div class="sum-grid">
+    <div class="sum-card">
+      <h4>01 국가 운영 원리</h4>
+      <ul>
+        <li>민주주의(국민 뜻)와 법치주의(법에 근거) 구분</li>
+        <li>근대 3대 시민혁명: <b>영국(1688)→미국(1776)→프랑스(1789)</b></li>
+        <li>사회계약설: 홉스(전부양도·저항권✕) / 로크(일부위임·저항권○) / 루소(양도불가·일반의지)</li>
+        <li>우리나라는 직접민주제 요소 중 <b>국민투표만</b> 채택</li>
+        <li>법원은 위헌법률심판 <b>제청</b>만, 최종 결정은 헌법재판소</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>02 우리나라 헌법</h4>
+      <ul>
+        <li>헌법 기본원리 5가지: 민주주의·법치주의·복지국가·문화국가·평화주의</li>
+        <li>기본권 5유형: 자유권(소극·최고오래)·참정권(능동)·사회권(적극·최신)·청구권(수단적)·평등권(전제조건)</li>
+        <li>기본권 제한 요건: 목적정당성+수단적합성+피해최소성+법익균형성(과잉금지)</li>
+        <li>제한 한계: <b>본질적 내용 침해 금지</b> (요건·한계 중 하나라도 위반 시 위헌)</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>03 형법과 형사 절차</h4>
+      <ul>
+        <li>죄형법정주의 파생원칙 5가지(관습형법금지·소급효금지·명확성·유추해석금지·비례성) — 유리하면 예외 허용</li>
+        <li>범죄 3단계: 구성요건해당성→위법성→책임 (하나라도 없으면 불성립)</li>
+        <li>위법성조각(정당행위·정당방위·긴급피난·자구행위·피해자승낙) vs 책임조각(14세미만·심신상실·강요된행위)</li>
+        <li>형벌(과거 응보) vs 보안처분(장래 재범방지)</li>
+        <li>집행유예(형 선고+집행유예) vs 선고유예(선고 자체 유예)</li>
+      </ul>
+    </div>
+    <div class="sum-card">
+      <h4>04 사법의 의미와 한계</h4>
+      <ul>
+        <li>법원 심급제: 지방법원(1심)→고등법원(2심, 경미사건은 지법본원합의부)→대법원(3심)</li>
+        <li>헌재 9명(국회3+대법원장3+대통령3, 임명은 모두 대통령) / 위헌 등 인용은 <b>6명 이상</b> 찬성</li>
+        <li>헌재 5대 심판: 위헌법률·헌법소원(권리구제형/위헌심사형)·탄핵·정당해산·권한쟁의</li>
+        <li>사법은 소극적·수동적(분쟁 있을 때만 발동) — 입법·행정은 적극적·능동적</li>
+        <li>법적 삼단논법: 대전제(법규범)→소전제(사실관계)→결론</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h4>✔ 최종 자가 점검 체크리스트</h4>
+    <label><input type="checkbox"> 근대 시민혁명 3가지를 순서대로 말할 수 있다</label>
+    <label><input type="checkbox"> 홉스·로크·루소의 저항권 인정 여부와 주권 양도 정도를 구분한다</label>
+    <label><input type="checkbox"> 헌법 기본원리 5가지와 각 구현 수단을 짝지을 수 있다</label>
+    <label><input type="checkbox"> 기본권 5유형과 각 유형의 성격(소극적/능동적/적극적)을 안다</label>
+    <label><input type="checkbox"> 기본권 제한의 4요건(과잉금지)과 한계(본질내용 침해금지)를 구분한다</label>
+    <label><input type="checkbox"> 죄형법정주의 파생원칙 5가지를 사례에 적용할 수 있다</label>
+    <label><input type="checkbox"> 범죄 3단계 성립요건과 위법성/책임 조각사유를 구분한다</label>
+    <label><input type="checkbox"> 구속전피의자심문과 구속적부심, 집행유예와 선고유예를 구분한다</label>
+    <label><input type="checkbox"> 헌법재판소 5대 심판과 인용 정족수(6명 이상)를 안다</label>
+    <label><input type="checkbox"> 사법의 소극적·수동적 성격을 입법·행정과 비교해 설명할 수 있다</label>
+  </div>
+</section>
+
+<footer>KANGWOO ENGLISH 자료 시리즈 · 비상교육 22개정 「법과 사회」 2단원 기반 · 원문 인용 없이 재구성</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+
+<script>
+(function(){
+  const input = document.getElementById('searchInput');
+  const countEl = document.getElementById('searchCount');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let marks = [];
+  let currentIdx = -1;
+
+  function clearMarks(){
+    document.querySelectorAll('mark.hit').forEach(m=>{
+      const parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+    marks = [];
+    currentIdx = -1;
+  }
+
+  function walkAndMark(term){
+    const regex = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+    const container = document.querySelector('.wrap');
+    const summarySec = document.getElementById('summary');
+    const roots = [container, summarySec];
+    roots.forEach(root=>{
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node){
+          if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if(node.parentNode.closest('script,style')) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      let n;
+      while(n = walker.nextNode()) nodes.push(n);
+      nodes.forEach(node=>{
+        const text = node.nodeValue;
+        if(!regex.test(text)) return;
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+        while((match = regex.exec(text)) !== null){
+          if(match.index > lastIndex){
+            frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          }
+          const mark = document.createElement('mark');
+          mark.className = 'hit';
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          lastIndex = match.index + match[0].length;
+        }
+        if(lastIndex < text.length){
+          frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  function doSearch(){
+    clearMarks();
+    const term = input.value.trim();
+    if(!term){
+      countEl.textContent = '';
+      return;
+    }
+    walkAndMark(term);
+    marks = Array.from(document.querySelectorAll('mark.hit'));
+    if(marks.length === 0){
+      countEl.textContent = '검색 결과 없음';
+      return;
+    }
+    currentIdx = 0;
+    updateCurrent();
+  }
+
+  function updateCurrent(){
+    marks.forEach(m=>m.classList.remove('current'));
+    if(marks.length === 0) return;
+    const m = marks[currentIdx];
+    m.classList.add('current');
+    m.scrollIntoView({behavior:'smooth', block:'center'});
+    countEl.textContent = (currentIdx+1) + ' / ' + marks.length;
+  }
+
+  input.addEventListener('input', doSearch);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      if(marks.length){
+        currentIdx = (currentIdx + 1) % marks.length;
+        updateCurrent();
+      }
+    }
+  });
+  nextBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx + 1) % marks.length;
+    updateCurrent();
+  });
+  prevBtn.addEventListener('click', function(){
+    if(!marks.length) return;
+    currentIdx = (currentIdx - 1 + marks.length) % marks.length;
+    updateCurrent();
+  });
+})();
+</script>
+
+</body>
+</html>

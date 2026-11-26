@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2단원 OX 150제 — 국가생활과 법 끝장 퀴즈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE1; --paper-card:#FFFCF4; --ink:#211E19; --ink-soft:#5b5647;
+    --navy:#1E2B3C; --navy-2:#2C4058; --red:#A3312A; --red-2:#C4483F; --gold:#A9832E;
+    --green:#2E6B3E; --green-bg:#E9F3EA;
+    --line: rgba(30,43,60,0.14); --shadow: 0 8px 24px rgba(30,20,10,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(169,131,46,0.08), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(30,43,60,0.06), transparent 55%),
+      var(--paper);
+    color:var(--ink); font-family:'Noto Sans KR', sans-serif; line-height:1.6;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  header.hero{ padding:52px 20px 24px; max-width:900px; margin:0 auto; }
+  .case-tag{
+    display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:.06em; color:var(--red); border:1px solid var(--red);
+    padding:4px 10px; border-radius:2px; background:rgba(163,49,42,0.06);
+  }
+  .case-tag::before{content:"●"; font-size:8px;}
+  h1.title{
+    font-family:'Noto Serif KR', serif; font-weight:900; font-size:clamp(30px,7vw,50px);
+    margin:16px 0 8px; color:var(--navy); letter-spacing:-0.01em;
+  }
+  p.lede{ font-size:15.5px; color:var(--ink-soft); margin:6px 0 20px; }
+  .tiger-note{
+    display:flex; gap:12px; align-items:flex-start; font-size:13.5px; color:var(--ink-soft);
+    background:var(--paper-card); border:1px dashed var(--navy-2); border-radius:6px; padding:12px 14px;
+  }
+  .tiger-note .emoji{font-size:20px; flex:none;}
+
+  .dock{
+    position:sticky; top:0; z-index:30; background:rgba(243,238,225,0.95); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line); padding:12px 20px;
+  }
+  .dock-inner{ max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; flex:1; }
+  .chip{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; padding:6px 10px; border:1px solid var(--navy);
+    border-radius:16px; background:transparent; color:var(--navy); cursor:pointer; white-space:nowrap;
+  }
+  .chip.active{ background:var(--navy); color:#F3EEE1; }
+  #gradeBtn, #resetBtn{
+    font-family:'Noto Sans KR', sans-serif; font-weight:700; font-size:14px; padding:10px 18px;
+    border-radius:4px; border:none; cursor:pointer;
+  }
+  #gradeBtn{ background:var(--red); color:#fff; }
+  #resetBtn{ background:var(--navy); color:#fff; display:none; }
+  #progressText{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+
+  #scorePanel{
+    display:none; max-width:900px; margin:18px auto 0; padding:18px 20px; background:var(--navy);
+    color:#F3EEE1; border-radius:8px; text-align:center;
+  }
+  #scorePanel .num{ font-family:'Noto Serif KR', serif; font-weight:900; font-size:40px; }
+  #scorePanel .comment{ font-size:14px; margin-top:6px; opacity:.9; }
+
+  main{ max-width:900px; margin:0 auto; padding:20px 20px 100px; }
+  .section-head{
+    margin:40px 0 16px; display:flex; align-items:baseline; gap:10px;
+  }
+  .section-head .n{ font-family:'Noto Serif KR', serif; font-weight:900; font-size:34px; color:var(--gold); opacity:.85; }
+  .section-head h2{ font-family:'Noto Serif KR', serif; font-size:21px; color:var(--navy); margin:0; }
+  .section-head hr{ flex:1; border:none; border-top:2px solid var(--navy); margin-left:8px; }
+
+  .qcard{
+    background:var(--paper-card); border:1px solid var(--line); border-left:5px solid var(--navy-2);
+    border-radius:4px; padding:16px 18px; margin-bottom:12px; box-shadow:var(--shadow);
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .qcard.correct{ border-left-color:var(--green); background:var(--green-bg); }
+  .qcard.wrong{ border-left-color:var(--red); background:#FBEAE8; }
+  .qhead{ display:flex; gap:10px; align-items:flex-start; }
+  .qnum{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--gold); font-weight:600; flex:none; padding-top:2px; }
+  .qtext{ font-size:14.5px; flex:1; }
+  .oxrow{ display:flex; gap:8px; margin-top:10px; margin-left:38px; }
+  .oxbtn{
+    width:52px; height:38px; border-radius:6px; border:1.5px solid var(--navy); background:#fff;
+    font-family:'Noto Serif KR', serif; font-weight:900; font-size:17px; color:var(--navy); cursor:pointer;
+  }
+  .oxbtn.selected{ background:var(--navy); color:#F3EEE1; }
+  .qcard.correct .oxbtn.selected{ background:var(--green); border-color:var(--green); }
+  .qcard.wrong .oxbtn.selected{ background:var(--red); border-color:var(--red); }
+  .result-tag{ margin-left:38px; margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600; display:none; }
+  .qcard.correct .result-tag{ display:block; color:var(--green); }
+  .qcard.wrong .result-tag{ display:block; color:var(--red); }
+  .exp{
+    margin:10px 0 0 38px; padding:10px 12px; background:rgba(163,49,42,0.055); border:1px solid rgba(163,49,42,0.25);
+    border-radius:3px; font-size:13.5px; display:none;
+  }
+  .qcard.graded .exp{ display:block; }
+  .exp .label{ font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:700; color:var(--red); margin-bottom:4px; }
+
+  footer{ max-width:900px; margin:0 auto; padding:20px 20px 60px; color:var(--ink-soft); font-size:12.5px; text-align:center; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="case-tag mono">EXAM DRILL · 2단원 OX 150제</span>
+  <h1 class="title">국가생활과 법<br>OX 끝장 퀴즈 150</h1>
+  <p class="lede">헌법・국가운영원리(1~50) · 형법과 형사절차(51~100) · 사법의 의미와 한계(101~150) — 진짜 헷갈리는 문제만 골라 담았습니다. 숫자 하나, 순서 하나, 주어 하나까지 의심하면서 풀어보세요!</p>
+  <div class="tiger-note">
+    <span class="emoji">🐯</span>
+    <div>안녕, 호랑 변호사입니다. 이번 문제들은 특히 '주어 바꿔치기'가 많아요 — 민주주의랑 법치주의, 항소랑 항고, 대전제랑 소전제처럼 짝지어 다니는 개념의 자리를 슬쩍 바꿔놨거든요. 끝까지 의심하면서 풀어보세요!</div>
+  </div>
+</header>
+
+<div class="dock">
+  <div class="dock-inner">
+    <div class="chips" id="chipRow">
+      <button class="chip active" data-ch="all">전체 150</button>
+      <button class="chip" data-ch="1">01 헌법・국가운영원리</button>
+      <button class="chip" data-ch="2">02 형법과 형사절차</button>
+      <button class="chip" data-ch="3">03 사법의 의미와 한계</button>
+    </div>
+    <span id="progressText" class="mono">0 / 150 응답</span>
+    <button id="gradeBtn">채점하기</button>
+    <button id="resetBtn">다시 풀기</button>
+  </div>
+</div>
+
+<div id="scorePanel">
+  <div class="num" id="scoreNum">0 / 150</div>
+  <div class="comment" id="scoreComment"></div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  본 자료는 고등학교 「법과 사회」 교과서 2단원(국가생활과 법)을 바탕으로 재구성한 학습용 문제입니다. 정답과 해설은 학습 이해를 돕기 위한 것으로, 실제 법 적용 시에는 반드시 전문가와 상담하세요.
+</footer>
+
+<script>
+const DATA = [
+// ===== 01. 헌법・국가운영원리 — A. 민주주의와 법치주의 =====
+{ch:1,q:"헌법 제1조 제2항은 국민 주권의 원리를 선언하고 있다.",a:true,exp:"맞아요! \"모든 권력은 국민으로부터 나온다\" — 대한민국 헌법의 출발점이죠."},
+{ch:1,q:"법치주의는 국민이 국가기관을 구성하고 정당성을 부여하는 원리를 말한다.",a:false,exp:"그건 민주주의의 정의예요! 법치주의는 '법에 근거해' 국가기관을 구성・운영해야 한다는 원리입니다."},
+{ch:1,q:"민주주의는 법에 근거하여 국가기관을 구성・운영해야 한다는 이념이다.",a:false,exp:"땡! 이건 법치주의 얘기예요. 민주주의는 '국민의 뜻'에 따라 국가 의사를 결정해야 한다는 이념이랍니다."},
+{ch:1,q:"법치주의의 궁극적 목적은 국민의 자유와 권리 보장이다.",a:true,exp:"맞습니다. 법으로 다스리는 것 자체가 목적이 아니라, 그걸 통해 국민을 지키는 게 진짜 목적이에요."},
+{ch:1,q:"고대 아테네의 직접 민주 정치에는 여성과 노예, 외국인도 동등하게 참여할 수 있었다.",a:false,exp:"아쉽게도 아니에요. 아테네의 '시민'에는 여성, 노예, 외국인이 빠져 있었답니다."},
+{ch:1,q:"근대 시민혁명을 거치며 대의제, 법치주의, 입헌주의가 확립되었다.",a:true,exp:"정답이에요, 명예혁명・독립혁명・프랑스혁명이 남긴 유산이죠."},
+{ch:1,q:"오늘날 우리나라는 국민투표, 국민발안, 국민소환을 모두 제도로 인정하고 있다.",a:false,exp:"셋 다는 아니에요! 우리나라는 직접민주제 요소 중 '국민투표'만 인정하고 있어요."},
+{ch:1,q:"현대 민주주의는 참정권 확대 운동을 거쳐 보통 선거를 확립했다.",a:true,exp:"맞아요, 노동자・여성・흑인 등의 오랜 투쟁 끝에 얻어낸 성과입니다."},
+{ch:1,q:"대의제는 대표를 뽑지 않고 국민이 모든 사안을 직접 결정하는 제도이다.",a:false,exp:"그건 직접민주제예요! 대의제는 국민이 뽑은 '대표'가 대신 결정하는 간접적 방식이랍니다."},
+{ch:1,q:"민주주의와 법치주의는 서로 완전히 무관한 별개의 원리로 헌법에 함께 규정될 수 없다.",a:false,exp:"둘은 국가 운영이라는 하나의 수레를 굴리는 두 바퀴예요! 함께 작동하는 원리입니다."},
+// ===== B. 권력분립과 헌법재판소 =====
+{ch:1,q:"권력분립은 입법권, 행정권, 사법권을 나누어 권력 남용을 막는 원리이다.",a:true,exp:"정답! 삼각형처럼 세 권력이 서로를 견제하며 균형을 이뤄요."},
+{ch:1,q:"권력분립의 궁극적 목적은 국가 기관의 업무 효율을 극대화하는 데 있다.",a:false,exp:"효율이 아니라 '국민의 자유와 권리 보장'이 진짜 목적이에요."},
+{ch:1,q:"입법권은 법원에, 사법권은 국회에 속한다.",a:false,exp:"완전히 뒤바뀌었어요! 입법권은 국회, 사법권은 법원이 맞습니다."},
+{ch:1,q:"헌법재판소는 위헌 법률 심판, 탄핵 심판, 정당 해산 심판, 권한쟁의 심판, 헌법소원 심판을 관장한다.",a:true,exp:"맞아요, '위탄정권헌' 다섯 가지를 다 관장해요."},
+{ch:1,q:"헌법재판소는 국가기관 간 권한 다툼은 다루지 않는다.",a:false,exp:"다뤄요! 그게 바로 '권한쟁의 심판'이에요."},
+{ch:1,q:"헌법재판소는 국회가 만든 법률이 헌법에 위반되는지 심판할 수 있다.",a:true,exp:"정답, 그게 바로 위헌법률심판이에요."},
+{ch:1,q:"정당 해산 심판은 헌법재판소가 아니라 대법원의 권한이다.",a:false,exp:"땡! 정당 해산 심판은 헌법재판소의 권한이에요."},
+{ch:1,q:"헌법재판소의 권한은 헌법 제111조에 규정되어 있다.",a:true,exp:"맞습니다, 정확한 조문 번호예요."},
+{ch:1,q:"권력분립 원리에 따르면 한 기관이 다른 기관의 권한을 견제하는 장치를 두는 것은 원리에 어긋난다.",a:false,exp:"오히려 반대예요! 서로 견제하는 장치를 두는 것이 권력분립의 핵심 취지랍니다."},
+{ch:1,q:"국회의 탄핵소추권은 국회가 행정부・사법부를 견제하는 수단 중 하나로 볼 수 있다.",a:true,exp:"정답이에요, 대표적인 견제 장치 중 하나입니다."},
+// ===== C. 기본권 총론 =====
+{ch:1,q:"헌법 제10조는 인간의 존엄과 가치 및 행복추구권을 규정한다.",a:true,exp:"맞아요, 헌법의 핵심 이념이 담긴 조문이에요."},
+{ch:1,q:"헌법에 구체적으로 열거되지 않은 권리는 어떤 경우에도 기본권으로 인정될 수 없다.",a:false,exp:"초상권처럼 열거 안 된 권리도 제10조를 근거로 새롭게 인정될 수 있어요."},
+{ch:1,q:"인권은 헌법에 규정된 인권만을 의미하며, 헌법에 없는 인권은 존재하지 않는다.",a:false,exp:"인권은 인간이라면 누구나 타고나는 권리예요. 그중 헌법에 적힌 것만 '기본권'이라고 부르는 거죠."},
+{ch:1,q:"법률상 권리는 법률에 규정되어 보장되는 권리이다.",a:true,exp:"정답, 정확한 정의입니다."},
+{ch:1,q:"자유권은 국가의 적극적 급부를 요구하는 권리로, 가장 최근에 등장한 기본권이다.",a:false,exp:"완전히 반대예요! 자유권은 국가의 '간섭 배제'를 요구하는 소극적 권리이고, 가장 오래된 기본권이에요. 최근 등장한 건 사회권이랍니다."},
+{ch:1,q:"참정권은 국가 운영에 참여할 수 있는 능동적 권리이다.",a:true,exp:"맞아요, 선거권・공무담임권처럼 능동적으로 참여하는 권리죠."},
+{ch:1,q:"사회권에는 인간다운 생활을 요구하는 교육을 받을 권리, 근로의 권리 등이 포함된다.",a:true,exp:"정답이에요, 사회권은 적극적・현대적 권리랍니다."},
+{ch:1,q:"청구권은 다른 기본권을 보장하기 위한 수단적・절차적 권리이다.",a:true,exp:"맞아요, 청원권・재판청구권처럼 다른 권리를 지키기 위한 '도구' 같은 권리죠."},
+{ch:1,q:"평등권은 절대적으로 모든 사람을 무조건 똑같이 취급해야 한다는 의미이며 어떤 예외도 허용하지 않는다.",a:false,exp:"평등권은 '상대적・실질적 평등'을 의미해요. 합리적 이유가 있다면 다르게 취급하는 것도 허용됩니다."},
+{ch:1,q:"평등권은 다른 기본권 실현의 전제 조건이 되는 성격을 가진다.",a:true,exp:"정답, 평등하지 않으면 다른 권리도 제대로 누릴 수 없죠."},
+// ===== D. 기본권 제한 =====
+{ch:1,q:"기본권은 국가 안전 보장, 질서 유지, 공공복리를 위해 필요한 경우 법률로써 제한할 수 있다.",a:true,exp:"맞아요, 헌법 제37조 제2항의 내용이에요."},
+{ch:1,q:"기본권 제한의 형식 요건은 반드시 대통령령으로 정해야 한다는 것이다.",a:false,exp:"대통령령이 아니라 '법률'로써 제한해야 해요."},
+{ch:1,q:"과잉금지의 원칙은 목적의 정당성, 수단의 적합성, 피해의 최소성, 법익의 균형성을 모두 요구한다.",a:true,exp:"정답! 네 가지 조건을 다 갖춰야 하는 까다로운 원칙이에요."},
+{ch:1,q:"기본권은 목적・형식・방법 요건을 모두 충족하면 본질적인 내용까지도 제한할 수 있다.",a:false,exp:"아무리 요건을 다 갖춰도 '본질적인 내용'만은 절대 침해할 수 없어요."},
+{ch:1,q:"국가 안전 보장, 질서 유지, 공공복리는 기본권 제한의 목적 요건에 해당한다.",a:true,exp:"맞습니다, 정확한 목적 요건이에요."},
+{ch:1,q:"과잉금지의 원칙 중 '피해의 최소성'은 목적 달성을 위해 필요한 범위를 넘어서는 안 된다는 의미이다.",a:true,exp:"정답이에요, 정확한 정의입니다."},
+{ch:1,q:"기본권 제한은 법률의 근거 없이 대통령의 명령만으로도 자유롭게 할 수 있다.",a:false,exp:"절대 안 돼요! 반드시 '법률'이라는 근거가 있어야 합니다."},
+{ch:1,q:"헌법 제37조 제2항은 기본권 제한의 근거 조항이다.",a:true,exp:"맞아요, 정확한 조문 번호예요."},
+{ch:1,q:"기본권 제한의 방법 요건을 모두 지켰다면 그 어떤 기본권 제한도 위헌 시비에서 완전히 자유롭다.",a:false,exp:"방법 요건을 다 지켜도 '본질적 내용 침해 금지'라는 마지막 관문이 또 남아있어요."},
+{ch:1,q:"국가는 목적이 정당하다면 수단이 다소 과도해도 기본권을 자유롭게 제한할 수 있다.",a:false,exp:"목적만 좋아서는 안 돼요! 수단의 적합성과 피해의 최소성도 함께 따져야 합니다."},
+// ===== E. 국민의 의무 및 종합 =====
+{ch:1,q:"헌법은 국민의 권리뿐 아니라 납세, 국방 등의 기본 의무도 규정하고 있다.",a:true,exp:"맞아요, 권리와 의무는 늘 짝을 이뤄요."},
+{ch:1,q:"납세의 의무와 국방의 의무는 비교적 근대부터 있어 온 오래된 기본 의무이다.",a:true,exp:"정답이에요, 가장 오래된 두 의무입니다."},
+{ch:1,q:"환경보전의 의무와 교육의 의무는 헌법상 국민의 기본 의무에 포함되지 않는다.",a:false,exp:"포함돼요! 두 의무 모두 헌법이 정한 국민의 기본 의무랍니다."},
+{ch:1,q:"재산권 행사는 어떤 경우에도 공공복리에 적합해야 할 의무가 없다.",a:false,exp:"있어요! 재산권 행사도 공공복리에 적합해야 한다는 의무가 헌법에 명시돼 있습니다."},
+{ch:1,q:"근로의 의무는 헌법상 국민의 기본 의무로 규정되어 있지 않다.",a:false,exp:"규정되어 있어요! 근로의 의무도 국민의 기본 의무 중 하나입니다."},
+{ch:1,q:"홉스는 자연 상태를 자유롭고 평화로운 상태로 보았다.",a:false,exp:"그건 루소의 생각이에요! 홉스는 자연 상태를 '만인의 만인에 대한 투쟁 상태'로 봤답니다."},
+{ch:1,q:"로크는 국가가 신뢰를 저버리면 시민이 저항권을 행사해 권리를 되찾을 수 있다고 보았다.",a:true,exp:"맞아요, 로크만의 특징인 '저항권' 개념이에요."},
+{ch:1,q:"루소는 개개인이 자연권을 공동체에 이전하면 주권은 양도되거나 대표될 수 없다고 보았다.",a:true,exp:"정답이에요, 그래서 루소는 대의제보다 직접민주정에 가까운 입장이었어요."},
+{ch:1,q:"헌법재판소 재판관은 국회에서 3명, 대법원장이 3명, 대통령이 3명을 각각 선출・지명・임명한다.",a:true,exp:"맞아요, '3+3+3=9'로 균형을 맞춘 구성이에요."},
+{ch:1,q:"헌법재판소장은 재판관들의 호선(互選, 서로 투표)으로만 정해지며 대통령의 임명 절차는 필요 없다.",a:false,exp:"호선이 아니에요! 대통령이 국회의 동의를 얻어 재판관 중에서 임명합니다."},
+
+// ===== 02. 형법과 형사절차 — A. 죄형법정주의 =====
+{ch:2,q:"형법은 범죄와 형벌을 정한 법으로, 오히려 국민의 자유를 보장하는 기능도 한다.",a:true,exp:"맞아요! 형법에 없는 행동은 아무리 이상해도 처벌할 수 없다는 점에서 오히려 자유를 지켜줘요."},
+{ch:2,q:"죄형 법정주의란 \"법률이 없어도 사회 통념상 나쁜 행위는 범죄로 처벌할 수 있다\"는 원칙이다.",a:false,exp:"정반대예요! \"법률이 없으면 범죄도 형벌도 없다\"는 원칙이 죄형 법정주의입니다."},
+{ch:2,q:"관습으로도 범죄와 형벌을 정할 수 있다는 것이 관습 형법 금지 원칙의 내용이다.",a:false,exp:"이름과 반대되는 내용이 함정이에요! 관습 형법 '금지' 원칙은 관습으로는 범죄・형벌을 정할 수 '없다'는 원칙입니다."},
+{ch:2,q:"행위 당시에는 처벌 규정이 없었지만, 나중에 법을 만들어 그 행위를 소급해서 처벌할 수 있다.",a:false,exp:"안 돼요! 이게 바로 소급효 금지 원칙이 막고 있는 상황이에요."},
+{ch:2,q:"명확성의 원칙은 범죄와 형벌의 내용을 명확히 규정해야 한다는 원칙이다.",a:true,exp:"맞아요, 애매모호한 규정으로는 처벌할 수 없다는 원칙이에요."},
+{ch:2,q:"유추 해석 금지의 원칙에 따르면, 피고인에게 유리한 유추 해석도 절대 허용되지 않는다.",a:false,exp:"피고인에게 '불리한' 유추 해석만 금지돼요. 유리한 유추 해석은 허용됩니다."},
+{ch:2,q:"비례성(적정성)의 원칙은 책임에 비례한 형벌을 부과해야 한다는 원칙이다.",a:true,exp:"정답이에요, 과잉 처벌을 막는 원칙이에요."},
+{ch:2,q:"죄형 법정주의는 근대 이전 국왕이 마음대로 범죄와 형벌을 정하던 것을 막기 위해 확립되었다.",a:true,exp:"맞아요, 왕의 즉흥적인 처벌을 막기 위한 역사적 산물이에요."},
+{ch:2,q:"오늘날 죄형 법정주의는 \"적정한 법률이 없으면 범죄도 형벌도 없다\"로 그 의미가 확장되었다.",a:true,exp:"정답이에요, '적정함'까지 요구하는 방향으로 발전했어요."},
+{ch:2,q:"죄형 법정주의의 세부 원칙은 관습형법금지, 소급효금지 단 두 가지뿐이다.",a:false,exp:"두 가지가 아니라 다섯 가지예요! '관소명유적'을 기억하세요."},
+// ===== B. 범죄의 성립요건 =====
+{ch:2,q:"범죄가 성립하려면 구성요건해당성, 위법성, 책임의 3단계를 모두 충족해야 한다.",a:true,exp:"맞아요, '구위책' 3단계가 다 갖춰져야 해요."},
+{ch:2,q:"도덕적으로 비난받을 행위라면 형법에 규정이 없어도 구성요건 해당성이 인정된다.",a:false,exp:"아무리 얄미워도 형법에 규정이 없으면 구성요건 해당성 자체가 없어요."},
+{ch:2,q:"정당방위는 위법성 조각 사유 중 하나로, 현재의 부당한 침해를 막기 위한 상당한 행위여야 한다.",a:true,exp:"정답이에요, 정확한 요건입니다."},
+{ch:2,q:"위법성 조각 사유에는 정당행위, 정당방위, 긴급피난, 자구행위, 피해자의 승낙이 있다.",a:true,exp:"맞아요, '정정긴자피' 다섯 사유예요."},
+{ch:2,q:"위법성 조각 사유는 딱 두 가지, 정당방위와 긴급피난뿐이다.",a:false,exp:"두 가지가 아니라 다섯 가지예요! 정당행위・자구행위・피해자승낙도 포함됩니다."},
+{ch:2,q:"14세 미만인 사람의 행위는 책임 조각 사유에 해당해 형사 책임을 지지 않는다.",a:true,exp:"맞아요, 형사 미성년자는 책임이 아예 조각돼요."},
+{ch:2,q:"심신 미약자의 행위는 책임이 조각되어 아예 무죄가 된다.",a:false,exp:"조각이 아니라 '감경'만 돼요! 아예 무죄가 되는 건 아닙니다."},
+{ch:2,q:"강요된 행위, 즉 저항할 수 없는 폭력・협박으로 강요된 행위는 책임 조각 사유에 해당한다.",a:true,exp:"정답이에요, 3대 책임 조각 사유 중 하나예요."},
+{ch:2,q:"청각・언어 장애가 모두 있는 사람(농아자)의 행위는 책임이 조각되어 처벌받지 않는다.",a:false,exp:"조각이 아니라 형이 '감경'될 뿐이에요! 심신미약과 같은 취급입니다."},
+{ch:2,q:"구성요건해당성, 위법성, 책임 중 하나라도 빠지면 범죄는 성립하지 않는다.",a:true,exp:"맞아요, 3단계 중 하나만 빠져도 범죄 불성립이에요."},
+// ===== C. 형벌과 보안처분 =====
+{ch:2,q:"형벌에는 생명형, 자유형, 명예형, 재산형이 있다.",a:true,exp:"정답! '생자명재' 네 가지 계열이에요."},
+{ch:2,q:"사형은 자유형에 속하는 형벌이다.",a:false,exp:"사형은 생명형이에요! 자유형에는 징역・금고・구류가 있습니다."},
+{ch:2,q:"징역과 금고는 둘 다 자유형이지만, 징역에는 정해진 노역이 있고 금고에는 노역이 없다.",a:true,exp:"맞아요, 노역 유무가 둘의 차이점이에요."},
+{ch:2,q:"벌금과 과료는 둘 다 재산형이며, 벌금이 과료보다 일반적으로 액수가 크다.",a:true,exp:"정답이에요, 벌금(5만원 이상)이 과료(2천원~5만원 미만)보다 큰 금액이에요."},
+{ch:2,q:"몰수는 명예형에 속하는 형벌로 범죄에 사용된 물건의 소유권을 박탈한다.",a:false,exp:"몰수는 재산형이에요! 명예형에는 자격상실・자격정지가 있습니다."},
+{ch:2,q:"자격상실과 자격정지는 재산형에 해당한다.",a:false,exp:"재산형이 아니라 명예형에 해당해요."},
+{ch:2,q:"법관은 법정형을 기초로 가중・감경한 뒤 양형 기준을 참조해 구체적 형량을 정한다.",a:true,exp:"맞아요, 정확한 양형 절차예요."},
+{ch:2,q:"보안처분은 과거의 범죄 행위에 대한 응보적 제재이고, 형벌은 장래의 재범 위험성을 막기 위한 예방적 제재이다.",a:false,exp:"완전히 뒤바뀌었어요! 형벌은 '과거' 행위에 대한 제재, 보안처분은 '미래' 위험성을 막는 예방적 제재예요."},
+{ch:2,q:"치료감호, 보호관찰, 사회봉사명령은 모두 보안처분의 예시이다.",a:true,exp:"정답이에요, 대표적인 보안처분들이에요."},
+{ch:2,q:"보안처분은 형벌과 성격이 다르지만, 국민의 자유를 제한할 수 있으므로 법률과 적법절차에 따라야 한다.",a:true,exp:"맞아요, 이름만 다를 뿐 자유 제한이라는 점은 같아서 신중한 절차가 필요해요."},
+// ===== D. 형사절차 - 수사와 공판 =====
+{ch:2,q:"피해자가 처벌을 요청하는 것은 고발이고, 제3자가 범죄 사실을 신고하는 것은 고소이다.",a:false,exp:"완전히 뒤바뀌었어요! 피해자가 하면 '고소', 제3자가 하면 '고발'이에요."},
+{ch:2,q:"수사는 원칙적으로 불구속 수사가 원칙이다.",a:true,exp:"맞아요, 무조건 잡아 가두는 게 아니라 불구속이 원칙이에요."},
+{ch:2,q:"체포・구속・압수・수색을 할 때는 원칙적으로 판사가 발부한 영장이 필요하다.",a:true,exp:"정답이에요, 영장주의의 핵심이에요."},
+{ch:2,q:"구속 전 피의자 심문 제도는 검사가 구속영장을 청구하기 전에 판사가 피의자를 직접 심문하는 제도이다.",a:false,exp:"순서가 틀렸어요! 검사가 영장을 '청구한 후'에 판사가 심문하는 제도예요."},
+{ch:2,q:"구속 적부심 제도는 이미 구속된 피의자나 변호인이 법원에 석방을 청구할 수 있는 제도이다.",a:true,exp:"맞아요, 구속 '후'의 안전장치예요."},
+{ch:2,q:"검사가 기소하면 피의자는 그 순간부터 '피고인' 신분이 된다.",a:true,exp:"정답이에요, 기소를 기점으로 호칭이 바뀌어요."},
+{ch:2,q:"공판절차는 판결 선고 → 심리절차 → 모두절차 순서로 진행된다.",a:false,exp:"순서가 거꾸로예요! '모두절차 → 심리절차 → 판결선고' 순이 맞습니다."},
+{ch:2,q:"무죄 추정의 원칙에 따라 유죄가 확정되기 전까지 피고인은 무죄로 추정된다.",a:true,exp:"맞아요, 재판 내내 깔리는 배경음악 같은 원칙이에요."},
+{ch:2,q:"피고인만 항소한 사건에서 2심 재판부는 1심보다 더 무거운 형을 선고할 수 있다.",a:false,exp:"불이익 변경 금지 원칙 위반이에요! 피고인만 항소했다면 더 무거운 형을 선고할 수 없어요."},
+{ch:2,q:"확정판결을 받은 사건에 대해서는 같은 사건으로 다시 기소할 수 없다는 것이 일사부재리 원칙이다.",a:true,exp:"정답이에요, 정확한 정의입니다."},
+// ===== E. 형의 집행・인권보장・피해자보호 =====
+{ch:2,q:"집행유예는 형의 선고 자체를 미루는 것이고, 선고유예는 형을 선고하되 집행만 미루는 것이다.",a:false,exp:"완전히 뒤바뀌었어요! 집행유예는 '형을 선고하되 집행만' 미루고, 선고유예는 '선고 자체'를 미루는 거예요."},
+{ch:2,q:"가석방은 수형자가 형기 만료 전에 성실한 생활을 조건으로 석방되는 제도이다.",a:true,exp:"맞아요, 정확한 정의예요."},
+{ch:2,q:"진술거부권은 피의자・피고인이 자신에게 불리한 진술을 거부할 수 있는 권리이다.",a:true,exp:"정답이에요, 형사절차 인권보장의 핵심 권리 중 하나예요."},
+{ch:2,q:"미란다 원칙은 체포・신문 시 피의자에게 권리를 미리 고지해야 한다는 원칙이다.",a:true,exp:"맞아요, 국번 형사가 항상 또박또박 읽어주는 그 원칙이에요."},
+{ch:2,q:"변호인의 조력을 받을 권리는 헌법상 보장되지 않는 임의적 배려일 뿐이다.",a:false,exp:"임의적 배려가 아니라 헌법상 '보장된 권리'예요."},
+{ch:2,q:"형사보상 제도는 억울하게 구금되었다가 무죄가 확정된 사람이 국가에 보상을 청구할 수 있는 제도이다.",a:true,exp:"정답이에요, 갇힌 시간을 보상받는 제도예요."},
+{ch:2,q:"명예회복 제도는 무죄 판결을 받은 사람의 명예 회복을 위해 무죄 재판서를 공개하도록 청구할 수 있는 제도이다.",a:true,exp:"맞아요, 구겨진 명예를 되찾는 제도예요."},
+{ch:2,q:"배상명령 제도는 형사재판 과정에서 법원이 가해자에게 손해배상을 명령하는 제도이다.",a:true,exp:"정답이에요, 별도 민사소송 없이도 손해배상을 받을 수 있게 도와줘요."},
+{ch:2,q:"국민참여재판의 배심원 평결은 법적 구속력을 가지므로 판사는 반드시 그 결론을 따라야 한다.",a:false,exp:"법적 구속력은 없어요! 다만 판사는 배심원의 판단을 최대한 존중해야 합니다."},
+{ch:2,q:"국민참여재판은 2008년부터 시행된 제도이다.",a:true,exp:"맞아요, 정확한 시행 연도예요."},
+
+// ===== 03. 사법의 의미와 한계 — A. 사법권 독립과 법원 조직 =====
+{ch:3,q:"사법이란 국가가 법을 적용해 분쟁이나 사건의 옳고 그름을 판단하는 작용이다.",a:true,exp:"정답이에요, 정확한 정의입니다."},
+{ch:3,q:"법관은 헌법과 법률, 그리고 상급자의 지시에 따라 재판해야 한다.",a:false,exp:"상급자 지시가 아니에요! 법관은 헌법・법률・'양심'에 따라 독립하여 심판해야 합니다."},
+{ch:3,q:"법관의 신분은 일반 공무원보다 약하게 보호되어 정치권이 쉽게 교체할 수 있다.",a:false,exp:"정반대예요! 법관 신분은 일반 공무원보다 훨씬 '강하게' 보호됩니다."},
+{ch:3,q:"사법권의 독립은 정치나 여론으로부터도 독립해야 한다는 것을 포함한다.",a:true,exp:"맞아요, 그 누구의 압력에도 흔들리지 않아야 진짜 독립이에요."},
+{ch:3,q:"대법원장과 대법관은 국회의 동의 없이 대통령이 단독으로 임명한다.",a:false,exp:"국회의 동의가 꼭 필요해요! 대통령 단독으로는 안 됩니다."},
+{ch:3,q:"일반 법관은 대법관회의의 동의를 얻어 대법원장이 임명한다.",a:true,exp:"정답이에요, 정확한 임명 절차예요."},
+{ch:3,q:"가정법원은 이혼, 상속 같은 가족 관련 사건을 전문적으로 다루는 법원이다.",a:true,exp:"맞아요, 병원의 '전문 진료과'처럼 법원도 나뉘어 있어요."},
+{ch:3,q:"특허 관련 다툼은 지방법원이 전담하며 특허법원이라는 별도 법원은 존재하지 않는다.",a:false,exp:"특허법원이 별도로 존재해요! 지방법원이 전담하는 게 아닙니다."},
+{ch:3,q:"행정처분에 대한 불복은 행정법원에서 다룬다.",a:true,exp:"정답이에요, 행정법원의 전문 영역이에요."},
+{ch:3,q:"군사법원은 우리나라 법원 조직에 존재하지 않는다.",a:false,exp:"존재해요! 군인 관련 사건을 다루는 전문 법원이에요."},
+// ===== B. 심급제도 =====
+{ch:3,q:"심급 제도는 공정한 재판을 위해 재판 과정을 3단계로 나누는 제도이다.",a:true,exp:"맞아요, 신중한 재판을 위한 3번의 기회예요."},
+{ch:3,q:"지방법원은 원칙적으로 1심을 담당하며 단독판사 또는 합의부가 재판한다.",a:true,exp:"정답이에요, 사건의 경중에 따라 담당이 나뉘어요."},
+{ch:3,q:"판결・결정에 불복해 상급심에 재판을 청구하는 것을 '항고'라고 하며, 결정・명령에 불복하는 것은 '항소'라고 한다.",a:false,exp:"완전히 뒤바뀌었어요! 판결 불복은 '항소', 결정・명령 불복은 '항고'가 맞아요."},
+{ch:3,q:"지방법원 단독판사 사건의 2심은 반드시 고등법원이 담당한다.",a:false,exp:"고등법원이 아니에요! 단독판사 사건의 2심은 '지방법원 본원 합의부'가 담당합니다."},
+{ch:3,q:"지방법원 합의부 사건의 2심은 고등법원이 담당한다.",a:true,exp:"정답이에요, 이 경우엔 고등법원이 맞습니다."},
+{ch:3,q:"대법원은 상고・재항고 사건의 최종심을 담당한다.",a:true,exp:"맞아요, 대법원이 최종 종착지예요."},
+{ch:3,q:"심급 제도 덕분에 하나의 사건에 대해 이론상 최대 세 번까지 재판받을 기회가 주어진다.",a:true,exp:"정답이에요, '삼세번'의 기회죠."},
+{ch:3,q:"1심에서 무죄가 나온 사건은 검사가 불복해도 항소할 수 없다.",a:false,exp:"검사도 항소할 수 있어요! 항소는 피고인만의 권리가 아니랍니다."},
+{ch:3,q:"대법원의 판단이 있으면 그 이후에는 어떤 경우에도 재심이 불가능하다.",a:false,exp:"완전히 불가능한 건 아니에요! 일정 요건을 갖추면 재심이 가능한 경우도 있어요."},
+{ch:3,q:"심급 제도의 목적은 신중하고 공정한 재판을 보장하기 위함이다.",a:true,exp:"맞아요, 정확한 목적이에요."},
+// ===== C. 헌법재판소 =====
+{ch:3,q:"헌법재판소는 법관 자격이 있는 9명의 재판관으로 구성된다.",a:true,exp:"정답이에요, 정확한 구성 인원이에요."},
+{ch:3,q:"헌법재판소 재판관 9명은 모두 대통령이 단독으로 임명한다.",a:false,exp:"단독이 아니에요! 국회 3명, 대법원장 3명, 대통령 3명으로 나눠서 구성돼요."},
+{ch:3,q:"권리구제형 헌법소원은 공권력의 행사・불행사로 기본권을 침해당한 국민이 직접 청구하는 것이다.",a:true,exp:"맞아요, 정확한 정의예요."},
+{ch:3,q:"위헌심사형 헌법소원은 법원이 위헌법률심판을 제청해 진행하는 절차를 말한다.",a:false,exp:"그건 그냥 위헌법률심판이에요! 위헌심사형 헌법소원은 법원이 제청 신청을 '거절'했을 때 당사자가 직접 청구하는 거예요."},
+{ch:3,q:"위헌심사형 헌법소원은 형식은 헌법소원이지만 실질은 위헌법률심판이라고 볼 수 있다.",a:true,exp:"정답이에요, 겉모습만 헌법소원이고 속은 위헌법률심판이랍니다."},
+{ch:3,q:"법원의 판결 자체는 원칙적으로 헌법소원 심판의 대상이 된다.",a:false,exp:"법원의 판결은 원칙적으로 헌법소원 대상에서 '제외'돼요."},
+{ch:3,q:"헌법재판소 심리는 재판관 5명 이상 출석하면 시작할 수 있다.",a:false,exp:"5명이 아니라 '7명' 이상 출석해야 심리를 시작할 수 있어요."},
+{ch:3,q:"법률에 대한 위헌 결정을 하려면 재판관 9명 중 6명 이상의 찬성이 필요하다.",a:true,exp:"맞아요, '7명 출석, 6명 찬성'을 꼭 기억하세요."},
+{ch:3,q:"헌법재판소의 결정은 해당 사건의 당사자에게만 효력이 있을 뿐 다른 국가기관을 구속하지 않는다.",a:false,exp:"당사자뿐 아니라 모든 국가기관을 구속(기속)해요."},
+{ch:3,q:"위헌으로 결정된 형벌 조항은 원칙적으로 소급하여 효력을 잃는다.",a:true,exp:"맞아요, 억울하게 처벌받은 사람들을 구제하기 위한 예외적인 소급 효력이에요."},
+// ===== D. 헌법재판소 결정과 헌법불합치 =====
+{ch:3,q:"심판 청구가 형식 요건을 갖추지 못하면 '기각' 결정을 한다.",a:false,exp:"기각이 아니라 '각하' 결정이에요! 형식 요건 미비는 아예 문전박대(각하)당하는 거예요."},
+{ch:3,q:"심판 청구가 이유 없거나 헌법에 합치하면 '기각・합헌' 결정을 한다.",a:true,exp:"정답이에요, 정확한 결정 유형이에요."},
+{ch:3,q:"위헌 결정된 법률은 예외 없이 항상 그 법이 처음 만들어진 시점까지 소급해서 효력을 잃는다.",a:false,exp:"원칙은 '결정일부터' 효력 상실이고, 형벌 조항만 예외적으로 소급해요. '항상 처음부터'는 틀렸어요."},
+{ch:3,q:"헌법불합치 결정은 법의 공백과 혼란을 막기 위해 문제 있는 법을 한시적으로 존속시키는 결정이다.",a:true,exp:"맞아요, 갑자기 법이 사라지는 혼란을 막아주는 결정이에요."},
+{ch:3,q:"권한쟁의 심판의 인용 결정에는 재판관 전원의 만장일치가 필요하다.",a:false,exp:"만장일치가 아니라 '과반수' 찬성으로 충분해요."},
+{ch:3,q:"탄핵 결정에는 재판관 9명 중 6명 이상의 찬성이 필요하다.",a:true,exp:"정답이에요, 위헌결정과 같은 정족수예요."},
+{ch:3,q:"헌법재판소의 위헌 결정은 국회를 포함한 모든 국가기관을 구속한다.",a:true,exp:"맞아요, 국회도 예외가 아니에요."},
+{ch:3,q:"각하 결정은 사건의 내용을 심리한 뒤 이유가 없다고 판단할 때 내리는 결정이다.",a:false,exp:"그건 기각이에요! 각하는 형식 요건 미비로 아예 내용 심리에 들어가지도 못하는 경우예요."},
+{ch:3,q:"인용・위헌 결정은 청구가 이유 있거나 법률이 헌법에 위배될 때 내려지는 결정이다.",a:true,exp:"정답이에요, 정확한 정의예요."},
+{ch:3,q:"헌법재판소는 심판마다 정족수가 다르며, 상황에 따라 아예 정족수 규정이 없는 경우도 있다.",a:false,exp:"정족수 규정이 없는 심판은 없어요! 심판 종류마다 정해진 정족수가 있습니다."},
+// ===== E. 사법과 입법의 관계 =====
+{ch:3,q:"입법은 사회가 추구하는 법익을 일반적・추상적 규범으로 만드는 작용이다.",a:true,exp:"맞아요, 정확한 정의예요."},
+{ch:3,q:"사법은 법적 분쟁이 없어도 국가가 스스로 알아서 먼저 나서서 심판하는 적극적 작용이다.",a:false,exp:"정반대예요! 사법은 분쟁이 생기고 누군가 청구해야만 움직이는 소극적・수동적 작용이에요."},
+{ch:3,q:"행정은 정립된 규범을 개별적・구체적으로 집행하는 작용이다.",a:true,exp:"정답이에요, 정확한 정의예요."},
+{ch:3,q:"법적 삼단논법은 대전제(법 규범), 소전제(사실관계), 결론의 3단계로 이루어진다.",a:true,exp:"맞아요, '대법+소사=결론' 구조예요."},
+{ch:3,q:"법적 삼단논법에서 대전제는 사실관계를 확정하는 단계이고, 소전제는 관련 법 규범을 찾는 단계이다.",a:false,exp:"완전히 뒤바뀌었어요! 대전제=법 규범, 소전제=사실관계가 맞습니다."},
+{ch:3,q:"법은 법적 안정성을 추구하는 특성 때문에 사회 변화를 수시로 재빠르게 반영하기 쉽다.",a:false,exp:"오히려 반영하기 '어려워요'! 이게 바로 사법의 한계예요."},
+{ch:3,q:"사법의 한계는 입법을 통한 법률 개정・제정으로 보완할 수 있다.",a:true,exp:"맞아요, 사법이 못 미친 곳을 입법이 메워줘요."},
+{ch:3,q:"온라인 암표 매매처럼 새로운 사회 문제는 기존 법으로 항상 완벽하게 해결할 수 있어 입법 개정이 필요 없다.",a:false,exp:"실제로 기존 법(「경범죄 처벌법」)으로는 온라인 암표를 처벌할 수 없어서 「공연법」을 새로 개정해야 했어요."},
+{ch:3,q:"입법과 사법은 서로 완전히 독립되어 있어 어떤 협력도 필요하지 않다.",a:false,exp:"독립하면서도 서로 긴밀하게 협력할 필요가 있어요."},
+{ch:3,q:"사법은 누군가 소송을 제기하거나 재판을 청구해야 비로소 작동한다는 점에서 수동적 성격을 가진다.",a:true,exp:"정답이에요, '불러야 움직이는' 사법의 특징이에요."}
+];
+
+const SECTIONS = {1:"01. 헌법・국가운영원리", 2:"02. 형법과 형사절차", 3:"03. 사법의 의미와 한계"};
+let currentChapter = "all";
+let graded = false;
+const answers = {}; // index -> "O" | "X"
+
+function buildMain(){
+  const main = document.getElementById('main');
+  main.innerHTML = "";
+  let lastCh = null;
+  DATA.forEach((item, i) => {
+    if(item.ch !== lastCh){
+      lastCh = item.ch;
+      const head = document.createElement('div');
+      head.className = 'section-head';
+      head.dataset.ch = item.ch;
+      head.innerHTML = `<div class="n">${String(item.ch).padStart(2,'0')}</div><h2>${SECTIONS[item.ch]}</h2><hr>`;
+      main.appendChild(head);
+    }
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.dataset.ch = item.ch;
+    card.dataset.idx = i;
+    card.innerHTML = `
+      <div class="qhead">
+        <div class="qnum mono">Q${i+1}</div>
+        <div class="qtext">${item.q}</div>
+      </div>
+      <div class="oxrow">
+        <button class="oxbtn" data-v="O">O</button>
+        <button class="oxbtn" data-v="X">X</button>
+      </div>
+      <div class="result-tag mono"></div>
+      <div class="exp"><div class="label">💡 호랑 변호사의 해설</div><div class="expbody">${item.exp}</div></div>
+    `;
+    main.appendChild(card);
+  });
+  main.querySelectorAll('.oxbtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(graded) return;
+      const card = btn.closest('.qcard');
+      const idx = card.dataset.idx;
+      card.querySelectorAll('.oxbtn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[idx] = btn.dataset.v;
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress(){
+  document.getElementById('progressText').textContent = `${Object.keys(answers).length} / ${DATA.length} 응답`;
+}
+
+function applyChapterFilter(){
+  document.querySelectorAll('.qcard').forEach(card=>{
+    card.style.display = (currentChapter==='all' || card.dataset.ch===currentChapter) ? '' : 'none';
+  });
+  document.querySelectorAll('.section-head').forEach(head=>{
+    head.style.display = (currentChapter==='all' || head.dataset.ch===currentChapter) ? '' : 'none';
+  });
+}
+
+document.getElementById('chipRow').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  currentChapter = btn.dataset.ch;
+  applyChapterFilter();
+});
+
+function grade(){
+  graded = true;
+  let correct = 0;
+  DATA.forEach((item, i)=>{
+    const card = document.querySelector(`.qcard[data-idx="${i}"]`);
+    const userAns = answers[i];
+    const correctAns = item.a ? "O" : "X";
+    const isCorrect = userAns === correctAns;
+    if(isCorrect) correct++;
+    card.classList.add('graded');
+    card.classList.add(isCorrect ? 'correct' : 'wrong');
+    const tag = card.querySelector('.result-tag');
+    if(!userAns){
+      tag.textContent = `⚠ 응답 안 함 · 정답은 ${correctAns}`;
+    } else if(isCorrect){
+      tag.textContent = `✓ 정답!`;
+    } else {
+      tag.textContent = `✗ 오답 · 정답은 ${correctAns}`;
+    }
+  });
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  document.getElementById('scoreNum').textContent = `${correct} / ${DATA.length}`;
+  const pct = Math.round(correct/DATA.length*100);
+  let comment = "";
+  if(pct===100) comment = "완벽합니다! 헌법재판소 재판관도 스카웃할 실력이에요 🏆";
+  else if(pct>=90) comment = "거의 다 맞혔어요! 헷갈리는 문제만 몇 개 골라서 다시 보면 만점 확정입니다.";
+  else if(pct>=75) comment = "탄탄한 실력이에요! 틀린 문제 해설을 꼭 다시 읽어보세요.";
+  else if(pct>=50) comment = "절반 이상은 잡았어요! 짝지어 다니는 개념(대전제・소전제, 항소・항고 등)을 다시 정리해보면 훨씬 나아질 거예요.";
+  else comment = "아직 갈 길이 멀지만 괜찮아요 — 해설 하나하나가 다 오늘의 득점 포인트입니다. 다시 도전해봐요!";
+  document.getElementById('scoreComment').textContent = comment;
+  document.getElementById('gradeBtn').style.display = 'none';
+  document.getElementById('resetBtn').style.display = 'inline-block';
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function reset(){
+  graded = false;
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  buildMain();
+  applyChapterFilter();
+  updateProgress();
+  document.getElementById('scorePanel').style.display = 'none';
+  document.getElementById('gradeBtn').style.display = 'inline-block';
+  document.getElementById('resetBtn').style.display = 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('gradeBtn').addEventListener('click', grade);
+document.getElementById('resetBtn').addEventListener('click', reset);
+
+buildMain();
+updateProgress();
+</script>
+</body>
+</html>
